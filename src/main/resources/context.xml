@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+            https://www.springframework.org/schema/beans/spring-beans.xsd"
+>
+
+    <!-- customer -->
+
+    <bean id="address1" class="de.auinger.training.spring_boot.customer.Address">
+        <constructor-arg name="street" value="Wasserstr. 123"/>
+        <constructor-arg name="postalCode" value="40302"/>
+        <constructor-arg name="city" value="Atlantis"/>
+    </bean>
+
+    <bean class="de.auinger.training.spring_boot.customer.CustomerCreator"
+          init-method="run">
+        <property name="customerService" ref="customerService"/>
+        <property name="customers">
+            <list>
+                <bean class="de.auinger.training.spring_boot.customer.Customer">
+                    <constructor-arg name="fullName" value="Enrico Pallazzo"/>
+                    <constructor-arg name="address" ref="address1"/>
+                    <constructor-arg name="phoneNumber" value="+1 222 333 444"/>
+                </bean>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="customerService" class="de.auinger.training.spring_boot.customer.CustomerService"/>
+
+
+    <!-- product -->
+
+    <bean class="de.auinger.training.spring_boot.product.ProductJdbcDao" autowire="constructor"/>
+
+    <bean class="de.auinger.training.spring_boot.product.ProductService" autowire="constructor"/>
+
+    <bean class="de.auinger.training.spring_boot.product.ProductSetup"
+          autowire="constructor"
+          init-method="createProducts"/>
+
+
+    <!-- other infrastructure -->
+
+    <bean class="de.auinger.training.spring_boot.H2Launcher"
+          init-method="run"/>
+
+    <bean class="de.auinger.training.spring_boot.H2ScriptRunner"
+          autowire="constructor"
+          init-method="run"/>
+
+    <bean name="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="org.h2.Driver"/>
+        <property name="url" value="jdbc:h2:tcp://localhost/~/training.spring-boot.pizza"/>
+    </bean>
+
+
+    <bean class="org.springframework.context.support.PropertySourcesPlaceholderConfigurer">
+        <property name="locations">
+            <list>
+                <value>classpath:/config.properties</value>
+            </list>
+        </property>
+    </bean>
+
+</beans>
