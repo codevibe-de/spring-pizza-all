@@ -26,8 +26,10 @@ public class CustomerService {
 
     @NonNull
     public Customer getCustomerByPhoneNumber(String phoneNumber) {
-        // TODO
-        throw new CustomerNotFoundException("For phoneNumber `" + phoneNumber + "`");
+        return this.customers.stream()
+                .filter(c -> phoneNumber.equals(c.getPhoneNumber()))
+                .findFirst()
+                .orElseThrow(() -> new CustomerNotFoundException("For phoneNumber `" + phoneNumber + "`"));
     }
 
     @NonNull

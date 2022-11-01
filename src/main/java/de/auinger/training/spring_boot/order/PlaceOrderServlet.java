@@ -1,11 +1,8 @@
-package de.auinger.training.spring_boot.enrollment;
+package de.auinger.training.spring_boot.order;
 
-import de.auinger.training.spring_boot.course.Course;
-import de.auinger.training.spring_boot.course.CourseService;
-import de.auinger.training.spring_boot.student.Student;
-import de.auinger.training.spring_boot.student.StudentService;
 import lombok.Setter;
 import org.springframework.beans.factory.config.AutowireCapableBeanFactory;
+import org.springframework.util.ObjectUtils;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
@@ -15,18 +12,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.stream.Collectors;
 
-@WebServlet(value = "/enroll")
-public class EnrollmentServlet extends HttpServlet {
-
-    @Setter
-    private StudentService studentService;
-
-    @Setter
-    private CourseService courseService;
+@WebServlet(value = "/place-order")
+public class PlaceOrderServlet extends HttpServlet {
 
     @Setter
-    private EnrollmentService enrollmentService;
+    private OrderService orderService;
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) {
     }
@@ -35,20 +28,24 @@ public class EnrollmentServlet extends HttpServlet {
         try {
             response.setContentType("text/plain");
 
-            long studentId = Long.parseLong(request.getParameter("sid"));
-            String courseId = request.getParameter("cid");
+            String phoneNumber = request.getParameter("ph");
+            String[] productIdsArray = request.getParameterValues("pid");
+            if (ObjectUtils.isEmpty(phoneNumber) || ObjectUtils.isEmpty(productIdsArray)) {
+                response.getWriter().println("Aborting order -- not enough input data");
+                return;
+            }
 
-            // call getters to make sure entities exist -- methods throw exception if missing
-            studentService.getStudent(studentId);
-            courseService.getCourse(courseId);
+            var productIds = Arrays.asList(productIdsArray);
+            var quantitiesByProductId = productIds.stream()
+                    .collect(Collectors.groupingBy(
+                            pid -> pid,
+                            Collectors.summingInt(pid -> 1))
+                    );
 
-            // perform enrollment
-            enrollmentService.enroll(studentId, courseId);
-
-            response.getWriter().println("Enrollment done");
+            var order = this.orderService.placeOrder(phoneNumber, quantitiesByProductId);
+            response.getWriter().println("Order placed (#" + order.getId() + ")");
         } catch (Exception e) {
             e.printStackTrace(response.getWriter());
-            System.err.println(e);
         }
     }
 

@@ -1,6 +1,7 @@
 package de.auinger.training.spring_boot.product;
 
 import java.util.Collection;
+import java.util.Optional;
 
 public interface ProductRepository {
 
@@ -10,5 +11,5 @@ public interface ProductRepository {
 
     Collection<Product> findAll();
 
-    Product findById(String productId);
+    Optional<Product> findById(String productId);
 }

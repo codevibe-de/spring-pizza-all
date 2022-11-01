@@ -1,21 +1,21 @@
 package de.auinger.training.spring_boot.product;
 
+import org.springframework.dao.IncorrectResultSizeDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
 import javax.sql.DataSource;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Types;
 import java.util.Collection;
+import java.util.Optional;
 
 public class ProductJdbcDao implements ProductRepository, RowMapper<Product> {
-
-    private final DataSource dataSource;
 
     private final JdbcTemplate jdbcTemplate;
 
     public ProductJdbcDao(DataSource dataSource) {
-        this.dataSource = dataSource;
         this.jdbcTemplate = new JdbcTemplate(dataSource);
     }
 
@@ -23,24 +23,42 @@ public class ProductJdbcDao implements ProductRepository, RowMapper<Product> {
     public Product save(Product product) {
         this.jdbcTemplate.update(
                 "INSERT INTO products (id, name, price) VALUES (?, ?, ?)",
-                new Object[]{product.getProductId(), product.getName(), product.getPrice()}
-        );
+                product.getProductId(), product.getName(), product.getPrice());
         return product;
     }
 
     @Override
     public boolean existsById(String productId) {
-        return false;
+        var count = this.jdbcTemplate.queryForObject(
+                "SELECT COUNT(p.*) FROM products p WHERE p.id=?",
+                Integer.class,
+                productId);
+        return (count != null && count == 1);
     }
 
     @Override
     public Collection<Product> findAll() {
-        return null;
+        return this.jdbcTemplate.query(
+                "SELECT p.* FROM products p",
+                new Object[]{},
+                new int[]{},
+                this
+        );
     }
 
     @Override
-    public Product findById(String productId) {
-        return null;
+    public Optional<Product> findById(String productId) {
+        try {
+            Product p = this.jdbcTemplate.queryForObject(
+                    "SELECT p.* FROM products p WHERE p.id = ?",
+                    new Object[]{productId},
+                    new int[]{Types.VARCHAR},
+                    this
+            );
+            return Optional.ofNullable(p);
+        } catch (IncorrectResultSizeDataAccessException e) {
+            return Optional.empty();
+        }
     }
 
     @Override

@@ -21,7 +21,7 @@
                 <bean class="de.auinger.training.spring_boot.customer.Customer">
                     <constructor-arg name="fullName" value="Enrico Pallazzo"/>
                     <constructor-arg name="address" ref="address1"/>
-                    <constructor-arg name="phoneNumber" value="+1 222 333 444"/>
+                    <constructor-arg name="phoneNumber" value="0170-222-333-444"/>
                 </bean>
             </list>
         </property>
@@ -32,14 +32,25 @@
 
     <!-- product -->
 
-    <bean class="de.auinger.training.spring_boot.product.ProductJdbcDao" autowire="constructor"/>
+    <bean class="de.auinger.training.spring_boot.product.ProductJdbcDao"
+          autowire="constructor"
+    />
 
-    <bean class="de.auinger.training.spring_boot.product.ProductService" autowire="constructor"/>
+    <bean class="de.auinger.training.spring_boot.product.ProductService"
+          autowire="constructor"
+    />
 
     <bean class="de.auinger.training.spring_boot.product.ProductSetup"
           autowire="constructor"
           init-method="createProducts"
           depends-on="h2scriptRunner"
+    />
+
+
+    <!-- order -->
+
+    <bean class="de.auinger.training.spring_boot.order.OrderService"
+          autowire="constructor"
     />
 
 
