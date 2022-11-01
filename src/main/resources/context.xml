@@ -38,21 +38,26 @@
 
     <bean class="de.auinger.training.spring_boot.product.ProductSetup"
           autowire="constructor"
-          init-method="createProducts"/>
+          init-method="createProducts"
+          depends-on="h2scriptRunner"
+    />
 
 
     <!-- other infrastructure -->
 
-    <bean class="de.auinger.training.spring_boot.H2Launcher"
-          init-method="run"/>
+    <bean id="h2launcher" class="de.auinger.training.spring_boot.H2Launcher"
+          init-method="run"
+    />
 
-    <bean class="de.auinger.training.spring_boot.H2ScriptRunner"
+    <bean id="h2scriptRunner" class="de.auinger.training.spring_boot.H2ScriptRunner"
           autowire="constructor"
-          init-method="run"/>
+          init-method="run"
+    />
 
-    <bean name="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+    <bean name="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource"
+          depends-on="h2launcher">
         <property name="driverClassName" value="org.h2.Driver"/>
-        <property name="url" value="jdbc:h2:tcp://localhost/~/training.spring-boot.pizza"/>
+        <property name="url" value="jdbc:h2:tcp://localhost:9092/~/training.spring-boot.pizza"/>
     </bean>
 
 
