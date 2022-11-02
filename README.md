@@ -11,5 +11,5 @@
 
 - Database tool in Intellij had old connection (to what??) -- works when debugging
 the code and refreshing datasource in Database tool
-- but after debug is done, products are gone again -> script-runner executed after productsetup,
+- but after debug is done, products are gone again -> script-runner executed after product-setup,
 dropping populated table. also using dependsOn to solve this

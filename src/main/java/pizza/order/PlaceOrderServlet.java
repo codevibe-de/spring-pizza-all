@@ -1,4 +1,4 @@
-package de.auinger.training.spring_boot.order;
+package pizza.order;
 
 import lombok.Setter;
 import org.springframework.beans.factory.config.AutowireCapableBeanFactory;

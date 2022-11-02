@@ -1,4 +1,4 @@
-package de.auinger.training.spring_boot.product;
+package pizza.product;
 
 import org.springframework.stereotype.Service;
 

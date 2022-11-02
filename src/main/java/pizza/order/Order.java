@@ -1,23 +1,27 @@
-package de.auinger.training.spring_boot.customer;
+package pizza.order;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
+import pizza.customer.Customer;
+
+import java.time.LocalDateTime;
 
 @AllArgsConstructor
 @RequiredArgsConstructor
 @Getter
 @ToString
-public class Customer {
+public class Order {
 
-    private Long id;
+    Long id;
 
-    private final String fullName;
+    private final Customer customer;
 
-    private final Address address;
+    private final Double totalPrice;
 
-    private final String phoneNumber;
+    private final LocalDateTime estimatedTimeOfDelivery;
+
 
     public void setId(long id) {
         if (this.id != null) {
@@ -25,4 +29,5 @@ public class Customer {
         }
         this.id = id;
     }
+
 }

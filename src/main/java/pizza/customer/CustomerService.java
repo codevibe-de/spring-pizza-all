@@ -1,4 +1,4 @@
-package de.auinger.training.spring_boot.customer;
+package pizza.customer;
 
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;

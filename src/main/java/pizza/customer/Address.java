@@ -1,8 +1,7 @@
-package de.auinger.training.spring_boot.customer;
+package pizza.customer;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 
 @AllArgsConstructor

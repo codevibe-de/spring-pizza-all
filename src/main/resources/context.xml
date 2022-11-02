@@ -7,18 +7,18 @@
 
     <!-- customer -->
 
-    <bean id="address1" class="de.auinger.training.spring_boot.customer.Address">
+    <bean id="address1" class="pizza.customer.Address">
         <constructor-arg name="street" value="Wasserstr. 123"/>
         <constructor-arg name="postalCode" value="40302"/>
         <constructor-arg name="city" value="Atlantis"/>
     </bean>
 
-    <bean class="de.auinger.training.spring_boot.customer.CustomerCreator"
+    <bean class="pizza.customer.CustomerCreator"
           init-method="run">
         <property name="customerService" ref="customerService"/>
         <property name="customers">
             <list>
-                <bean class="de.auinger.training.spring_boot.customer.Customer">
+                <bean class="pizza.customer.Customer">
                     <constructor-arg name="fullName" value="Enrico Pallazzo"/>
                     <constructor-arg name="address" ref="address1"/>
                     <constructor-arg name="phoneNumber" value="0170-222-333-444"/>
@@ -27,20 +27,20 @@
         </property>
     </bean>
 
-    <bean id="customerService" class="de.auinger.training.spring_boot.customer.CustomerService"/>
+    <bean id="customerService" class="pizza.customer.CustomerService"/>
 
 
     <!-- product -->
 
-    <bean class="de.auinger.training.spring_boot.product.ProductJdbcDao"
+    <bean class="pizza.product.ProductJdbcDao"
           autowire="constructor"
     />
 
-    <bean class="de.auinger.training.spring_boot.product.ProductService"
+    <bean class="pizza.product.ProductService"
           autowire="constructor"
     />
 
-    <bean class="de.auinger.training.spring_boot.product.ProductSetup"
+    <bean class="pizza.product.ProductSetup"
           autowire="constructor"
           init-method="createProducts"
           depends-on="h2scriptRunner"
@@ -49,18 +49,18 @@
 
     <!-- order -->
 
-    <bean class="de.auinger.training.spring_boot.order.OrderService"
+    <bean class="pizza.order.OrderService"
           autowire="constructor"
     />
 
 
     <!-- other infrastructure -->
 
-    <bean id="h2launcher" class="de.auinger.training.spring_boot.H2Launcher"
+    <bean id="h2launcher" class="pizza.H2Launcher"
           init-method="run"
     />
 
-    <bean id="h2scriptRunner" class="de.auinger.training.spring_boot.H2ScriptRunner"
+    <bean id="h2scriptRunner" class="pizza.H2ScriptRunner"
           autowire="constructor"
           init-method="run"
     />
@@ -68,7 +68,7 @@
     <bean name="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource"
           depends-on="h2launcher">
         <property name="driverClassName" value="org.h2.Driver"/>
-        <property name="url" value="jdbc:h2:tcp://localhost:9092/~/training.spring-boot.pizza"/>
+        <property name="url" value="${app.data-source.h2.url}"/>
     </bean>
 
 

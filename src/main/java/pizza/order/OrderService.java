@@ -1,9 +1,9 @@
-package de.auinger.training.spring_boot.order;
+package pizza.order;
 
-import de.auinger.training.spring_boot.customer.Customer;
-import de.auinger.training.spring_boot.customer.CustomerService;
-import de.auinger.training.spring_boot.product.ProductService;
 import org.springframework.stereotype.Service;
+import pizza.customer.Customer;
+import pizza.customer.CustomerService;
+import pizza.product.ProductService;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -19,9 +19,9 @@ public class OrderService {
     // fields
     //
 
-    Integer deliveryTimeInMinutes = 30;
+    private final Integer deliveryTimeInMinutes = 30;
 
-    Map<String, Double> dailyDiscounts = new HashMap<>();
+    private final Map<String, Double> dailyDiscounts = new HashMap<>();
 
     private final ArrayList<Order> orders;
 

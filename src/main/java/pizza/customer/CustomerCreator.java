@@ -1,4 +1,4 @@
-package de.auinger.training.spring_boot.customer;
+package pizza.customer;
 
 import java.util.Collection;
 

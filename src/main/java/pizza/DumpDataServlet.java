@@ -1,15 +1,15 @@
-package de.auinger.training.spring_boot;
+package pizza;
 
-import de.auinger.training.spring_boot.customer.Customer;
-import de.auinger.training.spring_boot.customer.CustomerService;
-import de.auinger.training.spring_boot.order.Order;
-import de.auinger.training.spring_boot.order.OrderService;
-import de.auinger.training.spring_boot.product.Product;
-import de.auinger.training.spring_boot.product.ProductService;
 import lombok.Setter;
 import org.springframework.beans.factory.config.AutowireCapableBeanFactory;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
+import pizza.customer.Customer;
+import pizza.customer.CustomerService;
+import pizza.order.Order;
+import pizza.order.OrderService;
+import pizza.product.Product;
+import pizza.product.ProductService;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

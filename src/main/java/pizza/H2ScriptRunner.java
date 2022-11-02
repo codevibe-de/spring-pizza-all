@@ -1,11 +1,9 @@
-package de.auinger.training.spring_boot;
+package pizza;
 
 import org.h2.tools.RunScript;
 import org.springframework.core.io.ClassPathResource;
 
 import javax.sql.DataSource;
-import java.io.FileReader;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 
 public class H2ScriptRunner implements Runnable {
