@@ -4,14 +4,10 @@ import java.util.Collection;
 
 public class CustomerCreator implements Runnable {
 
-    private CustomerService customerService;
+    private final CustomerService customerService;
     private Collection<Customer> customers;
 
-    public CustomerCreator() {
-        // this constructor is empty "by bad design" - so we must use setCustomerService() in CDI
-    }
-
-    public void setCustomerService(CustomerService customerService) {
+    public CustomerCreator(CustomerService customerService) {
         this.customerService = customerService;
     }
 

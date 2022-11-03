@@ -14,8 +14,8 @@
     </bean>
 
     <bean class="pizza.customer.CustomerCreator"
+          autowire="constructor"
           init-method="run">
-        <property name="customerService" ref="customerService"/>
         <property name="customers">
             <list>
                 <bean class="pizza.customer.Customer">
@@ -23,59 +23,6 @@
                     <constructor-arg name="address" ref="address1"/>
                     <constructor-arg name="phoneNumber" value="0170-222-333-444"/>
                 </bean>
-            </list>
-        </property>
-    </bean>
-
-    <bean id="customerService" class="pizza.customer.CustomerService"/>
-
-
-    <!-- product -->
-
-    <bean class="pizza.product.ProductJdbcDao"
-          autowire="constructor"
-    />
-
-    <bean class="pizza.product.ProductService"
-          autowire="constructor"
-    />
-
-    <bean class="pizza.product.ProductSetup"
-          autowire="constructor"
-          init-method="createProducts"
-          depends-on="h2scriptRunner"
-    />
-
-
-    <!-- order -->
-
-    <bean class="pizza.order.OrderService"
-          autowire="constructor"
-    />
-
-
-    <!-- other infrastructure -->
-
-    <bean id="h2launcher" class="pizza.H2Launcher"
-          init-method="run"
-    />
-
-    <bean id="h2scriptRunner" class="pizza.H2ScriptRunner"
-          autowire="constructor"
-          init-method="run"
-    />
-
-    <bean name="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource"
-          depends-on="h2launcher">
-        <property name="driverClassName" value="org.h2.Driver"/>
-        <property name="url" value="${app.data-source.h2.url}"/>
-    </bean>
-
-
-    <bean class="org.springframework.context.support.PropertySourcesPlaceholderConfigurer">
-        <property name="locations">
-            <list>
-                <value>classpath:/application.properties</value>
             </list>
         </property>
     </bean>
