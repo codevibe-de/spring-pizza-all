@@ -22,7 +22,7 @@ public class ProductJdbcDao implements ProductRepository, RowMapper<Product> {
     @Override
     public Product save(Product product) {
         this.jdbcTemplate.update(
-                "INSERT INTO products (id, name, price) VALUES (?, ?, ?)",
+                "INSERT INTO products (pk, name, price) VALUES (?, ?, ?)",
                 product.getProductId(), product.getName(), product.getPrice());
         return product;
     }
@@ -30,7 +30,7 @@ public class ProductJdbcDao implements ProductRepository, RowMapper<Product> {
     @Override
     public boolean existsById(String productId) {
         var count = this.jdbcTemplate.queryForObject(
-                "SELECT COUNT(p.*) FROM products p WHERE p.id=?",
+                "SELECT COUNT(p.*) FROM products p WHERE p.pk=?",
                 Integer.class,
                 productId);
         return (count != null && count == 1);
@@ -50,7 +50,7 @@ public class ProductJdbcDao implements ProductRepository, RowMapper<Product> {
     public Optional<Product> findById(String productId) {
         try {
             Product p = this.jdbcTemplate.queryForObject(
-                    "SELECT p.* FROM products p WHERE p.id = ?",
+                    "SELECT p.* FROM products p WHERE p.pk = ?",
                     new Object[]{productId},
                     new int[]{Types.VARCHAR},
                     this
@@ -64,7 +64,7 @@ public class ProductJdbcDao implements ProductRepository, RowMapper<Product> {
     @Override
     public Product mapRow(ResultSet rs, int rowNum) throws SQLException {
         return new Product(
-                rs.getString("id"),
+                rs.getString("pk"),
                 rs.getString("name"),
                 rs.getDouble("price")
         );
