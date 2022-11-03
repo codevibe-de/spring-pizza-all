@@ -2,10 +2,13 @@ package pizza;
 
 import org.h2.tools.RunScript;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
 import javax.sql.DataSource;
 import java.io.InputStreamReader;
 
+@Component
 public class H2ScriptRunner implements Runnable {
 
     private final DataSource dataSource;
@@ -14,6 +17,7 @@ public class H2ScriptRunner implements Runnable {
         this.dataSource = dataSource;
     }
 
+    @PostConstruct
     @Override
     public void run() {
         try {

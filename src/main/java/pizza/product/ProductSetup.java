@@ -2,6 +2,8 @@ package pizza.product;
 
 import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
+
 @Component
 public class ProductSetup {
 
@@ -19,6 +21,7 @@ public class ProductSetup {
         this.productService = productService;
     }
 
+    @PostConstruct
     public void createProducts() {
         createProduct("S-01", "Thunfisch Salat", 6.90);
         createProduct("S-02", "Salat Italiano", 7.90);
