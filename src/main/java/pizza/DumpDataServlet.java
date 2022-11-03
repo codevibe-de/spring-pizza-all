@@ -18,14 +18,17 @@ import java.nio.charset.StandardCharsets;
 @WebServlet(value = "/dump")
 public class DumpDataServlet extends HttpServlet {
 
-    @Setter
-    private CustomerService customerService;
+    private final CustomerService customerService;
 
-    @Setter
-    private ProductService productService;
+    private final ProductService productService;
 
-    @Setter
-    private OrderService orderService;
+    private final OrderService orderService;
+
+    public DumpDataServlet(CustomerService customerService, ProductService productService, OrderService orderService) {
+        this.customerService = customerService;
+        this.productService = productService;
+        this.orderService = orderService;
+    }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) {
     }
