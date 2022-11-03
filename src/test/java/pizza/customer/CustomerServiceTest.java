@@ -1,16 +1,15 @@
 package pizza.customer;
 
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@ExtendWith(SpringExtension.class)
-@ContextConfiguration("/context.xml")
+// This test actually doesn't really require spring to start up a context.
+// We could just instantiate the CustomerService ourselves since it doesn't integrate
+// with any other bean.
+@SpringBootTest
 class CustomerServiceTest {
 
     @Autowired
