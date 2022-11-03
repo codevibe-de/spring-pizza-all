@@ -3,6 +3,7 @@ package pizza.product;
 import org.springframework.dao.IncorrectResultSizeDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.stereotype.Component;
 
 import javax.sql.DataSource;
 import java.sql.ResultSet;
@@ -11,6 +12,7 @@ import java.sql.Types;
 import java.util.Collection;
 import java.util.Optional;
 
+@Component
 public class ProductJdbcDao implements ProductRepository, RowMapper<Product> {
 
     private final JdbcTemplate jdbcTemplate;
