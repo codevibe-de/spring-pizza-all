@@ -32,9 +32,17 @@ public class ProductService {
     }
 
     public Double getTotalPrice(Map<String, Integer> productQuantities) {
-        double result = 0.0;
-        // TODO implement calculation
-        return result;
+        // loop over each map entry (which is productId -> quantity) and map each entry to the product's price
+        // multiplied by desired quantity. Then sum all up and that is our total.
+        // To avoid annoying floating point arithmetic problems we calculate everything in cent and divide later
+        // back to full Euro.
+        var totalPriceInCent = productQuantities.entrySet().stream()
+                .mapToDouble(entry -> {
+                    Product product = getProduct(entry.getKey());
+                    return product.price * entry.getValue() * 100;
+                })
+                .sum();
+        return Math.floor(totalPriceInCent) / 100.0;
     }
 
     public Product createProduct(Product product) {
