@@ -4,7 +4,7 @@
 
 ### a) Test zur Abfrage eines Produkts
 
-Erstellen Sie eine `ProductServiceTest` Klasse mit der Testmethode
+Erstellen Sie eine `ProductServiceIT` (IT = IntegrationTest) Klasse mit der Testmethode
 `getProduct()`.
 
 In diesem Test soll die Abfrage eines Produkts anhand der Methode `ProductService.getProduct()`
@@ -24,7 +24,7 @@ das zweite Produkt angelegt werden soll).
 
 ### c) Test-Driven-Development von getTotalPrice()
 
-Vervollständigen Sie den Testfall `ProductServiceTest_WithMocks.getTotalPrice()`
+Vervollständigen Sie den Testfall `ProductServiceMockedIT.getTotalPrice()`
 sodass dieser mithilfe eines gemockten `ProductRepository` die Geschäftslogik zur
 Preisberechnung validiert wird.
 
