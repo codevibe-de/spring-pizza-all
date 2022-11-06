@@ -1,41 +1,45 @@
 # ÜBUNGEN SPRING BOOT
 
-## 040 Testing
+## 050 Spring-Data JPA
 
-### a) Test zur Abfrage eines Produkts
+In dieser Übung migrieren Sie die bisher `JdbcTemplate` basierte Persistenz
+auf Spring-Data JPA.
 
-Erstellen Sie eine `ProductServiceTest` Klasse mit der Testmethode
-`getProduct()`.
+Denken Sie bei dieser Übung daran, dass wir schon Testfälle haben, mit denen wir
+Test-Driven arbeiten können, d.h. immer wider diese ausführen, um den Fortschritt Ihrer
+Arbeit zu prüfen.
 
-In diesem Test soll die Abfrage eines Produkts anhand der Methode `ProductService.getProduct()`
-getestet werden.
+### a) pom.xml
 
-Der Test soll mittels einer `ProductRepository` Instanz
-die benötigten Testdaten selbst anlegen.
+Fügen Sie den entsprechenden Starter in Ihrer `pom.xml` hinzu.
 
-### b) Test zur Vermeidung doppelter Product-Ids
+Welcher Starter wird nun wohl nicht mehr benötigt und kann weg bzw. ersetzt werden?
 
-Ergänzen Sie die Testklasse von oben um einen Test `createProduct__failsForDuplicateId()`,
-der sicherstellt, dass bei Anlage
-zweier Produkte mit der gleichen Product-Id eine `IllegalStateException` geworfen wird (wenn
-das zweite Produkt angelegt werden soll).
+### b) Umstellung auf in-memory H2
 
-**Hinweis:** In Assertj gibt es hierfür auch eine spezielle asert-Methode namens `assertThatThrownBy()`.
+Leider ist die Nutzung unseres bisherigen H2 Servers, der Verbindungen über TCP
+annimmt, mit Spring Boot nicht einfach so weiter nutzbar.
 
-### c) Test-Driven-Development von getTotalPrice()
+Daher steigen wir um auf eine In-Memory H2 Datenbank, die von Spring Boot
+auto-konfiguriert wird. Dies erfolgt am einfachsten, wenn alle `spring.datasource.*`
+Properties entfernt werden.
 
-Vervollständigen Sie den Testfall `ProductServiceMockedTest.getTotalPrice()`
-sodass dieser mithilfe eines gemockten `ProductRepository` die Geschäftslogik zur
-Preisberechnung validiert wird.
+Fügen Sie aber unbedingt noch das notwendige Property ein, um Hibernate an der automatischen
+Generierung des Datenbank-Schemas zu hindern. Wir wollen ja (wie im echten
+Produktionsbetrieb) mit einem fertigen Schema arbeiten, welches in der `schema.sql`
+definiert ist.
 
-Dieser Test wird vorerst fehlschlagen, da diese Service-Methode leer ist.
+Nun können auch die `H2Launcher` und `H2ScriptRunner` Klassen weg. Warum?
 
-Implementieren Sie dann die Service-Methode.
+### c) Migration `ProductJdbcDao`
 
-**Hinweis:** Bei dieser Aufgabe können Sie mit den berüchtigten Ungenauigkeiten der Floating-Point Arithmetik
-konfrontiert werden (https://en.wikipedia.org/wiki/Floating-point_arithmetic#Accuracy_problems).
+Die Klasse `ProductJdbcDao` wird mit Spring-Data nicht mehr benötigt.
 
-Diese treten z.B. dann auf (Bonus-Aufgabe!), wenn Sie 3 Produkte zu 2,10 € und 1 Produkt zu 6,99 € bestellen.
+Entfernen Sie diese und schreiben Sie das `ProductRepository` so um, dass es von Spring erkannt wird
+und als Ersatz für das gelöschte `ProductJdbcDao` fungiert.
 
-Wie kann ein Test hiermit umgehen? Schauen Sie sich die zusätzlichen Parameter der `isEqualTo()` Methode an. 
-Oder wie kann der Service verbessert werden, um diese Probleme zu umgehen?
+### d) JPA Entity `Product`
+
+Die Klasse `Product` muss noch zur vollwertigen JPA Entity mit Annotationen ergänzt werden.
+
+Denken Sie daran, dass unser Schema (Namen von Tabelle und Feldern) zu berücksichtigen ist!
