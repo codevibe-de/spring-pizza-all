@@ -12,7 +12,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 @SpringBootTest
-class ProductServiceMockedIT {
+class ProductServiceMockedTest {
 
     @Autowired
     ProductService productService;
