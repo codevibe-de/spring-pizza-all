@@ -1,15 +1,8 @@
 package pizza.product;
 
-import java.util.Collection;
-import java.util.Optional;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-public interface ProductRepository {
-
-    Product save(Product product);
-
-    boolean existsById(String productId);
-
-    Collection<Product> findAll();
-
-    Optional<Product> findById(String productId);
+@Repository
+public interface ProductRepository extends JpaRepository<Product, String> {
 }

@@ -1,12 +1,20 @@
 package pizza.product;
 
-@SuppressWarnings("unused")
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "PRODUCTS")
 public class Product {
 
     //
     // --- fields ---
     //
 
+    @Id
+    @Column(name = "pk")
     String productId;
 
     String name;

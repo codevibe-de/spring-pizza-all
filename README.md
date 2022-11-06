@@ -118,3 +118,10 @@ changed annotation to @SpringBootTest
 stop boot application
 
 -> all tests run!
+
+### using H2 TCP database with spring-data-jpa
+
+problem: Spring runs scripts before H2 Launcher could start the DB -> connection exception
+
+force creation of DB before datasource: https://stackoverflow.com/questions/37068808/how-to-start-h2-tcp-server-on-spring-boot-application-startup
+OR (as we do now) use regular in-mem H2
