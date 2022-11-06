@@ -22,12 +22,6 @@ public class H2ScriptRunner implements Runnable {
             RunScript.execute(
                     this.dataSource.getConnection(),
                     new InputStreamReader(resource.getInputStream()));
-
-            System.out.println("Running data script");
-            resource = new ClassPathResource("/data.sql");
-            RunScript.execute(
-                    this.dataSource.getConnection(),
-                    new InputStreamReader(resource.getInputStream()));
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
