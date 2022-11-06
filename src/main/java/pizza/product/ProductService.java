@@ -1,10 +1,7 @@
 package pizza.product;
 
-import org.springframework.stereotype.Service;
-
 import java.util.Map;
 
-@Service
 public class ProductService {
 
     private final ProductRepository productRepository;
