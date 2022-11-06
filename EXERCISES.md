@@ -43,3 +43,9 @@ und als Ersatz für das gelöschte `ProductJdbcDao` fungiert.
 Die Klasse `Product` muss noch zur vollwertigen JPA Entity mit Annotationen ergänzt werden.
 
 Denken Sie daran, dass unser Schema (Namen von Tabelle und Feldern) zu berücksichtigen ist!
+
+### e) Bonus: Persistenz für Bestellungen
+
+Momentan arbeitet der `OrderService` ja noch ganz simpel mit einer selbst verwalteten Liste an Bestellungen.
+
+Stellen Sie dies auf eine Spring-Data basierte Persistenz um.
