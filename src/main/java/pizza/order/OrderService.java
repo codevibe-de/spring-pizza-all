@@ -1,5 +1,6 @@
 package pizza.order;
 
+import org.springframework.stereotype.Service;
 import pizza.customer.Customer;
 import pizza.customer.CustomerService;
 import pizza.product.ProductService;
@@ -11,6 +12,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
+@Service
 public class OrderService {
 
     //

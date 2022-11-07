@@ -1,12 +1,14 @@
 package pizza.customer;
 
 import org.springframework.lang.NonNull;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
+@Service
 public class CustomerService {
 
     private final List<Customer> customers = new ArrayList<>();
