@@ -1,10 +1,12 @@
 package pizza.order;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import pizza.customer.Customer;
 import pizza.customer.CustomerService;
 import pizza.product.ProductService;
 
+import javax.annotation.PostConstruct;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -19,9 +21,11 @@ public class OrderService {
     // fields
     //
 
-    private final Integer deliveryTimeInMinutes = 30;
+    @Value("${app.order.delivery-time-in-minutes}")
+    private Integer deliveryTimeInMinutes = 30;
 
-    private final Map<String, Double> dailyDiscounts = new HashMap<>();
+    @Value("#{${app.order.daily-discounts}}")
+    private Map<String, Double> dailyDiscounts = new HashMap<>();
 
     private final ArrayList<Order> orders;
 
@@ -41,6 +45,12 @@ public class OrderService {
         this.customerService = customerService;
         this.productService = productService;
         this.orders = new ArrayList<>();
+    }
+
+    @PostConstruct
+    public void dumpConfiguration() {
+        System.out.println("Using configuration:\n  deliveryTimeInMinutes=" + deliveryTimeInMinutes
+                + "\n  dailyDiscounts=" + dailyDiscounts);
     }
 
     //
