@@ -1,17 +1,17 @@
 package pizza.product;
 
-@SuppressWarnings("unused")
+// TODO this class could also use Lombok annotations (same as Product or Order)
 public class Product {
 
     //
     // --- fields ---
     //
 
-    String productId;
+    private String productId;
 
-    String name;
+    private String name;
 
-    Double price;
+    private Double price;
 
     //
     // --- constructors ---
