@@ -4,7 +4,10 @@
 
 ### a) Test zur Abfrage eines Produkts
 
-Erstellen Sie eine `ProductServiceTest` Klasse mit der Testmethode
+Oops, ein Entwickler hat einen Fehler in der Datenbankschicht
+gemacht. Finden Sie diesen mittels eines Integrationstests!
+
+Dazu erstellen Sie eine `ProductServiceTest` Klasse mit der Testmethode
 `getProduct()`.
 
 In diesem Test soll die Abfrage eines Produkts anhand der Methode `ProductService.getProduct()`
@@ -18,7 +21,7 @@ Also z.B. folgende Reihenfolge:
 1. Ein `Product` erzeugen (mittels `new`)
 2. Dieses über das `ProductRepository` speichern
 3. Mittels der Id des Produkts dieses über den `ProductService` abfragen
-4. Mittels Assertions auf null prüfen und beide Instanzen vergleichen
+4. Mittels Assertions auf null prüfen und beide Instanzen vergleichen (productId, name, price)
 
 ### b) Test zur Vermeidung doppelter Product-Ids
 
