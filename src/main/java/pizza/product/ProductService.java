@@ -37,7 +37,7 @@ public class ProductService {
         return productQuantities.entrySet().stream()
                 .mapToDouble(entry -> {
                     Product product = getProduct(entry.getKey());
-                    return product.price * entry.getValue();
+                    return product.getPrice() * entry.getValue();
                 })
                 .sum();
     }
