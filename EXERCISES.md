@@ -1,38 +1,51 @@
 # ÜBUNGEN SPRING BOOT
 
-## 060 - Konfiguration
+## 080 - RESTful API
 
-### a) placeOrder Test
+### a) Insomnia Rest Client
 
-Erstellen Sie einen einfachen `placeOrder()` Test in der Klasse `OrderServiceTest`, der einfach
-nur eine Bestellung auslöst -- ohne irgendwelche Assertion-Checks.
+Bei Bedarf können Sie den "Insomnia Core" Rest Client installieren: https://insomnia.rest/
 
-Diesen Test nutzen wir rein dafür, um die Geschäftslogik einer Bestellung einfach ausführbar zu machen.
+Im Projekt ist ab diesem Branch ein exportierter Insomnia Workspace vorhanden, den Sie in das Tool importieren können.
+Oder Sie legen die wenigen Requests selbst an.
 
-### b) OrderService konfigurierbar machen
+Alternativ können Sie zum Testen der Endpunkte natürlich auch andere Tools wie z.B. Postman oder den
+Kommandozeilenbefehl `curl` nehmen.
 
-Verändern Sie den `OrderService`, sodass die erwartete Lieferzeit in Minuten sowie die
-Rabattierung je Wochentag in einer externen Konfigurationsquelle hinterlegt werden kann.
+### b) OrderRestController
 
-*Hinweis: Hierfür gibt es zwei Möglichkeiten (mittels `@Value` oder `@ConfigurationProperties`,
-letztere ist schwerer aufgrund des noch zu implementierenden Converters, siehe Musterlösung)
+Erstellen Sie einen API-Endpunkt `/orders/greeting` der für ein GET
+eine Begrüßung als String zurückgibt.
 
-### c) Konfiguration via application.properties
+Testen Sie die URL in Ihrem Browser: http://localhost:8080/orders/greeting
 
-Setzen Sie Werte für die Konfiguration der vorherigen Seite in der `application.properties`.
+### c) CustomerRestController
 
-Geben Sie die aktuelle Konfiguration im `OrderService` in einer `@PostConstruct` Methode aus
-(System.out).
+Erstellen Sie die folgenden API-Endpunkte:
 
-Starten Sie die Anwendung und prüfen Sie die tatsächlich vorliegende Konfiguration --
-wird der Wert aus der `application.properties` genutzt?
+* `GET /customers`, der alle Kunden zurückgibt
+* `POST /customers`, der einen neuen Kunden anlegt
 
-### d) Konfiguration von außen
+### d) ProductRestController
 
-Starten Sie Ihre Anwendung auf eine Art und Weise, dass die Lieferzeit in Minuten nicht
-aus den `application.properties` genutzt wird, sondern von außen durch einen anderen Wert
-überschrieben wird.
+Erstellen Sie die folgenden API-Endpunkte:
 
-Hierfür können Sie eine Umgebungsvariable, ein VM System Property oder ein Programmargument nutzen.
+* `GET /products`, der alle Produkte zurückgibt
 
-Wird der erwartete Wert ausgegeben?
+### e) Erweiterung OrderRestController
+
+Erstellen Sie zusätzlich die folgenden API-Endpunkte:
+
+* `GET /orders`, der alle Bestellungen zurückgibt
+* `POST /orders`, durch den eine neue Bestellung aufgegeben werden kann. Die Bestellung ist durch
+  folgenden JSON Inhalt definiert:
+````json
+{
+    "phoneNumber": "123-4567",
+    "itemQuantities": {
+        "S-02": 1,
+        "P-10": 2,
+        "P-12": 1
+    }
+}
+````
