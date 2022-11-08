@@ -25,7 +25,7 @@ public class ProductJdbcDao implements ProductRepository, RowMapper<Product> {
     public Product save(Product product) {
         this.jdbcTemplate.update(
                 "INSERT INTO products (pk, name, price) VALUES (?, ?, ?)",
-                product.getProductId(), product.getProductId(), product.getPrice());
+                product.getProductId(), product.getName(), product.getPrice());
         return product;
     }
 
