@@ -39,7 +39,7 @@ public class ProductService {
         var totalPriceInCent = productQuantities.entrySet().stream()
                 .mapToDouble(entry -> {
                     Product product = getProduct(entry.getKey());
-                    return product.price * entry.getValue() * 100;
+                    return product.getPrice() * entry.getValue() * 100;
                 })
                 .sum();
         return Math.floor(totalPriceInCent) / 100.0;
