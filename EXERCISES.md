@@ -21,8 +21,7 @@ letztere ist schwerer aufgrund des noch zu implementierenden Converters, siehe M
 
 Setzen Sie Werte für die Konfiguration der vorherigen Seite in der `application.properties`.
 
-Geben Sie die aktuelle Konfiguration im `OrderService` in einer `@PostConstruct` Methode aus
-(System.out).
+Geben Sie die aktuelle Konfiguration in der `OrderService.placeOrder()` Methode aus (via `System.out`).
 
 Starten Sie die Anwendung und prüfen Sie die tatsächlich vorliegende Konfiguration --
 wird der Wert aus der `application.properties` genutzt?
