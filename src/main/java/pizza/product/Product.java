@@ -15,11 +15,13 @@ public class Product {
     //
 
     @Id
-    @Column(name = "pk")
+    @Column(name = "pk", length = 10, nullable = false)
     private String productId;
 
+    @Column(length = 50, nullable = false)
     private String name;
 
+    @Column(nullable = false)
     private Double price;
 
     //
