@@ -7,6 +7,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "PRODUCTS")
+// TODO this class could also use Lombok annotations (same as Product or Order)
 public class Product {
 
     //
@@ -15,11 +16,11 @@ public class Product {
 
     @Id
     @Column(name = "pk")
-    String productId;
+    private String productId;
 
-    String name;
+    private String name;
 
-    Double price;
+    private Double price;
 
     //
     // --- constructors ---

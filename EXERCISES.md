@@ -46,6 +46,17 @@ Denken Sie daran, dass unser Schema (Namen von Tabelle und Feldern) zu berücksi
 
 ### e) Bonus: Persistenz für Bestellungen
 
-Momentan arbeitet der `OrderService` ja noch ganz simpel mit einer selbst verwalteten Liste an Bestellungen.
+Momentan arbeitet der `OrderService` noch mit einer in der Klasse verwalteten `List` an Bestellungen (quasi in-memory).
 
 Stellen Sie dies auf eine Spring-Data basierte Persistenz um.
+
+### f) Bonus: Persistenz für Kunden
+
+Ebenfalls arbeitet der `CustomerService` noch mit einer in der Klasse verwalteten `List` an Kunden.
+
+Stellen Sie dies auf eine Spring-Data basierte Persistenz um.
+
+ACHTUNG, hierfür fehlen noch Spaltendefinitionen
+in der `schema.sql` Datei -- siehe `TODO` Kommentar dort. Insbesondere die Einbettung der `Address` in die Tabelle
+ist eine fortgeschrittene Übung. Folgende Seite kann hierbei
+helfen: https://en.wikibooks.org/wiki/Java_Persistence/Embeddables
