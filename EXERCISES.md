@@ -2,14 +2,7 @@
 
 ## 060 - Konfiguration
 
-### a) placeOrder Test
-
-Erstellen Sie einen einfachen `placeOrder()` Test in der Klasse `OrderServiceTest`, der einfach
-nur eine Bestellung auslöst -- ohne irgendwelche Assertion-Checks.
-
-Diesen Test nutzen wir rein dafür, um die Geschäftslogik einer Bestellung einfach ausführbar zu machen.
-
-### b) OrderService konfigurierbar machen
+### a) OrderService konfigurierbar machen
 
 Verändern Sie den `OrderService`, sodass die erwartete Lieferzeit in Minuten sowie die
 Rabattierung je Wochentag in einer externen Konfigurationsquelle hinterlegt werden kann.
@@ -17,18 +10,23 @@ Rabattierung je Wochentag in einer externen Konfigurationsquelle hinterlegt werd
 *Hinweis: Hierfür gibt es zwei Möglichkeiten (mittels `@Value` oder `@ConfigurationProperties`,
 letztere ist schwerer aufgrund des noch zu implementierenden Converters, siehe Musterlösung)
 
+### b) Ausgabe der Konfiguration
+
+Ergänzen Sie den `OrderService` um eine Methode, in der die Konfiguration via `System.out` ausgegeben wird (damit
+wir sehen können, was gerade gilt).
+
+Lassen Sie Spring diese Methode automatisch beim Start ausführen. Wie ging das nochmal...? :)
+
 ### c) Konfiguration via application.properties
 
 Setzen Sie Werte für die Konfiguration der vorherigen Seite in der `application.properties`.
 
-Geben Sie die aktuelle Konfiguration in der `OrderService.placeOrder()` Methode aus (via `System.out`).
-
-Starten Sie die Anwendung und prüfen Sie die tatsächlich vorliegende Konfiguration --
+Starten Sie nun die Anwendung und prüfen Sie die tatsächlich vorliegende Konfiguration --
 wird der Wert aus der `application.properties` genutzt?
 
 ### d) Konfiguration von außen
 
-Starten Sie Ihre Anwendung auf eine Art und Weise, dass die Lieferzeit in Minuten nicht
+Starten Sie Ihre Anwendung auf eine Art und Weise, dass nicht die Lieferzeit in Minuten 
 aus den `application.properties` genutzt wird, sondern von außen durch einen anderen Wert
 überschrieben wird.
 
