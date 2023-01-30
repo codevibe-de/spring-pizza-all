@@ -1,28 +1,35 @@
 # EXERCISES
 
+## Vorbereitung Eclipse
+
+- die "Servers" View öffnen und einen Tomcat 9 Server anlegen, notfalls installieren
+- die Anwendung mit Facet "Dynamic Web Module" markieren (Project > Properties)
+- ebenfalls in Project Properties im Deployment Assembly die Maven Dependencies
+  hinzufügen, falls diese
+  fehlen (https://stackoverflow.com/questions/6210757/java-lang-classnotfoundexception-org-springframework-web-context-contextloaderl)
+- die Anwendung dem Server hinzufügen (Add/Remove)
+- Server starten
+- im Browser http://localhost:8080/training.spring-boot.pizza/dump öffnen
+
+## Aufgabe
+
 Migrieren Sie die bestehende Anwendung auf Spring Boot.
 
 Dabei empfiehlt sich folgende Reihenfolge:
 
-1. bestehende Anwendung starten (via Tomcat Deployment), nutzen und verstehen
-    - **Eclipse** for JavaEE Web Developers:
-        - die "Servers" View öffnen und einen Tomcat 9 Server anlegen, notfalls installieren
-        - die Anwendung mit Facet "Dynamic Web Module" markieren
-        - dann in Deployment Assembly die Maven Dependencies
-          hinzufügen (https://stackoverflow.com/questions/6210757/java-lang-classnotfoundexception-org-springframework-web-context-contextloaderl)
-          falls fehlen
-        - Anwendung sollte dann starten und unter http://localhost:8080/training.spring-boot.pizza/dump erste Daten
-          bereitstellen
-
-2. die `pom.xml` Datei durch eine Spring-Boot-basierte Version ersetzen (insbesondere Nutzung der Boot parent-pom)
+1. die `pom.xml` Datei durch eine Spring-Boot-basierte Version ersetzen (insbesondere Nutzung der Boot parent-pom)
     - wir benötigen die Starter "web" und "jdbc" sowie "test"
     - außerdem noch die Bibliothek für "h2"
     - sowie (wie bisher auch) die "javax.servlet-api" Bibliothek mit scope "provided"
-3. eine Spring Boot Anwendungsklasse erstellen
-4. die `context.xml` durchgehen und Beans mittels Annotationen statt durch XML erzeugen
+2. eine Spring Boot Anwendungsklasse erstellen
+    - ACHTUNG: die URL der Anwendung ändert sich, wenn hierüber gestartet wird auf http://localhost:8080/dump
+3. die `context.xml` durchgehen und Beans mittels Annotationen statt durch XML erzeugen
     - was könnte per XML konfiguriert bleiben?
+        - die bisherige XML-Konfiguration kann mittels `@ImportResource("context.xml")` auf der Applikationsklasse
+          eingelesen werden
     - wie kann von XML auf Annotationen migriert werden?
     - was kann ganz weg?
+    - an Autowiring / Injections denken!
 4. Servlet Klassen vereinfachen
     - `init()` kann nun weg
     - `@ServletComponentScan` an Anwendungsklasse, um die mit `@WebServlet` annotierten Servlets von Spring erkennen zu
