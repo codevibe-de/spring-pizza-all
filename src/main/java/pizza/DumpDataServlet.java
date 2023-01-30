@@ -1,6 +1,5 @@
 package pizza;
 
-import lombok.Setter;
 import org.springframework.beans.factory.config.AutowireCapableBeanFactory;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
@@ -22,14 +21,23 @@ import java.nio.charset.StandardCharsets;
 @WebServlet(value = "/dump")
 public class DumpDataServlet extends HttpServlet {
 
-    @Setter
     private CustomerService customerService;
 
-    @Setter
     private ProductService productService;
 
-    @Setter
     private OrderService orderService;
+
+    public void setCustomerService(CustomerService customerService) {
+        this.customerService = customerService;
+    }
+
+    public void setProductService(ProductService productService) {
+        this.productService = productService;
+    }
+
+    public void setOrderService(OrderService orderService) {
+        this.orderService = orderService;
+    }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) {
     }

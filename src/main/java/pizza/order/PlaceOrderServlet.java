@@ -1,6 +1,5 @@
 package pizza.order;
 
-import lombok.Setter;
 import org.springframework.beans.factory.config.AutowireCapableBeanFactory;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.context.WebApplicationContext;
@@ -18,8 +17,11 @@ import java.util.stream.Collectors;
 @WebServlet(value = "/place-order")
 public class PlaceOrderServlet extends HttpServlet {
 
-    @Setter
     private OrderService orderService;
+
+    public void setOrderService(OrderService orderService) {
+        this.orderService = orderService;
+    }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) {
     }
