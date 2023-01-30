@@ -1,8 +1,5 @@
 package pizza;
 
-import org.springframework.beans.factory.config.AutowireCapableBeanFactory;
-import org.springframework.web.context.WebApplicationContext;
-import org.springframework.web.context.support.WebApplicationContextUtils;
 import pizza.customer.Customer;
 import pizza.customer.CustomerService;
 import pizza.order.Order;
