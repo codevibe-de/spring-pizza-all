@@ -22,6 +22,7 @@ Dabei empfiehlt sich folgende Reihenfolge:
    - ACHTUNG: die URL der Anwendung ändert sich, wenn hierüber gestartet wird auf http://localhost:8080/dump
 4. die `context.xml` durchgehen und Beans mittels Annotationen statt durch XML erzeugen
     - was könnte per XML konfiguriert bleiben?
+      - die bisherige XML-Konfiguration kann mittels `@ImportResource("context.xml")` auf der Applikationsklasse eingelesen werden
     - wie kann von XML auf Annotationen migriert werden?
     - was kann ganz weg?
     - an Autowiring / Injections denken!
