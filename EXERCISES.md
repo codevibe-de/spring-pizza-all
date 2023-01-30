@@ -19,10 +19,12 @@ Dabei empfiehlt sich folgende Reihenfolge:
     - außerdem noch die Bibliothek für "h2"
     - sowie (wie bisher auch) die "javax.servlet-api" Bibliothek mit scope "provided"
 3. eine Spring Boot Anwendungsklasse erstellen
+   - ACHTUNG: die URL der Anwendung ändert sich, wenn hierüber gestartet wird auf http://localhost:8080/dump
 4. die `context.xml` durchgehen und Beans mittels Annotationen statt durch XML erzeugen
     - was könnte per XML konfiguriert bleiben?
     - wie kann von XML auf Annotationen migriert werden?
     - was kann ganz weg?
+    - an Autowiring / Injections denken!
 4. Servlet Klassen vereinfachen
     - `init()` kann nun weg
     - `@ServletComponentScan` an Anwendungsklasse, um die mit `@WebServlet` annotierten Servlets von Spring erkennen zu
