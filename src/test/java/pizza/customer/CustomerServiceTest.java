@@ -1,15 +1,20 @@
 package pizza.customer;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.context.TestConfiguration;
+import org.springframework.context.annotation.Bean;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-// This test actually doesn't really require spring to start up a context.
-// We could just instantiate the CustomerService ourselves since it doesn't integrate
-// with any other bean.
-@SpringBootTest
+/**
+ * This class requires only a single bean -- that's why we don't annotate this class with @SpringBootTest but just
+ * add Junit support for Spring for injecting beans.
+ * The bean itself is defined in the inner class Beans below.
+ */
+@ExtendWith({SpringExtension.class})
 class CustomerServiceTest {
 
     @Autowired
@@ -35,4 +40,12 @@ class CustomerServiceTest {
         assertThat(customer.getFullName()).isEqualTo(fullName);
     }
 
+    // populates the application-context with just this bean
+    @TestConfiguration
+    static class Beans {
+        @Bean
+        public CustomerService customerService() {
+            return new CustomerService();
+        }
+    }
 }
