@@ -1,13 +1,8 @@
 package pizza;
 
-import pizza.customer.Customer;
 import pizza.customer.CustomerService;
-import pizza.order.Order;
 import pizza.order.OrderService;
-import pizza.product.Product;
 import pizza.product.ProductService;
-
-import java.util.Map;
 
 import static java.util.Map.entry;
 import static java.util.Map.ofEntries;
@@ -34,7 +29,7 @@ public class App {
         var app = new App();
 
         // get a product
-        var product = app.getProductService().getProduct("P-001");
+        var product = app.getProductService().getProduct("P-10");
         System.out.println(product);
 
         // get a customer
@@ -45,8 +40,8 @@ public class App {
         var order = app.getOrderService().placeOrder(
                 "+49 123 456789",
                 ofEntries(
-                        entry("P-001", 3),
-                        entry("S-003", 1)
+                        entry("P-10", 3),
+                        entry("S-03", 1)
                 )
         );
         System.out.println(order);
