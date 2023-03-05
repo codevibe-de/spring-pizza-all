@@ -25,7 +25,7 @@ Migrieren Sie die bestehende Anwendung auf Spring Boot.
 Dabei empfiehlt sich folgende Reihenfolge:
 
 1. die `pom.xml` Datei durch eine Spring-Boot-basierte Version ersetzen (insbesondere Nutzung der Boot parent-pom)
-    - wir benötigen die Starter "web" und "jdbc" sowie "test"
+    - wir benötigen die Starter "web" und "jdbc" 
     - außerdem noch die Bibliothek für "h2"
     - sowie (wie bisher auch) die "javax.servlet-api" Bibliothek mit scope "provided"
 2. eine Spring Boot Anwendungsklasse erstellen
