@@ -40,7 +40,7 @@ public class CustomerService {
     @NonNull
     public Customer createCustomer(Customer customer) {
         if (customer.getId() == null) {
-            customer.setId(new Random().nextLong());
+            customer.setId(Math.abs(new Random().nextLong()));
         }
         this.customers.add(customer);
         return customer;
