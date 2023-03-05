@@ -1,11 +1,16 @@
-# Übung zu 005
+# Übung zu 025
 
-Legen Sie eine Klasse `App` mit einer `main()` Methode an.
+Machen Sie aus der bestehenden Kommandozeilenanwendung eine Spring Boot basierte Anwendung.
 
-In dieser Methode soll die Pizza Anwendung gestartet werden.
+Die bestehende Klasse `App` ist hierfür der Ausgangspunkt. Dort muss die entsprechende Spring Boot
+Annotation hin. 
 
-Auf der gestarteten Anwendungen sollen dann folgende Operationen ausgeführt werden:
+Das Erzeugen der Instanzen überlassen wir ab jetzt natürlich Spring, d.h. der Code im Konstruktor
+ist überflüssig.
 
-* Abfrage und Ausgabe des Produkts mit id "P-10"
-* Abfrage und Ausgabe des Kundens mit Mobilnummer "+49 123 456789"
-* Platzierung einer Bestellung, z.B. 3-mal die Pizza "P-10" und einmal der Salat "S-01"
+An die entsprechenden Klassen müssen dann Annotation hinzugefügt werden, damit Spring Beans erstellt.
+
+Mit den Beans können Sie dann entweder:
+* in einer `ApplicationRunner` Bean Instanz arbeiten (d.h. dort injecten und aufrufen)
+* oder Sie nutzen den von `SpringApplication.run()` zurückgegebenen Kontext und holen sich dort
+Beans heraus und rufen diese auf
