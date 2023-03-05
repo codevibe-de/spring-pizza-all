@@ -3,9 +3,9 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>de.auinger.training.spring_boot</groupId>
-    <artifactId>pizza-webapp</artifactId>
-    <version>1.0</version>
+    <groupId>de.auinger.training.spring</groupId>
+    <artifactId>pizza-app</artifactId>
+    <version>010</version>
     <packaging>jar</packaging>
 
     <properties>
