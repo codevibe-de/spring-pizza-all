@@ -1,4 +1,4 @@
-# Übung zu 010
+# Übung zu 005
 
 Legen Sie eine Klasse `App` mit einer `main()` Methode an.
 
