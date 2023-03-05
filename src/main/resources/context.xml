@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+            https://www.springframework.org/schema/beans/spring-beans.xsd"
+>
+
+    <!-- customer -->
+
+    <bean id="customerService" class="pizza.customer.CustomerService"/>
+
+
+    <!-- product -->
+
+    <bean class="pizza.product.ProductJdbcDao"
+          autowire="constructor"
+    />
+
+    <bean class="pizza.product.ProductService"
+          autowire="constructor"
+    />
+
+
+    <!-- order -->
+
+    <bean class="pizza.order.OrderService"
+          autowire="constructor"
+    />
+
+
+    <!-- sample data -->
+
+    <bean class="pizza.SampleDataLoader.SmallDataLoader"
+          init-method="run" autowire="constructor"
+          depends-on="h2scriptRunner"/>
+
+
+    <!-- other infrastructure -->
+
+    <bean id="h2launcher" class="pizza.H2Launcher"
+          init-method="run"
+    />
+
+    <bean id="h2scriptRunner" class="pizza.H2ScriptRunner"
+          autowire="constructor"
+          init-method="run"
+    />
+
+    <bean name="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource"
+          depends-on="h2launcher">
+        <property name="driverClassName" value="org.h2.Driver"/>
+        <property name="url" value="${app.data-source.h2.url}"/>
+    </bean>
+
+
+    <bean class="org.springframework.context.support.PropertySourcesPlaceholderConfigurer">
+        <property name="locations">
+            <list>
+                <value>classpath:/config.properties</value>
+            </list>
+        </property>
+    </bean>
+
+</beans>

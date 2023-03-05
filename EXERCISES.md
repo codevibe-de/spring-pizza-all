@@ -9,7 +9,14 @@
   fehlen (https://stackoverflow.com/questions/6210757/java-lang-classnotfoundexception-org-springframework-web-context-contextloaderl)
 - die Anwendung dem Server hinzufügen (Add/Remove)
 - Server starten
-- im Browser http://localhost:8080/training.spring-boot.pizza/dump öffnen
+- im Browser http://localhost:8080/training.spring.pizza/dump öffnen
+
+## Vorbereitung Intellij
+
+- eine Tomcat Run Configuration anlegen
+- unter Deployment mittels "+" das Projekt als "exploded" Artifakt hinzufügen
+- URL http://localhost:8080/training_spring_pizza_war_exploded/dump als "After Launch URL" eintragen
+- Starten
 
 ## Aufgabe
 
