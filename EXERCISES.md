@@ -14,7 +14,7 @@
 ## Vorbereitung Intellij
 
 - eine Tomcat Run Configuration anlegen
-- unter Deployment mittels "+" das Projekt als "exploded" Artifakt hinzufügen
+- unter Deployment mittels "+" das Projekt als "exploded" Artefakt hinzufügen
 - URL http://localhost:8080/training_spring_pizza_war_exploded/dump als "After Launch URL" eintragen
 - Starten
 
@@ -31,11 +31,7 @@ Dabei empfiehlt sich folgende Reihenfolge:
 2. eine Spring Boot Anwendungsklasse erstellen
     - ACHTUNG: die URL der Anwendung ändert sich, wenn hierüber gestartet wird auf http://localhost:8080/dump
 3. die `context.xml` durchgehen und Beans mittels Annotationen statt durch XML erzeugen
-    - was könnte per XML konfiguriert bleiben?
-        - die bisherige XML-Konfiguration kann mittels `@ImportResource("context.xml")` auf der Applikationsklasse
-          eingelesen werden
     - wie kann von XML auf Annotationen migriert werden?
-    - was kann ganz weg?
     - an Autowiring / Injections denken!
 4. Servlet Klassen vereinfachen
     - `init()` kann nun weg
