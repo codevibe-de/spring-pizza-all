@@ -1,5 +1,6 @@
 package pizza;
 
+import org.springframework.stereotype.Component;
 import pizza.customer.Address;
 import pizza.customer.Customer;
 import pizza.customer.CustomerService;
@@ -8,12 +9,14 @@ import pizza.product.ProductService;
 
 public interface SampleDataLoader extends Runnable {
 
+    @Component("noop")
     class NoOpDataLoader implements SampleDataLoader {
         @Override
         public void run() {
         }
     }
 
+    @Component("small")
     class SmallDataLoader implements SampleDataLoader {
 
         private final ProductService productService;
