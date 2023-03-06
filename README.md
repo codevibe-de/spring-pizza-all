@@ -1,8 +1,9 @@
-# SPRING BOOT TRAINING, PART 2 ("PIZZA")
+# SPRING BOOT AUFBAU TRAINING
 
 ## About
 
-This repository contains source code and exercises for my introductory Spring Boot training.
+This repository contains source code and exercises for my introductory advanced Spring Boot
+training.
 
 ## Copyright
 
