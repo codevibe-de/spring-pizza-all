@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 import javax.annotation.PostConstruct;
 import java.sql.SQLException;
 
+@Component
 public class H2Launcher implements Runnable {
 
     @PostConstruct

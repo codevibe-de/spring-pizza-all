@@ -11,16 +11,16 @@ import pizza.product.ProductService;
 import javax.annotation.PostConstruct;
 
 @Component
-@DependsOn("h2ScriptRunner")
 public interface SampleDataLoader extends Runnable {
 
+    @Component("noop")
     class NoOpDataLoader implements SampleDataLoader {
         @Override
         public void run() {
         }
     }
 
-    @Component
+    @Component("small")
     class SmallDataLoader implements SampleDataLoader {
 
         private final ProductService productService;
@@ -31,7 +31,6 @@ public interface SampleDataLoader extends Runnable {
             this.customerService = customerService;
         }
 
-        @PostConstruct
         @Override
         public void run() {
             System.out.println("Loading sample data...");
