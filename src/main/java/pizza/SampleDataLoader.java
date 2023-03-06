@@ -1,14 +1,11 @@
 package pizza;
 
-import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Component;
 import pizza.customer.Address;
 import pizza.customer.Customer;
 import pizza.customer.CustomerService;
 import pizza.product.Product;
 import pizza.product.ProductService;
-
-import javax.annotation.PostConstruct;
 
 @Component
 public interface SampleDataLoader extends Runnable {
