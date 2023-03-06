@@ -1,11 +1,16 @@
-# Übung zu 005
+# Übungen zu 005
 
-Legen Sie eine Klasse `App` mit einer `main()` Methode an.
+Schauen Sie sich die Klasse `App` an. Diese ist noch unvollständig, führt allerdings schon
+einige Operationen aus und gibt deren Ergebnis auf `System.out` aus:
 
-In dieser Methode soll die Pizza Anwendung gestartet werden.
+* Abfrage und Ausgabe des Produkts mit Id "P-10"
+* Abfrage und Ausgabe des Kunden mit Mobilnummer "+49 123 456789"
+* Platzierung einer Bestellung, konkret 3-mal die Pizza "P-10" und einmal den Salat "S-01"
 
-Auf der gestarteten Anwendungen sollen dann folgende Operationen ausgeführt werden:
+Die Anwendung kann über die `main()` Methode gestartet werden, erzeugt dann aber noch Fehler.
 
-* Abfrage und Ausgabe des Produkts mit id "P-10"
-* Abfrage und Ausgabe des Kundens mit Mobilnummer "+49 123 456789"
-* Platzierung einer Bestellung, z.B. 3-mal die Pizza "P-10" und einmal der Salat "S-01"
+Bei einem Blick in die Klasse ist der Grund dafür schnell klar -- es fehlen noch die
+Instanziierungen.
+
+Ergänzen Sie die fehlenden Teile, sodass die Anwendung fehlerfrei läuft und Ausgaben erzeugt.
+
