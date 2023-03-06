@@ -19,13 +19,7 @@ public class App {
     private final OrderService orderService;
 
     App() {
-        new H2Launcher().run();
-
-        var dataSource = new DriverManagerDataSource();
-        dataSource.setDriverClassName("org.h2.Driver");
-        dataSource.setUrl("jdbc:h2:tcp://localhost:9092/~/training.spring-boot.pizza");
-
-        new H2ScriptRunner(dataSource).run();
+        var dataSource = getDataSource();
 
         this.customerService = new CustomerService();
 
