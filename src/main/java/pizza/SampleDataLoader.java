@@ -1,10 +1,13 @@
 package pizza;
 
+import org.springframework.stereotype.Component;
 import pizza.customer.Address;
 import pizza.customer.Customer;
 import pizza.customer.CustomerService;
 import pizza.product.Product;
 import pizza.product.ProductService;
+
+import javax.annotation.PostConstruct;
 
 public interface SampleDataLoader extends Runnable {
 
@@ -14,6 +17,7 @@ public interface SampleDataLoader extends Runnable {
         }
     }
 
+    @Component
     class SmallDataLoader implements SampleDataLoader {
 
         private final ProductService productService;
@@ -24,6 +28,7 @@ public interface SampleDataLoader extends Runnable {
             this.customerService = customerService;
         }
 
+        @PostConstruct
         @Override
         public void run() {
             createProduct("S-01", "Thunfisch Salat", 6.90);
