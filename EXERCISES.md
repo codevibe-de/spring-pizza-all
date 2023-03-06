@@ -4,6 +4,9 @@ Machen Sie aus der bestehenden Kommandozeilenanwendung eine Spring Boot basierte
 
 Die bestehende Klasse `App` ist hierfür der Ausgangspunkt.
 
+Und wir brauchen natürlich auch eine neue `pom.xml`. Diese kann über den Spring Initializr
+generiert werden und in das Projekt reinkopiert werden.
+
 Das Erzeugen der Instanzen überlassen wir ab jetzt natürlich Spring -- und machen dies nicht mehr
 mittels `new` selbst.
 
