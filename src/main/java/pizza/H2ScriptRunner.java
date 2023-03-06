@@ -21,7 +21,7 @@ public class H2ScriptRunner implements Runnable {
     @Override
     public void run() {
         try {
-            System.out.println("Running schema script");
+            System.out.println("Running schema script on data-source connection: " + dataSource.getConnection());
             var resource = new ClassPathResource("/schema.sql");
             RunScript.execute(
                     this.dataSource.getConnection(),

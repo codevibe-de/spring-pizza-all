@@ -7,6 +7,7 @@ import pizza.customer.CustomerService;
 import pizza.product.Product;
 import pizza.product.ProductService;
 
+@Component
 public interface SampleDataLoader extends Runnable {
 
     @Component("noop")
@@ -29,6 +30,8 @@ public interface SampleDataLoader extends Runnable {
 
         @Override
         public void run() {
+            System.out.println("Loading sample data...");
+
             createProduct("S-01", "Thunfisch Salat", 6.90);
             createProduct("S-02", "Salat Italiano", 7.90);
             createProduct("S-03", "Romana Salat", 8.90);

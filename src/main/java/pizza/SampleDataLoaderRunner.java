@@ -5,6 +5,13 @@ import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
 
+/**
+ * Performs loading of sample data after the context has started up.
+ *
+ * We do not want to use @PostConstruct in any SampleDataLoader implementation itself since this
+ * caused timing issues when using the default Spring Boot H2 data source.
+ * The data could be loaded but wasn't available afterwards for querying (empty tables).
+ */
 @Component
 public class SampleDataLoaderRunner implements ApplicationRunner {
 
