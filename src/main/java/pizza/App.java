@@ -1,11 +1,13 @@
 package pizza;
 
-import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import org.h2.jdbcx.JdbcDataSource;
 import pizza.customer.CustomerService;
 import pizza.order.OrderService;
 import pizza.product.ProductJdbcDao;
 import pizza.product.ProductRepository;
 import pizza.product.ProductService;
+
+import javax.sql.DataSource;
 
 import static java.util.Map.entry;
 import static java.util.Map.ofEntries;
@@ -48,8 +50,23 @@ public class App {
         return orderService;
     }
 
+    DataSource getDataSource() {
+        // start a H2 database instance
+        new H2Launcher().run();
+
+        // use a H2 DataSource implementation
+        var dataSource = new JdbcDataSource();
+        dataSource.setUrl("jdbc:h2:tcp://localhost:9092/~/training.spring-boot.pizza");
+
+        // run a script to set up the database schema (=tables)
+        new H2ScriptRunner(dataSource).run();
+
+        // return the data source for others to work with
+        return dataSource;
+    }
+
     public static void main(String[] args) {
-        // start the p
+        // launch pizzeria
         var app = new App();
 
         // get a product
