@@ -13,6 +13,3 @@ Bei einem Blick in die Klasse ist der Grund dafür schnell klar -- es fehlen noc
 Instanziierungen.
 
 Ergänzen Sie die fehlenden Teile, sodass die Anwendung fehlerfrei läuft und Ausgaben erzeugt.
-
-
-Hinweis: Diese Anwendung nutzt bereits Klasse von Spring für die Datenbank Anbindung
