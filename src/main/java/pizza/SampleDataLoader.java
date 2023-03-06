@@ -1,5 +1,6 @@
 package pizza;
 
+import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Component;
 import pizza.customer.Address;
 import pizza.customer.Customer;
@@ -9,6 +10,8 @@ import pizza.product.ProductService;
 
 import javax.annotation.PostConstruct;
 
+@Component
+@DependsOn("h2ScriptRunner")
 public interface SampleDataLoader extends Runnable {
 
     class NoOpDataLoader implements SampleDataLoader {
@@ -31,6 +34,8 @@ public interface SampleDataLoader extends Runnable {
         @PostConstruct
         @Override
         public void run() {
+            System.out.println("Loading sample data...");
+
             createProduct("S-01", "Thunfisch Salat", 6.90);
             createProduct("S-02", "Salat Italiano", 7.90);
             createProduct("S-03", "Romana Salat", 8.90);
