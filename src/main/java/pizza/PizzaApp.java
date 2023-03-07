@@ -10,7 +10,7 @@ import javax.sql.DataSource;
 import static java.util.Map.entry;
 import static java.util.Map.ofEntries;
 
-public class App {
+public class PizzaApp {
 
     ProductService getProductService() {
         // todo
@@ -44,7 +44,7 @@ public class App {
 
     public static void main(String[] args) {
         // launch pizzeria
-        var app = new App();
+        var app = new PizzaApp();
 
         // get a product
         var product = app.getProductService().getProduct("P-10");

@@ -1,6 +1,6 @@
 # Übungen zu 005
 
-Schauen Sie sich die Klasse `App` an. Diese ist noch unvollständig, führt allerdings schon
+Schauen Sie sich die Klasse `PizzaApp` an. Diese ist noch unvollständig, führt allerdings schon
 einige Operationen aus und gibt deren Ergebnis auf `System.out` aus:
 
 * Abfrage und Ausgabe des Produkts mit Id "P-10"
