@@ -1,20 +1,22 @@
 package pizza.customer;
 
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Import;
+import pizza.SampleDataLoader;
+import pizza.SampleDataLoaderRunner;
+import pizza.product.ProductRepository;
+
+import javax.sql.DataSource;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-/**
- * This class requires only a single bean -- that's why we don't annotate this class with @SpringBootTest but just
- * add Junit support for Spring for injecting beans.
- * The bean itself is defined in the inner class Beans below.
- */
-@ExtendWith({SpringExtension.class})
+@DataJpaTest
 class CustomerServiceTest {
 
     @Autowired
@@ -22,14 +24,8 @@ class CustomerServiceTest {
 
     @Test
     void getCustomerByPhoneNumber() {
-        // given
-        var phoneNumber = "+1 111-222-333";
-        var fullName = "Toni Test";
-        customerService.createCustomer(
-                new Customer(fullName, null, phoneNumber)
-        );
-
         // when
+        var phoneNumber = "+49 123 456789";
         var customer = customerService.getCustomerByPhoneNumber(phoneNumber);
 
         // then
@@ -37,15 +33,20 @@ class CustomerServiceTest {
         assertThat(customer.getPhoneNumber()).isEqualTo(phoneNumber);
         assertThat(customer.getId()).isNotNull();
         assertThat(customer.getId()).isNotEqualTo(0);
-        assertThat(customer.getFullName()).isEqualTo(fullName);
+        assertThat(customer.getFullName()).isEqualTo("Enrico Pallazzo");
     }
 
-    // populates the application-context with just this bean
     @TestConfiguration
+    @ComponentScan({"pizza.customer", "pizza.product"})
+    @Import({SampleDataLoader.SmallDataLoader.class, SampleDataLoaderRunner.class})
     static class Beans {
+        @Bean("productJdbcDao") // overwrite existing bean
+        public ProductRepository noOpProductRepo() {
+            return new NoOpProductRepository();
+        }
         @Bean
-        public CustomerService customerService() {
-            return new CustomerService();
+        public DataSource dummyDataSource() {
+            return Mockito.mock(DataSource.class);
         }
     }
 }

@@ -47,7 +47,7 @@ public class ProductService {
 
     public Product createProduct(Product product) {
         if (productRepository.existsById(product.getProductId())) {
-            throw new IllegalStateException();
+            throw new IllegalStateException("The product-repository already contains a product with id " + product.getProductId());
         }
         return productRepository.save(product);
     }

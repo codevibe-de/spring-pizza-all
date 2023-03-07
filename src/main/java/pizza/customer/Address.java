@@ -1,5 +1,8 @@
 package pizza.customer;
 
+import javax.persistence.Embeddable;
+
+@Embeddable
 public class Address {
 
     private String street;
@@ -7,6 +10,9 @@ public class Address {
     private String postalCode;
 
     private String city;
+
+    public Address() {
+    }
 
     public Address(String street, String postalCode, String city) {
         this.street = street;
@@ -24,6 +30,18 @@ public class Address {
 
     public String getCity() {
         return city;
+    }
+
+    public void setStreet(String street) {
+        this.street = street;
+    }
+
+    public void setPostalCode(String postalCode) {
+        this.postalCode = postalCode;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
     }
 
     @Override
