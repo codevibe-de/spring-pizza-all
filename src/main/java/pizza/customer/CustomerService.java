@@ -24,7 +24,6 @@ public class CustomerService {
     // business logic
     //
 
-    @NonNull
     public Customer getCustomerByPhoneNumber(String phoneNumber) {
         return this.customers.stream()
                 .filter(c -> phoneNumber.equals(c.getPhoneNumber()))
@@ -32,12 +31,10 @@ public class CustomerService {
                 .orElseThrow(() -> new CustomerNotFoundException("For phoneNumber `" + phoneNumber + "`"));
     }
 
-    @NonNull
     public Iterable<Customer> getAllCustomers() {
         return Collections.unmodifiableList(this.customers);
     }
 
-    @NonNull
     public Customer createCustomer(Customer customer) {
         if (customer.getId() == null) {
             customer.setId(Math.abs(new Random().nextLong()));
