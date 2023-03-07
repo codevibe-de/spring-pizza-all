@@ -18,7 +18,7 @@ public class PizzaApp {
     private final CustomerService customerService;
     private final OrderService orderService;
 
-    App() {
+    PizzaApp() {
         var dataSource = getDataSource();
 
         this.customerService = new CustomerService();
