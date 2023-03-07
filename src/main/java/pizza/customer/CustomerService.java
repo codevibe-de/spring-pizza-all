@@ -1,23 +1,20 @@
 package pizza.customer;
 
-import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 import java.util.Random;
 
 @Service
 public class CustomerService {
 
-    private final List<Customer> customers = new ArrayList<>();
+    private final CustomerRepository customerRepository;
 
     //
     // constructors and setup
     //
 
-    public CustomerService() {
+    public CustomerService(CustomerRepository customerRepository) {
+        this.customerRepository = customerRepository;
     }
 
     //
@@ -25,22 +22,20 @@ public class CustomerService {
     //
 
     public Customer getCustomerByPhoneNumber(String phoneNumber) {
-        return this.customers.stream()
-                .filter(c -> phoneNumber.equals(c.getPhoneNumber()))
-                .findFirst()
+        return customerRepository
+                .findByPhoneNumber(phoneNumber)
                 .orElseThrow(() -> new CustomerNotFoundException("For phoneNumber `" + phoneNumber + "`"));
     }
 
     public Iterable<Customer> getAllCustomers() {
-        return Collections.unmodifiableList(this.customers);
+        return customerRepository.findAll();
     }
 
     public Customer createCustomer(Customer customer) {
         if (customer.getId() == null) {
             customer.setId(Math.abs(new Random().nextLong()));
         }
-        this.customers.add(customer);
-        return customer;
+        return customerRepository.save(customer);
     }
 
 }

@@ -1,14 +1,13 @@
 package pizza.customer;
 
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Import;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 import pizza.SampleDataLoader;
 import pizza.SampleDataLoaderRunner;
 import pizza.product.ProductRepository;
@@ -17,21 +16,14 @@ import javax.sql.DataSource;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")  // intellij doesn't understand nested @TestConfig
-@ExtendWith({SpringExtension.class})
+@DataJpaTest
 class CustomerServiceTest {
 
     @Autowired
     private CustomerService customerService;
 
-    @Autowired
-    private SampleDataLoaderRunner sampleDataLoaderRunner;
-
     @Test
-    void getCustomerByPhoneNumber() throws Exception {
-        // given
-        sampleDataLoaderRunner.run(null);
-
+    void getCustomerByPhoneNumber() {
         // when
         var phoneNumber = "+49 123 456789";
         var customer = customerService.getCustomerByPhoneNumber(phoneNumber);
