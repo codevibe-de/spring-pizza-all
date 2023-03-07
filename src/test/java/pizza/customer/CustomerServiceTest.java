@@ -17,6 +17,7 @@ import javax.sql.DataSource;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+@SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")  // intellij doesn't understand nested @TestConfig
 @ExtendWith({SpringExtension.class})
 class CustomerServiceTest {
 
