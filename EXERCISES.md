@@ -49,3 +49,22 @@ Diese treten z.B. dann auf (Bonus-Aufgabe!), wenn Sie 3 Produkte zu 2,10 € und
 
 Wie kann ein Test hiermit umgehen? Schauen Sie sich die zusätzlichen Parameter der `isEqualTo()` Methode an.
 Oder wie kann der Service verbessert werden, um diese Probleme zu umgehen?
+
+### d) Abfrage eines Kunden
+
+In dieser Übung nutzen wir die Annotation `@TestConfiguration`, um den Kontext zu modifizieren.
+
+Ziel des Tests ist es, dass ein durch den SampleDataLoader angelegte Kunde über den
+CustomerService geladen werden soll.
+
+Der Kontext soll:
+
+* nur die Beans aus dem Package `product` und `customer` enthalten (Tipp: `@ComponentScan` nutzen)
+* außerdem soll das `ProductRepository` durch die bereitgestellte `NoOpProductRepository` Klasse ersetzt werden
+
+D.h. Sie brauchen eine neue Klasse, die
+
+* mit `@TestConfiguration` annotiert ist
+* vom Test importiert wird
+* den Component-Scan deklariert
+* die `ProductRepository` Bean austauscht
