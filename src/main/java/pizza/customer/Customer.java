@@ -1,14 +1,26 @@
 package pizza.customer;
 
+import javax.persistence.Embedded;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "customers")
 public class Customer {
 
+    @Id
     private Long id;
 
-    private final String fullName;
+    private String fullName;
 
-    private final Address address;
+    @Embedded
+    private Address address;
 
-    private final String phoneNumber;
+    private String phoneNumber;
+
+    public Customer() {
+    }
 
     public Customer(String fullName, Address address, String phoneNumber) {
         this.fullName = fullName;
@@ -23,6 +35,10 @@ public class Customer {
         this.phoneNumber = phoneNumber;
     }
 
+    public Long getId() {
+        return id;
+    }
+
     public void setId(long id) {
         if (this.id != null) {
             throw new IllegalStateException("Cannot change existing id");
@@ -30,20 +46,28 @@ public class Customer {
         this.id = id;
     }
 
-    public Long getId() {
-        return id;
-    }
-
     public String getFullName() {
         return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
     }
 
     public Address getAddress() {
         return address;
     }
 
+    public void setAddress(Address address) {
+        this.address = address;
+    }
+
     public String getPhoneNumber() {
         return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
     @Override
