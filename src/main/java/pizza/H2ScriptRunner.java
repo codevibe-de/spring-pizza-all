@@ -16,12 +16,10 @@ public class H2ScriptRunner implements Runnable {
 
     @Override
     public void run() {
-        try {
-            System.out.println("Running schema script");
-            var resource = new ClassPathResource("/schema.sql");
-            RunScript.execute(
-                    this.dataSource.getConnection(),
-                    new InputStreamReader(resource.getInputStream()));
+        System.out.println("Running schema script");
+        var resource = new ClassPathResource("/schema.sql");
+        try (var inStream = new InputStreamReader(resource.getInputStream())) {
+            RunScript.execute(this.dataSource.getConnection(), inStream);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
