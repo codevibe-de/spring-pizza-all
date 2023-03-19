@@ -1,51 +1,33 @@
-# ÜBUNGEN SPRING BOOT
+# Übungen zu Kapitel "100 - Profile, Logging und Monitoring"
 
-## 080 - RESTful API
+## a) "Nur Customer” Profil
 
-### a) Insomnia Rest Client
+Markieren Sie alle relevanten Beans mit `@Profile` Annotationen, sodass bei Aufruf
+der Anwendung mit dem Profil "customer" nur die Funktionalität des Customer-Moduls
+zur Verfügung steht.
 
-Bei Bedarf können Sie den "Insomnia Core" Rest Client installieren: https://insomnia.rest/
+Gerne können Sie auch die Übung so weit treiben, dass die folgenden Profile zur Auswahl
+stehen und die Anwendung bei jedem der Profile lauffähig ist:
+* "product"
+* "customer"
+* "order"
+* kein Profil gesetzt
 
-Im Projekt ist ab diesem Branch ein exportierter Insomnia Workspace vorhanden, den Sie in das Tool importieren können.
-Oder Sie legen die wenigen Requests selbst an.
+## b) “Dev” Profil
 
-Alternativ können Sie zum Testen der Endpunkte natürlich auch andere Tools wie z.B. Postman oder den
-Kommandozeilenbefehl `curl` nehmen.
+Legen Sie eine Konfigurationsdatei für das Profil "dev" an, bei dem vermehrt
+Logging Ausgaben generiert werden, z.B. Logging-Level aller "pizza" Klassen auf DEBUG.
 
-### b) OrderRestController
+## c) System.out durch Logging
 
-Erstellen Sie einen API-Endpunkt `/orders/greeting` der für ein GET
-eine Begrüßung als String zurückgibt.
+Ersetzen Sie Ausgaben in der Anwendung, die bisher per System.out.println() erfolgt sind,
+durch Logging Ausgaben.
 
-Testen Sie die URL in Ihrem Browser: http://localhost:8080/orders/greeting
+## d) Monitoring aktivieren
 
-### c) CustomerRestController
+Aktivieren Sie Monitoring für die Anwendung, sodass folgende Endpunkte im Browser abrufbar sind:
+* health
+* info
+* env
 
-Erstellen Sie die folgenden API-Endpunkte:
-
-* `GET /customers`, der alle Kunden zurückgibt
-* `POST /customers`, der einen neuen Kunden anlegt
-
-### d) ProductRestController
-
-Erstellen Sie die folgenden API-Endpunkte:
-
-* `GET /products`, der alle Produkte zurückgibt
-
-### e) Erweiterung OrderRestController
-
-Erstellen Sie zusätzlich die folgenden API-Endpunkte:
-
-* `GET /orders`, der alle Bestellungen zurückgibt
-* `POST /orders`, durch den eine neue Bestellung aufgegeben werden kann. Die Bestellung ist durch
-  folgenden JSON Inhalt definiert:
-````json
-{
-    "phoneNumber": "123-4567",
-    "itemQuantities": {
-        "S-02": 1,
-        "P-10": 2,
-        "P-12": 1
-    }
-}
-````
+## e) Neuen Info-Endpoint entwickeln
