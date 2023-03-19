@@ -1,6 +1,5 @@
 package pizza.customer;
 
-@SuppressWarnings("unused")
 public class Customer {
 
     //
