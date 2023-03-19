@@ -4,7 +4,12 @@ import pizza.customer.Customer;
 
 import java.time.LocalDateTime;
 
+@SuppressWarnings("unused")
 public class Order {
+
+    //
+    // --- fields ---
+    //
 
     Long id;
 
@@ -13,6 +18,10 @@ public class Order {
     private final Double totalPrice;
 
     private final LocalDateTime estimatedTimeOfDelivery;
+
+    //
+    // --- constructors ---
+    //
 
     public Order(Customer customer, Double totalPrice, LocalDateTime estimatedTimeOfDelivery) {
         this.customer = customer;
@@ -26,6 +35,10 @@ public class Order {
         this.totalPrice = totalPrice;
         this.estimatedTimeOfDelivery = estimatedTimeOfDelivery;
     }
+
+    //
+    // --- get / set ---
+    //
 
     public void setId(long id) {
         if (this.id != null) {
