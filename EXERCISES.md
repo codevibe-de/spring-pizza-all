@@ -8,6 +8,8 @@ Rabattierung je Wochentag in einer externen Konfigurationsquelle hinterlegt werd
 *Hinweis: Hierfür gibt es zwei Möglichkeiten (mittels `@Value` oder `@ConfigurationProperties`,
 letztere ist schwerer aufgrund des noch zu implementierenden Converters, siehe Musterlösung)
 
+Über die Testklasse `OrderServiceTest` können Sie testhalber einen Bestellvorgang auslösen.
+
 ## b) Ausgabe der Konfiguration
 
 Ergänzen Sie den `OrderService` um eine Methode, in der die Konfiguration via `System.out`
