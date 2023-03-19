@@ -9,6 +9,10 @@ import javax.persistence.Table;
 @Table(name = "customers")
 public class Customer {
 
+    //
+    // --- fields ---
+    //
+
     @Id
     private Long id;
 
@@ -34,6 +38,10 @@ public class Customer {
         this.address = address;
         this.phoneNumber = phoneNumber;
     }
+
+    //
+    // --- get / set ---
+    //
 
     public Long getId() {
         return id;
