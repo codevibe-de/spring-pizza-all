@@ -4,7 +4,6 @@ import pizza.customer.Customer;
 
 import java.time.LocalDateTime;
 
-@SuppressWarnings("unused")
 public class Order {
 
     //

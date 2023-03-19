@@ -1,6 +1,5 @@
 package pizza.product;
 
-// TODO this class could also use Lombok annotations (same as Product or Order)
 public class Product {
 
     //
