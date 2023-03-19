@@ -55,6 +55,11 @@ Ebenfalls arbeitet der `CustomerService` noch mit einer in der Klasse verwaltete
 
 Stellen Sie dies auf eine Spring-Data basierte Persistenz um.
 
-ACHTUNG, hierfür fehlen noch Spaltendefinitionen in der `schema.sql` Datei -- siehe `TODO` Kommentar
-dort. Insbesondere die Einbettung der `Address` in die Tabelle ist eine fortgeschrittene Übung.
-Folgende Seite kann hierbei helfen: https://en.wikibooks.org/wiki/Java_Persistence/Embeddables
+Dies führt zu zwei Problemen im `CustomerServiceTest`: einerseits muss auf @DataJpaTest umgestellt
+werden, und andererseits muss dann der sample-data runner nicht mehr manuell gestartet werden, da
+dies dann automatisch passiert (und mit dem manuellen Start doppelt!)
+
+ACHTUNG, außerdem fehlen noch Spaltendefinitionen in der `schema.sql` Datei -- siehe `TODO`
+Kommentar dort. Insbesondere die Einbettung der `Address` in die Tabelle ist eine fortgeschrittene
+Übung. Folgende Seite kann hierbei
+helfen: https://en.wikibooks.org/wiki/Java_Persistence/Embeddables
