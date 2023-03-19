@@ -16,7 +16,7 @@ public class OrderServiceTest {
     void placeOrder() {
         // when
         this.orderService.placeOrder(
-                "0170-222-333-444",
+                "+49 123 456789",
                 Map.of("S-01", 1)
         );
     }

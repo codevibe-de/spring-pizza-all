@@ -4,13 +4,12 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 
-@SpringBootApplication()
+@SpringBootApplication
 @EnableConfigurationProperties
-public class PizzaApiApplication {
+public class PizzaApp {
 
     public static void main(String[] args) {
-        System.out.println("Los geht's!");
-        SpringApplication.run(PizzaApiApplication.class, args);
+        // run boot app
+        SpringApplication.run(PizzaApp.class, args);
     }
-
 }
