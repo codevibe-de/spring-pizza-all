@@ -1,6 +1,4 @@
-# ÜBUNGEN SPRING BOOT
-
-## 050 Spring-Data JPA
+# Übungen zum Kapitel "050 Spring-Data JPA"
 
 In dieser Übung migrieren Sie die bisher `JdbcTemplate` basierte Persistenz
 auf Spring-Data JPA.
@@ -9,13 +7,13 @@ Denken Sie bei dieser Übung daran, dass wir schon Testfälle haben, mit denen w
 Test-Driven arbeiten können, d.h. immer wider diese ausführen, um den Fortschritt Ihrer
 Arbeit zu prüfen.
 
-### a) pom.xml
+## a) pom.xml
 
 Fügen Sie den entsprechenden Starter in Ihrer `pom.xml` hinzu.
 
 Welcher Starter wird nun wohl nicht mehr benötigt und kann weg bzw. ersetzt werden?
 
-### b) Umstellung auf in-memory H2
+## b) Umstellung auf in-memory H2
 
 Leider ist die Nutzung unseres bisherigen H2 Servers, der Verbindungen über TCP
 annimmt, mit Spring Boot nicht einfach so weiter nutzbar.
@@ -31,32 +29,32 @@ definiert ist.
 
 Nun können auch die `H2Launcher` und `H2ScriptRunner` Klassen weg. Warum?
 
-### c) Migration `ProductJdbcDao`
+## c) Migration `ProductJdbcDao`
 
 Die Klasse `ProductJdbcDao` wird mit Spring-Data nicht mehr benötigt.
 
 Entfernen Sie diese und schreiben Sie das `ProductRepository` so um, dass es von Spring erkannt wird
 und als Ersatz für das gelöschte `ProductJdbcDao` fungiert.
 
-### d) JPA Entity `Product`
+## d) JPA Entity `Product`
 
 Die Klasse `Product` muss noch zur vollwertigen JPA Entity mit Annotationen ergänzt werden.
 
 Denken Sie daran, dass unser Schema (Namen von Tabelle und Feldern) zu berücksichtigen ist!
 
-### e) Bonus: Persistenz für Bestellungen
+## e) Bonus: Persistenz für Bestellungen
 
-Momentan arbeitet der `OrderService` noch mit einer in der Klasse verwalteten `List` an Bestellungen (quasi in-memory).
+Momentan arbeitet der `OrderService` noch mit einer in der Klasse verwalteten `List` an
+Bestellungen (quasi in-memory).
 
 Stellen Sie dies auf eine Spring-Data basierte Persistenz um.
 
-### f) Bonus: Persistenz für Kunden
+## f) Bonus: Persistenz für Kunden
 
 Ebenfalls arbeitet der `CustomerService` noch mit einer in der Klasse verwalteten `List` an Kunden.
 
 Stellen Sie dies auf eine Spring-Data basierte Persistenz um.
 
-ACHTUNG, hierfür fehlen noch Spaltendefinitionen
-in der `schema.sql` Datei -- siehe `TODO` Kommentar dort. Insbesondere die Einbettung der `Address` in die Tabelle
-ist eine fortgeschrittene Übung. Folgende Seite kann hierbei
-helfen: https://en.wikibooks.org/wiki/Java_Persistence/Embeddables
+ACHTUNG, hierfür fehlen noch Spaltendefinitionen in der `schema.sql` Datei -- siehe `TODO` Kommentar
+dort. Insbesondere die Einbettung der `Address` in die Tabelle ist eine fortgeschrittene Übung.
+Folgende Seite kann hierbei helfen: https://en.wikibooks.org/wiki/Java_Persistence/Embeddables
