@@ -52,15 +52,15 @@ Wie kann ein Test hiermit umgehen? Schauen Sie sich die zusätzlichen Parameter 
 Methode an.
 Oder wie kann der Service verbessert werden, um diese Probleme zu umgehen?
 
-## d) Abfrage eines Kunden
-
-In dieser Übung nutzen wir die Annotation `@TestConfiguration`, um den Kontext per Hand aufzubauen.
-
-D.h. die Testklasse benötigt nur eine `@ExtendWith({SpringExtension.class})` Annotation, NICHT
-`@SpringBootTest`.
+## d) CustomerServiceTest mit individuellem Kontext
 
 Ziel des Tests ist es, dass ein durch den `SampleDataLoader` angelegte Kunde über den
 `CustomerService` geladen werden soll (z.B. Abfrage via Mobilnummer).
+
+In dieser Übung nutzen wir die Annotation `@TestConfiguration`, um den Kontext per Hand aufzubauen.
+
+D.h. die `CustomerServiceTest` Klasse benötigt nur eine `@ExtendWith({SpringExtension.class})`
+Annotation, NICHT `@SpringBootTest`.
 
 Der Kontext soll:
 
@@ -76,5 +76,5 @@ D.h. Sie brauchen eine neue Klasse, die
 * zusätzlich den `SampleDataLoader` und `SampleDataLoaderRunner` importiert
 * die `ProductRepository` Bean austauscht
 
-Irgendwie müssen Sie dann auch noch den Runner starten, denn dies passiert nicht automatisch,
-wenn man nicht `@SpringBootTest` nutzt.
+Irgendwie müssen Sie dann auch noch den `SampleDataLoaderRunner` starten, denn dies passiert
+nur dann automatisch, wenn man `@SpringBootTest` nutzt.
