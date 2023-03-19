@@ -12,7 +12,7 @@
 
     <groupId>de.auinger.training.spring-boot</groupId>
     <artifactId>pizza-app</artifactId>
-    <version>060</version>
+    <version>070</version>
 
     <properties>
         <java.version>11</java.version>
