@@ -65,8 +65,7 @@ Annotation, NICHT `@SpringBootTest`.
 Der Kontext soll:
 
 * nur die Beans aus dem Package `product` und `customer` enthalten (Tipp: `@ComponentScan` nutzen)
-* außerdem soll das `ProductRepository` durch die bereitgestellte `NoOpProductRepository` Klasse
-  ersetzt werden
+* außerdem soll das `ProductRepository` durch eine "Tue nichts" Bean ersetzt werden
 
 D.h. Sie brauchen eine neue Klasse, die
 
