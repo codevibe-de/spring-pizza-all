@@ -1,35 +1,29 @@
-# ÜBUNGEN SPRING BOOT
+# Übungen zum Kapitel "070 - Transaktionen"
 
-## 060 - Konfiguration
+## a) Customer um "orderCount" erweitern
 
-### a) OrderService konfigurierbar machen
+Fügen Sie einen Counter (Zählwert) im Customer namens `orderCount` ein –
+die Getter-Methode dafür bitte nicht vergessen.
 
-Verändern Sie den `OrderService`, sodass die erwartete Lieferzeit in Minuten sowie die
-Rabattierung je Wochentag in einer externen Konfigurationsquelle hinterlegt werden kann.
+Dies ist ein Zähler für die Anzahl **versuchter** (nicht unbedingt erfolgreicher) Bestellungen.
 
-*Hinweis: Hierfür gibt es zwei Möglichkeiten (mittels `@Value` oder `@ConfigurationProperties`,
-letztere ist schwerer aufgrund des noch zu implementierenden Converters, siehe Musterlösung)
+## b) CustomerService erweitern
 
-### b) Ausgabe der Konfiguration
+Fügen Sie eine neue Methode
+`com.example.pizza.customer.CustomerService#increaseOrderCount()` ein, die in einer
+neuen Transaktion den Zähler hochsetzt und den neuen Wert persistiert.
 
-Ergänzen Sie den `OrderService` um eine Methode, in der die Konfiguration via `System.out` ausgegeben wird (damit
-wir sehen können, was gerade gilt).
+## c) OrderService erweitern
 
-Lassen Sie Spring diese Methode automatisch beim Start ausführen. Wie ging das nochmal...? :)
+Rufen Sie die neue Methode im `CustomerService` aus `OrderService#placeOrder()` auf,  
+und zwar gleich, nachdem der Customer geladen wurde.
 
-### c) Konfiguration via application.properties
+Außerdem soll die `placeOrder()` Methode auch in einer Transaktion ablaufen.
 
-Setzen Sie Werte für die Konfiguration der vorherigen Seite in der `application.properties`.
+## d) Test
 
-Starten Sie nun die Anwendung und prüfen Sie die tatsächlich vorliegende Konfiguration --
-wird der Wert aus der `application.properties` genutzt?
+Schreiben Sie einen Test
+`com.example.pizza.order.OrderServiceTest#placeOrder_customerOrderCountIncreasesDespiteTransactionFail()`
+der einen ungültigen Bestellvorgang auslöst und dann prüft, dass dennoch
+der Zähler der Customer Entität erhöht wurde.
 
-### d) Konfiguration von außen
-
-Starten Sie Ihre Anwendung auf eine Art und Weise, dass nicht die Lieferzeit in Minuten 
-aus den `application.properties` genutzt wird, sondern von außen durch einen anderen Wert
-überschrieben wird.
-
-Hierfür können Sie eine Umgebungsvariable, ein VM System Property oder ein Programmargument nutzen.
-
-Wird der erwartete Wert ausgegeben?
