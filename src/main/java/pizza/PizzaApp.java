@@ -17,9 +17,10 @@ public class PizzaApp {
     private final ProductService productService;
     private final CustomerService customerService;
     private final OrderService orderService;
+    private final DataSource dataSource;
 
     PizzaApp() {
-        var dataSource = getDataSource();
+        dataSource = getDataSource();
 
         this.customerService = new CustomerService();
 
