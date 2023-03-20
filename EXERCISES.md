@@ -1,49 +1,51 @@
-# Übungen zum Kapitel "080 - RESTful API"
+# Übung zu Kapitel "090 - API Integrations-Tests"
 
-## a) Insomnia Rest Client
+## a) CustomerRestControllerTest - getCustomer
 
-Bei Bedarf können Sie den "Insomnia Core" Rest Client installieren: https://insomnia.rest/
+Test-Driven-Development: Schreiben Sie einen `CustomerRestControllerTest`, der die
+Abfrage (Lesen) eines einzelnen Kunden anhand dessen Id durchführt.
 
-Im Projekt ist ab diesem Branch ein exportierter Insomnia Workspace vorhanden, den Sie in das Tool importieren können.
-Oder Sie legen die wenigen Requests selbst an.
+Dieser Test soll die JSON Antwort zumindest zu Teilen auf Korrektheit prüfen.
 
-Alternativ können Sie zum Testen der Endpunkte natürlich auch andere Tools wie z.B. Postman oder den
-Kommandozeilenbefehl `curl` nehmen.
+Da es den Endpunkt hierfür noch nicht gibt, wird dieser Test vorerst fehlschlagen.
 
-## b) OrderRestController
+## b) Erweiterung CustomerService
 
-Erstellen Sie einen API-Endpunkt `/orders/greeting` der für ein GET
-eine Begrüßung als String zurückgibt.
+Erweitern Sie den `CustomerService` um eine `getCustomer(long id)` Methode,
+die ebenfalls eine Exception (welche wohl?) wirft, wenn der Kunde nicht existiert.
 
-Testen Sie die URL in Ihrem Browser: http://localhost:8080/orders/greeting
+## c) Erweiterung CustomerRestController
 
-## c) CustomerRestController
+Erweitern Sie den `CustomerRestController` um einen Endpunkt für die neue
+Service-Methode.
 
-Erstellen Sie die folgenden API-Endpunkte:
+Der TDD Test sollte nun erfolgreich durchlaufen.
 
-* `GET /customers`, der alle Kunden zurückgibt
-* `POST /customers`, der einen neuen Kunden anlegt
+## d) CustomerRestControllerTest - createCustomer
 
-## d) ProductRestController
+Ergänzen Sie den `CustomerRestControllerTest` um einen Testfall, der die
+korrekte Anlage eines neuen Kunden prüft.
 
-Erstellen Sie die folgenden API-Endpunkte:
+Die Prüfung kann nur aus Abfrage des richtigen Statuswerts (201-CREATED) bestehen.
 
-* `GET /products`, der alle Produkte zurückgibt
+## e) OrderRestControllerTest
 
-## e) Erweiterung OrderRestController
+Schreiben Sie einen `OrderRestControllerTest` für `placeOrder()`, der das erfolgreiche
+Anlegen einer Bestellung inklusive Prüfung auf korrekten Gesamtpreis und Name des
+Empfängers validiert.
 
-Erstellen Sie zusätzlich die folgenden API-Endpunkte:
+Versuchen Sie diesen Test nicht als `@SpringBootTest`, sondern mit der Variante `@WebMvcTest`
+zu schreiben, sodass nur ein Teil des Kontexts gestartet werden muss (schneller).
 
-* `GET /orders`, der alle Bestellungen zurückgibt
-* `POST /orders`, durch den eine neue Bestellung aufgegeben werden kann. Die Bestellung ist durch
-  folgenden JSON Inhalt definiert:
-````json
-{
-    "phoneNumber": "123-4567",
-    "itemQuantities": {
-        "S-02": 1,
-        "P-10": 2,
-        "P-12": 1
-    }
-}
-````
+Da wir ja einen vollständigen Integrationstest möchten, muss also trotz des Slicings auf Web-Komponenten
+hin auch zusätzlich noch die entsprechenden Services und Repositories angelegt werden.
+Dazu brauchen Sie einige andere Annotationen, wie z.B.
+* `@Import`
+* `@AutoConfigureDataJpa`
+* `@EnableJpaRepositories`
+
+Optional kann noch ein Negativtest geschrieben werden, der das Verhalten bei
+Angabe einer falschen Kunden-Telefonnummer oder Produkt-Id prüft.
+
+
+
