@@ -1,6 +1,10 @@
+DROP SEQUENCE IF EXISTS hibernate_sequence;
 DROP TABLE IF EXISTS orders;
 DROP TABLE IF EXISTS products;
 DROP TABLE IF EXISTS customers;
+
+
+CREATE SEQUENCE hibernate_sequence;
 
 CREATE TABLE products
 (
