@@ -1,15 +1,17 @@
 package pizza.customer;
 
-import javax.persistence.Embedded;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "customers")
 public class Customer {
 
+    //
+    // --- fields ---
+    //
+
     @Id
+    @GeneratedValue
     private Long id;
 
     private String fullName;
@@ -18,6 +20,12 @@ public class Customer {
     private Address address;
 
     private String phoneNumber;
+
+    private Integer orderCount = 0;
+
+    //
+    // --- constructors ---
+    //
 
     public Customer() {
     }
@@ -34,6 +42,10 @@ public class Customer {
         this.address = address;
         this.phoneNumber = phoneNumber;
     }
+
+    //
+    // --- get / set ---
+    //
 
     public Long getId() {
         return id;
@@ -70,6 +82,18 @@ public class Customer {
         this.phoneNumber = phoneNumber;
     }
 
+    public Integer getOrderCount() {
+        return orderCount;
+    }
+
+    //
+    // --- other methods ---
+    //
+
+    public int increaseOrderCount() {
+        return this.orderCount++;
+    }
+
     @Override
     public String toString() {
         return "Customer{" +
@@ -77,6 +101,7 @@ public class Customer {
                 ", fullName='" + fullName + '\'' +
                 ", address=" + address +
                 ", phoneNumber='" + phoneNumber + '\'' +
+                ", orderCount=" + orderCount +
                 '}';
     }
 }

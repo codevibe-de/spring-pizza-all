@@ -2,17 +2,34 @@ package pizza.order;
 
 import pizza.customer.Customer;
 
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
+@Entity
+@Table(name = "orders")
 public class Order {
 
-    Long id;
+    //
+    // --- fields ---
+    //
 
-    private final Customer customer;
+    @Id
+    @GeneratedValue
+    private Long id;
 
-    private final Double totalPrice;
+    @ManyToOne
+    private Customer customer;
 
-    private final LocalDateTime estimatedTimeOfDelivery;
+    private Double totalPrice;
+
+    private LocalDateTime estimatedTimeOfDelivery;
+
+    //
+    // --- constructors ---
+    //
+
+    public Order() {
+    }
 
     public Order(Customer customer, Double totalPrice, LocalDateTime estimatedTimeOfDelivery) {
         this.customer = customer;
@@ -27,6 +44,10 @@ public class Order {
         this.estimatedTimeOfDelivery = estimatedTimeOfDelivery;
     }
 
+    //
+    // --- get / set ---
+    //
+
     public void setId(long id) {
         if (this.id != null) {
             throw new IllegalStateException("Cannot change existing id");
@@ -38,17 +59,37 @@ public class Order {
         return id;
     }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public Customer getCustomer() {
         return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
     }
 
     public Double getTotalPrice() {
         return totalPrice;
     }
 
+    public void setTotalPrice(Double totalPrice) {
+        this.totalPrice = totalPrice;
+    }
+
     public LocalDateTime getEstimatedTimeOfDelivery() {
         return estimatedTimeOfDelivery;
     }
+
+    public void setEstimatedTimeOfDelivery(LocalDateTime estimatedTimeOfDelivery) {
+        this.estimatedTimeOfDelivery = estimatedTimeOfDelivery;
+    }
+
+    //
+    // --- other methods ---
+    //
 
     @Override
     public String toString() {
