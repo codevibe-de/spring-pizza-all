@@ -1,6 +1,7 @@
 package pizza;
 
 import org.h2.tools.RunScript;
+import org.springframework.context.annotation.DependsOn;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Component;
 
@@ -9,6 +10,7 @@ import javax.sql.DataSource;
 import java.io.InputStreamReader;
 
 @Component
+@DependsOn("h2Launcher")
 public class H2ScriptRunner implements Runnable {
 
     private final DataSource dataSource;
