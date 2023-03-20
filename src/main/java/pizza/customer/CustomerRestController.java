@@ -11,6 +11,7 @@ public class CustomerRestController {
     //
 
     private static final String ROOT = "/customers";
+    public static final String GET_ONE_ENDPOINT = ROOT + "/{id}";
     public static final String GET_ALL_ENDPOINT = ROOT;
     public static final String CREATE_ENDPOINT = ROOT;
 
@@ -32,6 +33,12 @@ public class CustomerRestController {
     // --- REST endpoints ---
     //
 
+    @GetMapping(GET_ONE_ENDPOINT)
+    public Customer getCustomer(@PathVariable long id) throws CustomerNotFoundException {
+        return this.customerService.getCustomer(id);
+    }
+
+
     @GetMapping(GET_ALL_ENDPOINT)
     public Iterable<Customer> getAllCustomers() {
         return this.customerService.getAllCustomers();
@@ -42,9 +49,9 @@ public class CustomerRestController {
     public Customer createCustomer(@RequestBody CreateCustomerRequest createCustomerRequest) {
         return this.customerService.createCustomer(
                 new Customer(
-                        createCustomerRequest.getFullName(),
-                        createCustomerRequest.getAddress(),
-                        createCustomerRequest.getPhoneNumber()
+                        createCustomerRequest.fullName(),
+                        createCustomerRequest.address(),
+                        createCustomerRequest.phoneNumber()
                 )
         );
     }
