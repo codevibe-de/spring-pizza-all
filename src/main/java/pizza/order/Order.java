@@ -2,25 +2,34 @@ package pizza.order;
 
 import pizza.customer.Customer;
 
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
+@Entity
+@Table(name = "orders")
 public class Order {
 
     //
     // --- fields ---
     //
 
+    @Id
+    @GeneratedValue
     private Long id;
 
-    private final Customer customer;
+    @ManyToOne
+    private Customer customer;
 
-    private final Double totalPrice;
+    private Double totalPrice;
 
-    private final LocalDateTime estimatedTimeOfDelivery;
+    private LocalDateTime estimatedTimeOfDelivery;
 
     //
     // --- constructors ---
     //
+
+    public Order() {
+    }
 
     public Order(Customer customer, Double totalPrice, LocalDateTime estimatedTimeOfDelivery) {
         this.customer = customer;
@@ -50,16 +59,32 @@ public class Order {
         return id;
     }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public Customer getCustomer() {
         return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
     }
 
     public Double getTotalPrice() {
         return totalPrice;
     }
 
+    public void setTotalPrice(Double totalPrice) {
+        this.totalPrice = totalPrice;
+    }
+
     public LocalDateTime getEstimatedTimeOfDelivery() {
         return estimatedTimeOfDelivery;
+    }
+
+    public void setEstimatedTimeOfDelivery(LocalDateTime estimatedTimeOfDelivery) {
+        this.estimatedTimeOfDelivery = estimatedTimeOfDelivery;
     }
 
     //
