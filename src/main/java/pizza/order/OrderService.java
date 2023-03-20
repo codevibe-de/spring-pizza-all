@@ -7,8 +7,6 @@ import pizza.product.ProductService;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -23,8 +21,6 @@ public class OrderService {
 
     private final Map<String, Double> dailyDiscounts = new HashMap<>();
 
-    private final ArrayList<Order> orders;
-
     //
     // injected beans
     //
@@ -33,14 +29,16 @@ public class OrderService {
 
     private final ProductService productService;
 
+    private final OrderRepository orderRepository;
+
     //
     // constructors and setup
     //
 
-    public OrderService(CustomerService customerService, ProductService productService) {
+    public OrderService(CustomerService customerService, ProductService productService, OrderRepository orderRepository) {
         this.customerService = customerService;
         this.productService = productService;
-        this.orders = new ArrayList<>();
+        this.orderRepository = orderRepository;
     }
 
     //
@@ -68,12 +66,10 @@ public class OrderService {
                 LocalDateTime.now().plusMinutes(this.deliveryTimeInMinutes));
 
         // persist and return it
-        order.setId(orders.size() + 1);
-        this.orders.add(order);
-        return order;
+        return orderRepository.save(order);
     }
 
     public Iterable<Order> getOrders() {
-        return Collections.unmodifiableList(this.orders);
+        return orderRepository.findAll();
     }
 }
