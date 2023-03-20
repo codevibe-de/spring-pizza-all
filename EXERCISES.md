@@ -49,6 +49,11 @@ Bestellungen (quasi in-memory).
 
 Stellen Sie dies auf eine Spring-Data basierte Persistenz um.
 
+ACHTUNG -- unbedingt darauf achten, wie das Schema definiert ist und dies in den
+Annotationen beachten. Für das ManyToOne mapping muss auch noch der Name der JOIN
+Column definiert werden (`@JoinColumn`),
+siehe https://en.wikibooks.org/wiki/Java_Persistence/ManyToOne#Example_of_a_ManyToOne_relationship_annotations
+
 ## f) Bonus: Persistenz für Kunden
 
 Ebenfalls arbeitet der `CustomerService` noch mit einer in der Klasse verwalteten `List` an Kunden.
