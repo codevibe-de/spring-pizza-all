@@ -1,6 +1,5 @@
 package pizza.customer;
 
-@SuppressWarnings("unused")
 public class Customer {
 
     //
@@ -14,6 +13,10 @@ public class Customer {
     private final Address address;
 
     private final String phoneNumber;
+
+    //
+    // --- constructors ---
+    //
 
     public Customer(String fullName, Address address, String phoneNumber) {
         this.fullName = fullName;
@@ -32,15 +35,15 @@ public class Customer {
     // --- get / set ---
     //
 
+    public Long getId() {
+        return id;
+    }
+
     public void setId(long id) {
         if (this.id != null) {
             throw new IllegalStateException("Cannot change existing id");
         }
         this.id = id;
-    }
-
-    public Long getId() {
-        return id;
     }
 
     public String getFullName() {
@@ -56,7 +59,7 @@ public class Customer {
     }
 
     //
-    // --- misc ---
+    // --- other methods ---
     //
 
     @Override
