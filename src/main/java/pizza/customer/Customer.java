@@ -26,6 +26,10 @@ public class Customer {
     public Customer() {
     }
 
+    //
+    // --- constructors ---
+    //
+
     public Customer(String fullName, Address address, String phoneNumber) {
         this.fullName = fullName;
         this.address = address;
@@ -77,6 +81,10 @@ public class Customer {
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
+
+    //
+    // --- other methods ---
+    //
 
     @Override
     public String toString() {
