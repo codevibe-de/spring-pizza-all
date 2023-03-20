@@ -10,7 +10,7 @@ public class Order {
     // --- fields ---
     //
 
-    Long id;
+    private Long id;
 
     private final Customer customer;
 
@@ -61,6 +61,10 @@ public class Order {
     public LocalDateTime getEstimatedTimeOfDelivery() {
         return estimatedTimeOfDelivery;
     }
+
+    //
+    // --- other methods ---
+    //
 
     @Override
     public String toString() {
