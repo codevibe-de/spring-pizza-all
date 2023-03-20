@@ -31,7 +31,8 @@ CREATE TABLE customers
     street VARCHAR2(100),
     postal_code VARCHAR2(100),
     city VARCHAR2(100),
-    
+    order_count INT NULL,
+
     PRIMARY KEY (`id`)
 );
 

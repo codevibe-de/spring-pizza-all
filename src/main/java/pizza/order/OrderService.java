@@ -2,6 +2,8 @@ package pizza.order;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import pizza.customer.Customer;
 import pizza.customer.CustomerService;
 import pizza.product.ProductService;
@@ -55,9 +57,13 @@ public class OrderService {
     // business logic
     //
 
+    @Transactional(propagation = Propagation.REQUIRED)
     public Order placeOrder(String phoneNumber, Map<String, Integer> productQuantities) {
         // make sure customer exists -- throws exception if it doesn't
         Customer customer = this.customerService.getCustomerByPhoneNumber(phoneNumber);
+
+        // increase
+        this.customerService.increaseOrderCount(customer.getId());
 
         // calculate total price
         Double totalPrice = this.productService.getTotalPrice(productQuantities);
