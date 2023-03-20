@@ -2,37 +2,27 @@ package pizza.customer;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.context.annotation.Import;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-// This test actually doesn't really require spring to start up a context.
-// We could just instantiate the CustomerService ourselves since it doesn't integrate
-// with any other bean.
-@SpringBootTest
-class CustomerServiceTest {
+@DataJpaTest
+@Import(CustomerTestContextConfiguration.class)
+public class CustomerServiceTest {
 
     @Autowired
     private CustomerService customerService;
 
     @Test
-    void getCustomerByPhoneNumber() {
+    public void getCustomer() {
         // given
-        var phoneNumber = "+1 111-222-333";
-        var fullName = "Toni Test";
-        customerService.createCustomer(
-                new Customer(fullName, null, phoneNumber)
-        );
 
         // when
-        var customer = customerService.getCustomerByPhoneNumber(phoneNumber);
+        var customer = customerService.getCustomerByPhoneNumber("+49 123 456789");
 
         // then
         assertThat(customer).isNotNull();
-        assertThat(customer.getPhoneNumber()).isEqualTo(phoneNumber);
-        assertThat(customer.getId()).isNotNull();
-        assertThat(customer.getId()).isNotEqualTo(0);
-        assertThat(customer.getFullName()).isEqualTo(fullName);
+        assertThat(customer.getFullName()).isEqualTo("Enrico Pallazzo");
     }
-
 }
