@@ -23,6 +23,12 @@ public class CustomerService {
     // business logic
     //
 
+    public Customer getCustomer(long id) {
+        return customerRepository
+                .findById(id)
+                .orElseThrow(() -> new CustomerNotFoundException("For id `" + id + "`"));
+    }
+
     public Customer getCustomerByPhoneNumber(String phoneNumber) {
         return customerRepository
                 .findByPhoneNumber(phoneNumber)
