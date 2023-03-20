@@ -9,11 +9,11 @@ public class Address {
     // --- fields ---
     //
 
-    private final String street;
+    private String street;
 
-    private final String postalCode;
+    private String postalCode;
 
-    private final String city;
+    private String city;
 
     //
     // --- constructors ---

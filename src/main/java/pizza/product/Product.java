@@ -27,6 +27,10 @@ public class Product {
     // --- constructors ---
     //
 
+
+    public Product() {
+    }
+
     public Product(String productId, String name, Double price) {
         this.productId = productId;
         this.name = name;
