@@ -18,10 +18,12 @@ public class Order {
     private Long id;
 
     @ManyToOne
+    @JoinColumn(name="cst_id")
     private Customer customer;
 
     private Double totalPrice;
 
+    @Column(name = "eta")
     private LocalDateTime estimatedTimeOfDelivery;
 
     //
