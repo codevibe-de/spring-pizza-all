@@ -42,9 +42,9 @@ public class CustomerRestController {
     public Customer createCustomer(@RequestBody CreateCustomerRequest createCustomerRequest) {
         return this.customerService.createCustomer(
                 new Customer(
-                        createCustomerRequest.getFullName(),
-                        createCustomerRequest.getAddress(),
-                        createCustomerRequest.getPhoneNumber()
+                        createCustomerRequest.fullName(),
+                        createCustomerRequest.address(),
+                        createCustomerRequest.phoneNumber()
                 )
         );
     }
