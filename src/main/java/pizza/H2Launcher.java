@@ -12,7 +12,6 @@ public class H2Launcher implements Runnable {
 
     private Server server;
 
-    @PostConstruct
     @Override
     public void run() {
         System.out.println("Launching H2 TCP Server");
