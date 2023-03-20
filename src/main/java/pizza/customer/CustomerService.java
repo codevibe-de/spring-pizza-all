@@ -32,9 +32,6 @@ public class CustomerService {
     }
 
     public Customer createCustomer(Customer customer) {
-        if (customer.getId() == null) {
-            customer.setId(Math.abs(new Random().nextLong()));
-        }
         return customerRepository.save(customer);
     }
 

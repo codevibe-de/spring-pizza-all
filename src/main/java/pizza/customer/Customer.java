@@ -1,9 +1,6 @@
 package pizza.customer;
 
-import javax.persistence.Embedded;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "customers")
@@ -14,6 +11,7 @@ public class Customer {
     //
 
     @Id
+    @GeneratedValue
     private Long id;
 
     private String fullName;
@@ -22,6 +20,10 @@ public class Customer {
     private Address address;
 
     private String phoneNumber;
+
+    //
+    // --- constructors ---
+    //
 
     public Customer() {
     }
@@ -77,6 +79,10 @@ public class Customer {
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
+
+    //
+    // --- other methods ---
+    //
 
     @Override
     public String toString() {
