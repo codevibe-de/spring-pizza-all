@@ -1,13 +1,11 @@
 package pizza;
 
 import org.h2.tools.Server;
-import org.springframework.stereotype.Component;
 import org.springframework.core.NestedExceptionUtils;
 
 import java.net.BindException;
 import java.sql.SQLException;
 
-@Component
 public class H2Launcher implements Runnable {
 
     private Server server;
