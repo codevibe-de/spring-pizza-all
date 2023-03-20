@@ -2,6 +2,8 @@ package pizza.order;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import pizza.customer.Customer;
 import pizza.customer.CustomerService;
 import pizza.product.ProductService;
@@ -9,8 +11,6 @@ import pizza.product.ProductService;
 import javax.annotation.PostConstruct;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -27,8 +27,6 @@ public class OrderService {
     @Value("#{${app.order.daily-discounts}}")
     private Map<String, Double> dailyDiscounts = new HashMap<>();
 
-    private final ArrayList<Order> orders;
-
     //
     // injected beans
     //
@@ -37,14 +35,16 @@ public class OrderService {
 
     private final ProductService productService;
 
+    private final OrderRepository orderRepository;
+
     //
     // constructors and setup
     //
 
-    public OrderService(CustomerService customerService, ProductService productService) {
+    public OrderService(CustomerService customerService, ProductService productService, OrderRepository orderRepository) {
         this.customerService = customerService;
         this.productService = productService;
-        this.orders = new ArrayList<>();
+        this.orderRepository = orderRepository;
     }
 
     @PostConstruct
@@ -57,9 +57,13 @@ public class OrderService {
     // business logic
     //
 
+    @Transactional(propagation = Propagation.REQUIRED)
     public Order placeOrder(String phoneNumber, Map<String, Integer> productQuantities) {
         // make sure customer exists -- throws exception if it doesn't
         Customer customer = this.customerService.getCustomerByPhoneNumber(phoneNumber);
+
+        // increase
+        this.customerService.increaseOrderCount(customer.getId());
 
         // calculate total price
         Double totalPrice = this.productService.getTotalPrice(productQuantities);
@@ -78,12 +82,10 @@ public class OrderService {
                 LocalDateTime.now().plusMinutes(this.deliveryTimeInMinutes));
 
         // persist and return it
-        order.setId(orders.size() + 1);
-        this.orders.add(order);
-        return order;
+        return orderRepository.save(order);
     }
 
     public Iterable<Order> getOrders() {
-        return Collections.unmodifiableList(this.orders);
+        return orderRepository.findAll();
     }
 }

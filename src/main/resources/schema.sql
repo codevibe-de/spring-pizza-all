@@ -1,6 +1,10 @@
+DROP SEQUENCE IF EXISTS hibernate_sequence;
 DROP TABLE IF EXISTS orders;
 DROP TABLE IF EXISTS products;
 DROP TABLE IF EXISTS customers;
+
+
+CREATE SEQUENCE hibernate_sequence;
 
 CREATE TABLE products
 (
@@ -27,7 +31,8 @@ CREATE TABLE customers
     street VARCHAR2(100),
     postal_code VARCHAR2(100),
     city VARCHAR2(100),
-    
+    order_count INT NULL,
+
     PRIMARY KEY (`id`)
 );
 

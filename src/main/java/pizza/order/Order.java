@@ -2,26 +2,36 @@ package pizza.order;
 
 import pizza.customer.Customer;
 
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
-@SuppressWarnings("unused")
+@Entity
+@Table(name = "orders")
 public class Order {
 
     //
     // --- fields ---
     //
 
-    Long id;
+    @Id
+    @GeneratedValue
+    private Long id;
 
-    private final Customer customer;
+    @ManyToOne
+    @JoinColumn(name="cst_id")
+    private Customer customer;
 
-    private final Double totalPrice;
+    private Double totalPrice;
 
-    private final LocalDateTime estimatedTimeOfDelivery;
+    @Column(name = "eta")
+    private LocalDateTime estimatedTimeOfDelivery;
 
     //
     // --- constructors ---
     //
+
+    public Order() {
+    }
 
     public Order(Customer customer, Double totalPrice, LocalDateTime estimatedTimeOfDelivery) {
         this.customer = customer;
@@ -51,17 +61,37 @@ public class Order {
         return id;
     }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public Customer getCustomer() {
         return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
     }
 
     public Double getTotalPrice() {
         return totalPrice;
     }
 
+    public void setTotalPrice(Double totalPrice) {
+        this.totalPrice = totalPrice;
+    }
+
     public LocalDateTime getEstimatedTimeOfDelivery() {
         return estimatedTimeOfDelivery;
     }
+
+    public void setEstimatedTimeOfDelivery(LocalDateTime estimatedTimeOfDelivery) {
+        this.estimatedTimeOfDelivery = estimatedTimeOfDelivery;
+    }
+
+    //
+    // --- other methods ---
+    //
 
     @Override
     public String toString() {
