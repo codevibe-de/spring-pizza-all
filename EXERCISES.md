@@ -1,8 +1,6 @@
-# ÜBUNGEN SPRING BOOT
+# Übungen zum Kapitel "080 - RESTful API"
 
-## 080 - RESTful API
-
-### a) Insomnia Rest Client
+## a) Insomnia Rest Client
 
 Bei Bedarf können Sie den "Insomnia Core" Rest Client installieren: https://insomnia.rest/
 
@@ -12,27 +10,27 @@ Oder Sie legen die wenigen Requests selbst an.
 Alternativ können Sie zum Testen der Endpunkte natürlich auch andere Tools wie z.B. Postman oder den
 Kommandozeilenbefehl `curl` nehmen.
 
-### b) OrderRestController
+## b) OrderRestController
 
 Erstellen Sie einen API-Endpunkt `/orders/greeting` der für ein GET
 eine Begrüßung als String zurückgibt.
 
 Testen Sie die URL in Ihrem Browser: http://localhost:8080/orders/greeting
 
-### c) CustomerRestController
+## c) CustomerRestController
 
 Erstellen Sie die folgenden API-Endpunkte:
 
 * `GET /customers`, der alle Kunden zurückgibt
 * `POST /customers`, der einen neuen Kunden anlegt
 
-### d) ProductRestController
+## d) ProductRestController
 
 Erstellen Sie die folgenden API-Endpunkte:
 
 * `GET /products`, der alle Produkte zurückgibt
 
-### e) Erweiterung OrderRestController
+## e) Erweiterung OrderRestController
 
 Erstellen Sie zusätzlich die folgenden API-Endpunkte:
 
