@@ -1,28 +1,82 @@
 package pizza.customer;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.ToString;
+import javax.persistence.*;
 
-@AllArgsConstructor
-@RequiredArgsConstructor
-@Getter
-@ToString
+@Entity
+@SuppressWarnings("unused")
 public class Customer {
 
+    //
+    // --- fields ---
+    //
+
+    @Id
+    @GeneratedValue
     private Long id;
 
-    private final String fullName;
+    private String fullName;
 
-    private final Address address;
+    @Embedded
+    private Address address;
 
-    private final String phoneNumber;
+    @Column(name = "phone")
+    private String phoneNumber;
 
-    public void setId(long id) {
-        if (this.id != null) {
-            throw new IllegalStateException("Cannot change existing id");
-        }
-        this.id = id;
+    private Integer orderCount = 0;
+
+    //
+    // --- constructors ---
+    //
+
+    public Customer() {
+    }
+
+    public Customer(String fullName, Address address, String phoneNumber) {
+        this.fullName = fullName;
+        this.address = address;
+        this.phoneNumber = phoneNumber;
+    }
+
+    //
+    // --- get / set ---
+    //
+
+    public int increaseOrderCount() {
+        return this.orderCount++;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public Integer getOrderCount() {
+        return orderCount;
+    }
+
+    //
+    // --- misc ---
+    //
+
+    @Override
+    public String toString() {
+        return "Customer{" +
+                "id=" + id +
+                ", fullName='" + fullName + '\'' +
+                ", address=" + address +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", orderCount=" + orderCount +
+                '}';
     }
 }

@@ -1,10 +1,14 @@
 package pizza.product;
 
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 
 @Component
+@Profile("default | product | order")
+@ConditionalOnProperty(name = "app.product.perform-setup", havingValue = "true")
 public class ProductSetup {
 
     //

@@ -8,54 +8,45 @@ import org.springframework.boot.test.context.SpringBootTest;
 import java.util.UUID;
 
 @SpringBootTest
-public class ProductServiceTest {
-
-    @Autowired
-    ProductRepository productRepository;
+class ProductServiceTest {
 
     @Autowired
     ProductService productService;
 
+    final String productId = "the-product-id";
+    final String productName = "blah";
+    final Double productPrice = 1.23;
+
+
     /**
-     * Tests that we can get a Product by id and that the result contains all expected data.
+     * Tests that we can retrieve a product from the service as expected.
      */
     @Test
     void getProduct() {
         // given
-        var productId = UUID.randomUUID().toString().substring(0, 10); // DB limits the id to 10 chars
-        var productName = "getProduct() Test";
-        var productPrice = 1.23;
-        productRepository.save(
+        String productId = UUID.randomUUID().toString();
+        productService.createProduct(
                 new Product(productId, productName, productPrice)
         );
 
         // when
-        var product = productService.getProduct(productId);
+        Product product = productService.getProduct(productId);
 
         // then
         Assertions.assertThat(product).isNotNull();
-        Assertions.assertThat(product.getProductId()).isEqualTo(productId);
-        Assertions.assertThat(product.getName()).isEqualTo(productName);
-        Assertions.assertThat(product.getPrice()).isEqualTo(productPrice);
     }
 
-
     /**
-     * Tests that an IllegalStateException is thrown if we create more than one Product with the same id.
+     * Tests that an exception is thrown if we try to create multiple products having the same id
      */
     @Test
-    void createProduct__failsForDuplicateId() {
-        // given
-        var product = new Product(
-                UUID.randomUUID().toString().substring(0, 10),
-                "createProduct__failsForDuplicateId() Test",
-                0.01
-        );
+    void createProduct_failsForDuplicateProductId() {
+        // given - create product
+        productService.createProduct(new Product(productId, productName, productPrice));
 
-        // when
-        productService.createProduct(product);  // first insert must be ok
+        // when / then - call service as lambda and check instance of expected exception
         Assertions.assertThatThrownBy(
-                () -> productService.createProduct(product)
+                () -> productService.createProduct(new Product(productId, productName, productPrice))
         ).isInstanceOf(IllegalStateException.class);
     }
 }

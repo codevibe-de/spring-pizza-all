@@ -1,8 +1,8 @@
 package pizza.product;
 
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
+import org.springframework.context.annotation.Profile;
+import org.springframework.data.repository.CrudRepository;
 
-@Repository
-public interface ProductRepository extends JpaRepository<Product, String> {
+@Profile("default | product | order")
+public interface ProductRepository extends CrudRepository<Product, String> {
 }

@@ -1,13 +1,10 @@
 package pizza.product;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.Table;
 
 @Entity
-@Table(name = "PRODUCTS")
-// TODO this class could also use Lombok annotations (same as Product or Order)
+@SuppressWarnings("unused")
 public class Product {
 
     //
@@ -15,14 +12,11 @@ public class Product {
     //
 
     @Id
-    @Column(name = "pk", length = 10, nullable = false)
-    private String productId;
+    String productId;
 
-    @Column(length = 50, nullable = false)
-    private String name;
+    String name;
 
-    @Column(nullable = false)
-    private Double price;
+    Double price;
 
     //
     // --- constructors ---

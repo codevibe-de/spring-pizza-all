@@ -1,38 +1,61 @@
 package pizza.customer;
 
+import com.example.pizza.order.OrderRepository;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
-// This test actually doesn't really require spring to start up a context.
-// We could just instantiate the CustomerService ourselves since it doesn't integrate
-// with any other bean.
 @SpringBootTest
-class CustomerServiceTest {
+public class CustomerServiceTest {
 
     @Autowired
     private CustomerService customerService;
 
-    @Test
-    void getCustomerByPhoneNumber() {
-        // given
-        var phoneNumber = "+1 111-222-333";
-        var fullName = "Toni Test";
-        customerService.createCustomer(
-                new Customer(fullName, null, phoneNumber)
+    @Autowired
+    private CustomerRepository customerRepository;
+
+    @Autowired
+    private OrderRepository orderRepository;
+
+    private Customer someCustomer;
+
+    /**
+     * Remove all customers from persistence. Prepare an in-memory instance for testing.
+     */
+    @BeforeEach
+    public void setup() {
+        orderRepository.deleteAll();
+        customerRepository.deleteAll();
+        this.someCustomer = new Customer(
+                "C. S. Test",
+                new Address("22 Coastal Drive", "2231-A", "Mockington"),
+                "+64 2 1233-12321"
         );
+    }
 
-        // when
-        var customer = customerService.getCustomerByPhoneNumber(phoneNumber);
+    @Test
+    public void getAllCustomers() {
+        // check if none exist
+        Iterable<Customer> allCustomers = customerService.getAllCustomers();
+        Assertions.assertFalse(allCustomers.iterator().hasNext());
 
-        // then
-        assertThat(customer).isNotNull();
-        assertThat(customer.getPhoneNumber()).isEqualTo(phoneNumber);
-        assertThat(customer.getId()).isNotNull();
-        assertThat(customer.getId()).isNotEqualTo(0);
-        assertThat(customer.getFullName()).isEqualTo(fullName);
+        // test data
+        customerService.createCustomer(this.someCustomer);
+
+        // exec
+        allCustomers = customerService.getAllCustomers();
+
+        // checks
+        Assertions.assertTrue(allCustomers.iterator().hasNext());
+
+        Customer customer = allCustomers.iterator().next();
+        Assertions.assertEquals(this.someCustomer.getFullName(), customer.getFullName());
+        Assertions.assertEquals(this.someCustomer.getAddress().getStreet(), customer.getAddress().getStreet());
+        Assertions.assertEquals(this.someCustomer.getAddress().getPostalCode(), customer.getAddress().getPostalCode());
+        Assertions.assertEquals(this.someCustomer.getAddress().getCity(), customer.getAddress().getCity());
+        Assertions.assertEquals(this.someCustomer.getPhoneNumber(), customer.getPhoneNumber());
     }
 
 }

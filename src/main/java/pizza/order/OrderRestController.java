@@ -1,12 +1,17 @@
 package pizza.order;
 
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import com.example.pizza.product.ProductNotFoundException;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Profile;
+import org.springframework.http.HttpStatus;
+import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
+@Profile("default | order")
 public class OrderRestController {
 
     //
@@ -29,7 +34,7 @@ public class OrderRestController {
     // --- constructors and setup ---
     //
 
-    public OrderRestController(OrderService orderService, @Value("${app.order.greeting:Hello!}") String greeting) {
+    public OrderRestController(OrderService orderService, @Qualifier("greeting") String greeting) {
         this.orderService = orderService;
         this.greeting = greeting;
     }
@@ -40,15 +45,24 @@ public class OrderRestController {
 
     @GetMapping(GREETING_ENDPOINT)
     public String sayHello() {
-        return this.greeting;
+        return StringUtils.hasText(this.greeting) ? this.greeting : "Hello!";
     }
 
+
+    @Operation(summary = "Place an order", description = "Places an order by providing your phone number and a set of item quantities. " +
+            "This is a map of product-ids to the number of products you want.")
+    @ApiResponses({
+            @ApiResponse(responseCode = "201", description = "The order has been placed successfully"),
+            @ApiResponse(responseCode = "404", description = "Either a required Customer or Product entity could not be found - check details")
+    })
     @PostMapping(PLACE_ORDER_ENDPOINT)
-    public Order placeOrder(@RequestBody OrderRequest orderRequest) {
+    @ResponseStatus(HttpStatus.CREATED)
+    public Order placeOrder(@RequestBody OrderRequestData orderRequestData) throws ProductNotFoundException {
         return this.orderService.placeOrder(
-                orderRequest.phoneNumber,
-                orderRequest.itemQuantities);
+                orderRequestData.phoneNumber,
+                orderRequestData.itemQuantities);
     }
+
 
     @GetMapping(GET_MANY_ENDPOINT)
     public Iterable<Order> getOrders() {

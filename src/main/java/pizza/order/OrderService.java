@@ -1,33 +1,44 @@
 package pizza.order;
 
+import com.example.pizza.customer.Customer;
+import com.example.pizza.customer.CustomerService;
+import com.example.pizza.product.ProductService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
-import pizza.customer.Customer;
-import pizza.customer.CustomerService;
-import pizza.product.ProductService;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
 import javax.annotation.PostConstruct;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 @Service
+@Profile("default | order")
 public class OrderService {
+
+    //
+    // constants
+    //
+
+    private static final Logger LOG = LoggerFactory.getLogger(OrderService.class);
 
     //
     // fields
     //
 
+    // use kebab-case!
     @Value("${app.order.delivery-time-in-minutes}")
-    private Integer deliveryTimeInMinutes = 30;
+    Integer deliveryTimeInMinutes;
 
     @Value("#{${app.order.daily-discounts}}")
-    private Map<String, Double> dailyDiscounts = new HashMap<>();
-
-    private final ArrayList<Order> orders;
+    Map<String, Number> dailyDiscounts;
 
     //
     // injected beans
@@ -37,39 +48,54 @@ public class OrderService {
 
     private final ProductService productService;
 
+    private final OrderRepository orderRepository;
+
+    private final String greeting;
+
     //
     // constructors and setup
     //
 
-    public OrderService(CustomerService customerService, ProductService productService) {
+    public OrderService(
+            CustomerService customerService,
+            ProductService productService,
+            OrderRepository orderRepository,
+            @Qualifier("greeting") Optional<String> greeting
+    ) {
         this.customerService = customerService;
         this.productService = productService;
-        this.orders = new ArrayList<>();
+        this.orderRepository = orderRepository;
+        this.greeting = greeting.orElse("");
     }
 
     @PostConstruct
-    public void dumpConfiguration() {
-        System.out.println("Using configuration:\n  deliveryTimeInMinutes=" + deliveryTimeInMinutes
-                + "\n  dailyDiscounts=" + dailyDiscounts);
+    public void dumpConfig() {
+        System.out.println("Configured delivery time in minutes: " + this.deliveryTimeInMinutes);
     }
 
     //
     // business logic
     //
 
+    @Transactional(propagation = Propagation.REQUIRED)
     public Order placeOrder(String phoneNumber, Map<String, Integer> productQuantities) {
+        // greet
+        if (StringUtils.hasText(this.greeting)) System.out.println(this.greeting);
+
         // make sure customer exists -- throws exception if it doesn't
         Customer customer = this.customerService.getCustomerByPhoneNumber(phoneNumber);
+
+        // increase
+        this.customerService.increaseOrderCount(customer.getId());
 
         // calculate total price
         Double totalPrice = this.productService.getTotalPrice(productQuantities);
 
         // discounts
         String nameOfDayOfWeek = LocalDate.now().getDayOfWeek().name();
-        Double discountRate = this.dailyDiscounts.getOrDefault(nameOfDayOfWeek, 0.0);
-        Double discountedTotalPrice = totalPrice * (1.0 - discountRate / 100.0);
-        System.out.println("Reducing price of order from " + totalPrice + " to " + discountedTotalPrice
-                + " due to today's discount of " + discountRate + "%");
+        Number discountRate = this.dailyDiscounts.getOrDefault(nameOfDayOfWeek, 0.0);
+        Double discountedTotalPrice = totalPrice * (1.0 - discountRate.doubleValue() / 100.0);
+        LOG.debug("Reducing price of order from {} to {} due to today's discount of {}%", totalPrice, discountedTotalPrice, discountRate);
 
         // create order
         Order order = new Order(
@@ -78,12 +104,11 @@ public class OrderService {
                 LocalDateTime.now().plusMinutes(this.deliveryTimeInMinutes));
 
         // persist and return it
-        order.setId(orders.size() + 1);
-        this.orders.add(order);
-        return order;
+        return this.orderRepository.save(order);
     }
 
+
     public Iterable<Order> getOrders() {
-        return Collections.unmodifiableList(this.orders);
+        return this.orderRepository.findAll();
     }
 }
