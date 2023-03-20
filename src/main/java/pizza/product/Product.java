@@ -6,18 +6,15 @@ public class Product {
     // --- fields ---
     //
 
-    private String productId;
+    private final String productId;
 
-    private String name;
+    private final String name;
 
-    private Double price;
+    private final Double price;
 
     //
     // --- constructors ---
     //
-
-    public Product() {
-    }
 
     public Product(String productId, String name, Double price) {
         this.productId = productId;
@@ -42,7 +39,7 @@ public class Product {
     }
 
     //
-    // --- misc ---
+    // --- other methods ---
     //
 
     @Override
