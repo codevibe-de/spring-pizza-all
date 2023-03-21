@@ -30,4 +30,42 @@ Aktivieren Sie Monitoring für die Anwendung, sodass folgende Endpunkte im Brows
 * info
 * env
 
-## e) Neuen Info-Endpoint entwickeln
+## e) Git Build Informationen aufnehmen
+
+Fügen Sie den folgenden Abschnitt in die `pom.xml` ein, um den Info Endpoint um Informationen über
+den Build-Prozess und den letzten Git-Commit zu erweitern:
+
+````xml
+<build>
+    <plugins>
+        <plugin>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-maven-plugin</artifactId>
+            <executions>
+                <execution>
+                    <id>build-info</id>
+                    <goals>
+                        <goal>build-info</goal>
+                    </goals>
+                </execution>
+            </executions>
+        </plugin>
+        <plugin>
+            <groupId>pl.project13.maven</groupId>
+            <artifactId>git-commit-id-plugin</artifactId>
+        </plugin>
+    </plugins>
+</build>
+````
+
+Wenn Sie nun die Anwendung über **Maven** bauen und starten, dann werden diese Informationen über
+den Info-Endpoint angezeigt.
+
+## f) Neuen Health-Indicator entwickeln
+
+Schreiben Sie einen neuen `HealthIndicator` namens `HasProductsHealthIndicator`, der prüft, ob
+Produkte zur Bestellung im System vorhanden sind. Sind keine Produkte vorhanden, so ist das 
+System im Status "DOWN", ansonsten "UP".
+
+Dieser Indicator wird dann in die gesamte Health-Betrachtung des Systems einfließen.
+
