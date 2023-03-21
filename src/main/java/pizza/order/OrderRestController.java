@@ -1,10 +1,12 @@
 package pizza.order;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Profile;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+@Profile("default | order")
 public class OrderRestController {
 
     //

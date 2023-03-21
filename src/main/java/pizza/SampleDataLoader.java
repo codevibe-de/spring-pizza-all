@@ -9,6 +9,8 @@ import pizza.customer.CustomerService;
 import pizza.product.Product;
 import pizza.product.ProductService;
 
+import java.util.Optional;
+
 @Component
 public interface SampleDataLoader extends Runnable {
 
@@ -24,12 +26,14 @@ public interface SampleDataLoader extends Runnable {
 
         private static final Logger LOG = LoggerFactory.getLogger(SmallDataLoader.class);
 
-        private final ProductService productService;
-        private final CustomerService customerService;
+        private final Optional<ProductService> optionalProductService;
+        private final Optional<CustomerService> optionalCustomerService;
 
-        public SmallDataLoader(ProductService productService, CustomerService customerService) {
-            this.productService = productService;
-            this.customerService = customerService;
+        public SmallDataLoader(
+                Optional<ProductService> optionalProductService,
+                Optional<CustomerService> optionalCustomerService) {
+            this.optionalProductService = optionalProductService;
+            this.optionalCustomerService = optionalCustomerService;
         }
 
         @Override
@@ -49,7 +53,9 @@ public interface SampleDataLoader extends Runnable {
         }
 
         protected void createProduct(String productId, String name, double price) {
-            this.productService.createProduct(new Product(productId, name, price));
+            this.optionalProductService.ifPresent(
+                    ps -> ps.createProduct(new Product(productId, name, price))
+            );
         }
 
         protected Address createAddress(String street, String postalCode, String city) {
@@ -57,11 +63,9 @@ public interface SampleDataLoader extends Runnable {
         }
 
         protected void createCustomer(String fullName, String phoneNumber, Address address) {
-            this.customerService.createCustomer(new Customer(
-                    fullName,
-                    address,
-                    phoneNumber
-            ));
+            this.optionalCustomerService.ifPresent(
+                    cs -> cs.createCustomer(new Customer(fullName, address, phoneNumber))
+            );
         }
     }
 

@@ -28,7 +28,7 @@ public class ConfigOutputDebugRunner implements CommandLineRunner {
 
     @Override
     public void run(String... args) {
-        LOG.debug("Injected value of property \"{}\" is \"{}\"\n", PROP_NAME, injectedValue);
-        LOG.debug("Environment value of property \"{}\" is \"{}\"\n", PROP_NAME, environment.getProperty(PROP_NAME));
+        LOG.debug("Injected value of property \"{}\" is \"{}\"", PROP_NAME, injectedValue);
+        LOG.debug("Environment value of property \"{}\" is \"{}\"", PROP_NAME, environment.getProperty(PROP_NAME));
     }
 }
