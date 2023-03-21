@@ -1,71 +1,34 @@
-# Übungen zu Kapitel "100 - Profile, Logging und Monitoring"
+# Übungen zum Kapitel "110 - AOP"
 
-## a) "Nur Customer” Profil
+## a) Logging Aspect
 
-Markieren Sie alle relevanten Beans mit `@Profile` Annotationen, sodass bei Aufruf
-der Anwendung mit dem Profil "customer" nur die Funktionalität des Customer-Moduls
-zur Verfügung steht.
+Erstellen sie eine leere Klasse `pizza.aop.LoggingAspect`.
 
-Gerne können Sie auch die Übung so weit treiben, dass die folgenden Profile zur Auswahl
-stehen und die Anwendung bei jedem der Profile lauffähig ist:
-* "product"
-* "customer"
-* "order"
-* kein Profil gesetzt
+Legen Sie darin eine statische Variable für einen Logger an.
 
-## b) “Dev” Profil
+## b) Erste Aspect Methode
 
-Legen Sie eine Konfigurationsdatei für das Profil "dev" an, bei dem vermehrt
-Logging Ausgaben generiert werden, z.B. Logging-Level aller "pizza" Klassen auf DEBUG.
+Programmieren Sie eine Methode `logCreate(JoinPoint jp)`, die einen per Logger protokolliert,
+wenn über eine Methode ein Objekt angelegt werden soll, sprich, wenn in
+einem Service eine `createXyz()` Methode aufgerufen wird.
 
-## c) System.out durch Logging
+Die Ausgabe soll das anzulegende Objekt enthalten.
 
-Ersetzen Sie Ausgaben in der Anwendung, die bisher per System.out.println() erfolgt sind,
-durch Logging Ausgaben.
+Ergänzen Sie diese Methode mit einer entsprechenden Advice-Annotation, sodass der Aspect für
+alle mit "create" beginnenden Methode im `pizza` Package ausgeführt wird.
 
-## d) Monitoring aktivieren
+## c) Zweite Aspect Methode
 
-Aktivieren Sie Monitoring für die Anwendung, sodass folgende Endpunkte im Browser abrufbar sind:
-* health
-* info
-* env
+Programmieren Sie eine weitere Aspect-Methode `logExecutionTime(ProceedingJoinPoint jp)`,
+die die Ausführungszeit einer Methode misst und diese per Logger ausgibt.
 
-## e) Git Build Informationen aufnehmen
+Ergänzen Sie diese Methode mit einer entsprechenden Advice-Annotation, sodass der
+Aspect für Methoden ausgeführt wird, die mit `@LogExecutionTime` annotiert sind.
 
-Fügen Sie den folgenden Abschnitt in die `pom.xml` ein, um den Info Endpoint um Informationen über
-den Build-Prozess und den letzten Git-Commit zu erweitern:
+Hinweis: `@LogExecutionTime` ist von Ihnen selber als Annotation anzulegen.
 
-````xml
-<build>
-    <plugins>
-        <plugin>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-maven-plugin</artifactId>
-            <executions>
-                <execution>
-                    <id>build-info</id>
-                    <goals>
-                        <goal>build-info</goal>
-                    </goals>
-                </execution>
-            </executions>
-        </plugin>
-        <plugin>
-            <groupId>pl.project13.maven</groupId>
-            <artifactId>git-commit-id-plugin</artifactId>
-        </plugin>
-    </plugins>
-</build>
-````
+Fügen Sie diese Annotation dann z.B. der `placeOrder` Methode hinzu.
 
-Wenn Sie nun die Anwendung über **Maven** bauen und starten, dann werden diese Informationen über
-den Info-Endpoint angezeigt.
-
-## f) Neuen Health-Indicator entwickeln
-
-Schreiben Sie einen neuen `HealthIndicator` namens `HasProductsHealthIndicator`, der prüft, ob
-Produkte zur Bestellung im System vorhanden sind. Sind keine Produkte vorhanden, so ist das 
-System im Status "DOWN", ansonsten "UP".
-
-Dieser Indicator wird dann in die gesamte Health-Betrachtung des Systems einfließen.
+Bonus: Wie kann erreicht werden, dass nicht der Logger des Aspects, sondern der Logger
+der Klasse genommen wird, in dem die mit `@LogExecutionTime` annotierte Methode enthalten ist?
 
