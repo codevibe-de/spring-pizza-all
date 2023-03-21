@@ -1,5 +1,7 @@
 package pizza;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import pizza.customer.Address;
 import pizza.customer.Customer;
@@ -20,6 +22,8 @@ public interface SampleDataLoader extends Runnable {
     @Component("small")
     class SmallDataLoader implements SampleDataLoader {
 
+        private static final Logger LOG = LoggerFactory.getLogger(SmallDataLoader.class);
+
         private final ProductService productService;
         private final CustomerService customerService;
 
@@ -30,7 +34,7 @@ public interface SampleDataLoader extends Runnable {
 
         @Override
         public void run() {
-            System.out.println("Loading sample data...");
+            LOG.info("Loading sample data...");
 
             createProduct("S-01", "Thunfisch Salat", 6.90);
             createProduct("S-02", "Salat Italiano", 7.90);

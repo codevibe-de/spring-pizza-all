@@ -1,5 +1,7 @@
 package pizza.order;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -20,6 +22,8 @@ public class OrderService {
     //
     // fields
     //
+
+    private static final Logger LOG = LoggerFactory.getLogger(OrderService.class);
 
     @Value("${app.order.delivery-time-in-minutes}")
     private Integer deliveryTimeInMinutes = 30;
@@ -49,8 +53,10 @@ public class OrderService {
 
     @PostConstruct
     public void dumpConfiguration() {
-        System.out.println("Using configuration:\n  deliveryTimeInMinutes=" + deliveryTimeInMinutes
-                + "\n  dailyDiscounts=" + dailyDiscounts);
+        LOG.debug(
+                "Using configuration:\n  deliveryTimeInMinutes={}\n  dailyDiscounts={}",
+                deliveryTimeInMinutes, dailyDiscounts
+        );
     }
 
     //
@@ -72,8 +78,10 @@ public class OrderService {
         String nameOfDayOfWeek = LocalDate.now().getDayOfWeek().name();
         Double discountRate = this.dailyDiscounts.getOrDefault(nameOfDayOfWeek, 0.0);
         Double discountedTotalPrice = totalPrice * (1.0 - discountRate / 100.0);
-        System.out.println("Reducing price of order from " + totalPrice + " to " + discountedTotalPrice
-                + " due to today's discount of " + discountRate + "%");
+        LOG.debug(
+                "Reducing price of order from {} to {} due to today's discount of {}%",
+                totalPrice, discountedTotalPrice, discountRate
+        );
 
         // create order
         Order order = new Order(

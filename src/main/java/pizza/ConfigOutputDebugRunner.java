@@ -1,5 +1,7 @@
 package pizza;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
@@ -14,6 +16,8 @@ import org.springframework.stereotype.Component;
 @Component
 public class ConfigOutputDebugRunner implements CommandLineRunner {
 
+    private static final Logger LOG = LoggerFactory.getLogger(ConfigOutputDebugRunner.class);
+
     private static final String PROP_NAME = "temp";
 
     @Value("${" + PROP_NAME + ":}")
@@ -24,7 +28,7 @@ public class ConfigOutputDebugRunner implements CommandLineRunner {
 
     @Override
     public void run(String... args) {
-        System.out.printf("Injected value of property \"%s\" is \"%s\"\n", PROP_NAME, injectedValue);
-        System.out.printf("Environment value of property \"%s\" is \"%s\"\n", PROP_NAME, environment.getProperty(PROP_NAME));
+        LOG.debug("Injected value of property \"{}\" is \"{}\"\n", PROP_NAME, injectedValue);
+        LOG.debug("Environment value of property \"{}\" is \"{}\"\n", PROP_NAME, environment.getProperty(PROP_NAME));
     }
 }
