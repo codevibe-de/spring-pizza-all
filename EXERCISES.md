@@ -1,34 +1,77 @@
-# Übungen zum Kapitel "110 - AOP"
+## Übungen zum Kapitel "120 - RESTful Advanced"
 
-## a) Logging Aspect
+## Error Handling
 
-Erstellen sie eine leere Klasse `pizza.aop.LoggingAspect`.
+### a) Exception DTO
 
-Legen Sie darin eine statische Variable für einen Logger an.
+Erstellen Sie eine Klasse `com.example.pizza.error.ExceptionDto`, mittels derer
+Fehlerinformationen (wie z.B. der HTTP Status Code, Fehlertext, Fehlertyp)
+ausgeliefert werden können.
 
-## b) Erste Aspect Methode
+### b) Optional: Fehlerantwort prüfen
 
-Programmieren Sie eine Methode `logCreate(JoinPoint jp)`, die einen per Logger protokolliert,
-wenn über eine Methode ein Objekt angelegt werden soll, sprich, wenn in
-einem Service eine `createXyz()` Methode aufgerufen wird.
+Erstellen Sie einen Test, der für einen fehlerhaften REST-Aufruf prüft, dass eine
+Fehlerantwort auf Basis des Exception-DTO Objekts gesendet wird. Diese Prüfung kann
+z.B. mittels JsonPath erfolgen.
 
-Die Ausgabe soll das anzulegende Objekt enthalten.
+Erst nach Bearbeitung der folgenden zwei Übungen wird dieser Test erfolgreich durchlaufen
 
-Ergänzen Sie diese Methode mit einer entsprechenden Advice-Annotation, sodass der Aspect für
-alle mit "create" beginnenden Methode im `pizza` Package ausgeführt wird.
+### c) Überarbeitung Exceptions
 
-## c) Zweite Aspect Methode
+Überarbeiten Sie die vorhandenen Exception-Klassen der Geschäftslogik, sodass diese
+eine Basisklasse nutzen, in der ein HTTP Status Code hinterlegt werden kann.
 
-Programmieren Sie eine weitere Aspect-Methode `logExecutionTime(ProceedingJoinPoint jp)`,
-die die Ausführungszeit einer Methode misst und diese per Logger ausgibt.
+### d) Fehler-Handling implementieren
 
-Ergänzen Sie diese Methode mit einer entsprechenden Advice-Annotation, sodass der
-Aspect für Methoden ausgeführt wird, die mit `@LogExecutionTime` annotiert sind.
+Implementieren Sie per `@ControllerAdvice` ein generisches Fehler-Handling auf
+Basis der neuen Basisklasse und des Exception-DTOs.
 
-Hinweis: `@LogExecutionTime` ist von Ihnen selber als Annotation anzulegen.
+## Model-Konvertierung
 
-Fügen Sie diese Annotation dann z.B. der `placeOrder` Methode hinzu.
+### e) Test-Driven-Development zur verbesserten Kundenanlage
 
-Bonus: Wie kann erreicht werden, dass nicht der Logger des Aspects, sondern der Logger
-der Klasse genommen wird, in dem die mit `@LogExecutionTime` annotierte Methode enthalten ist?
+Erstellen Sie einen Test, der prüft, dass trotz Angabe eines "orderCounts" dieser bei
+neu angelegten Kunden immer 0 beträgt.
 
+Wir wollen nicht, dass das Feld "orderCount" weiterhin für neue Kunden angegeben und
+somit vordefiniert werden kann.
+
+Dieser Test wird erst dann erfolgreich sein, wenn die folgenden drei Übungen bearbeitet wurden.
+
+### f) OrderRequestData
+
+Erstellen Sie eine `OrderRequestData` Klasse, welche genutzt werden soll, um beim
+Anlegen eines neuen Kunden nur bestimmte Attribute zuzulassen.
+
+### g) Customer-Converter
+
+Erstellen Sie eine Converter Implementierung, die aus einer `OrderRequestData`
+Instanz eine `Customer` Instanz macht.
+
+### h) ConversionService nutzen
+
+Nutzen Sie den `ConversionService` im `CustomerRestController`, um ein empfangenes
+`OrderRequestData` in einen `Customer` zu konvertieren und mit diesem dann die
+Geschäftslogik aufzurufen.
+
+## OpenAPI
+
+Fügen Sie die openapi Dependency der POM hinzu.
+
+Ergänzen Sie den OrderRestController und zumindest die ExceptionDto Klasse um Annotationen, die die
+Dokumentation
+lesbarer machen.
+
+## MessageConverter
+
+Schreiben Sie einen Testfall, der ein Upload eines CSV Strings mittels `PUT /products` und
+MediaType "text/csv"
+prüft. Als Ergebnis sollen alle Produkte durch die hochgeladenen Daten ersetzt worden sein.
+
+Schreiben Sie nun die notwendige `AbstractHttpMessageConverter` Klasse.
+
+Registrieren Sie diese in einer neuen `WebMvcConfigurer` Configuration-Bean.
+
+Ergänzen Sie den `ProductRestController` um eine `uploadProducts()` Methode -- sowie
+den `ProductService` um die
+dafür notwendige Geschäftslogik-Methode.
