@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import pizza.aop.LogExecutionTime;
 import pizza.customer.Customer;
 import pizza.customer.CustomerService;
 import pizza.product.ProductService;
@@ -66,6 +67,7 @@ public class OrderService {
     //
 
     @Transactional(propagation = Propagation.REQUIRED)
+    @LogExecutionTime
     public Order placeOrder(String phoneNumber, Map<String, Integer> productQuantities) {
         // make sure customer exists -- throws exception if it doesn't
         Customer customer = this.customerService.getCustomerByPhoneNumber(phoneNumber);
