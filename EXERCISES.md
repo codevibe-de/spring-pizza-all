@@ -1,4 +1,6 @@
-# Übungen zu 025
+# Übungen zu 025 "Beans"
+
+## Aufgabe
 
 Machen Sie aus der bestehenden Kommandozeilenanwendung eine Spring Boot basierte Anwendung.
 
@@ -30,7 +32,7 @@ Wie arbeiten wir dann mit den Beans? Sie können folgende Optionen nutzen:
 * oder Sie nutzen den von `SpringApplication.run()` zurückgegebenen Kontext und holen sich dort
   Beans heraus und rufen diese auf
 
-Troubleshooting:
+## Troubleshooting
 
 * Es gibt keine `DataSource` Bean -- dies liegt vermutlich daran, dass Sie
   den `spring-boot-starter-jdbc` nicht in der POM haben
