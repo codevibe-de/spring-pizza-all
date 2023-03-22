@@ -54,7 +54,7 @@ Oder wie kann der Service verbessert werden, um diese Probleme zu umgehen?
 
 ## d) CustomerServiceTest mit individuellem Kontext
 
-Ziel des Tests ist es, dass ein durch den `SampleDataLoader` angelegte Kunde über den
+Ziel des Tests ist es, dass ein durch den `SampleDataLoader` angelegter Kunde über den
 `CustomerService` geladen werden soll (z.B. Abfrage via Mobilnummer).
 
 In dieser Übung nutzen wir die Annotation `@TestConfiguration`, um den Kontext per Hand aufzubauen.
@@ -64,7 +64,7 @@ Annotation, NICHT `@SpringBootTest`.
 
 Der Kontext soll:
 
-* nur die Beans aus dem Package `product` und `customer` enthalten (Tipp: `@ComponentScan` nutzen)
+* nur Beans aus dem Package `product` und `customer` enthalten (z.B. `@ComponentScan` nutzen)
 * außerdem soll das `ProductRepository` durch eine "Tue nichts" Bean ersetzt werden
 
 D.h. Sie brauchen eine neue Klasse, die
@@ -72,7 +72,7 @@ D.h. Sie brauchen eine neue Klasse, die
 * mit `@TestConfiguration` annotiert ist
 * vom Test importiert wird bzw. als innere Klasse automatisch genutzt wird
 * den Component-Scan deklariert
-* zusätzlich den `SampleDataLoader` und `SampleDataLoaderRunner` importiert
+* zusätzlich zumindest den `SampleDataLoader` und `SampleDataLoaderRunner` importiert
 * die `ProductRepository` Bean austauscht
 
 Irgendwie müssen Sie dann auch noch den `SampleDataLoaderRunner` starten, denn dies passiert
