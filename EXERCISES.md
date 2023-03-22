@@ -12,6 +12,16 @@ mittels `new` selbst.
 
 Das heißt aber auch, dass Sie Spring darüber "informieren" müssen, welche Beans anzulegen sind.
 
+Übrigens: Die `DataSource` Instanz legt Spring Boot für uns automatisch an, da wir die H2 Datenbank
+im Classpath haben (Autoconfiguration). Jedoch müssen wir konfigurieren, welche Datenbank-URL dafür
+zu nutzen ist (da wir ja den H2 Server als Standalone-Prozess selber starten und nicht den
+internen Boot-Default Wert nehmen). Das geht in den `application-properties`:
+
+````properties
+spring.datasource.url=jdbc:h2:tcp://localhost:9092/~/training.spring-boot.pizza
+spring.datasource.driverClassName=org.h2.Driver
+````
+
 Wie arbeiten wir dann mit den Beans? Sie können folgende Optionen nutzen:
 
 * eine `ApplicationRunner` Instanz programmieren und zur Spring Bean deklarieren, darein lassen
