@@ -11,8 +11,9 @@ import pizza.SampleDataLoaderRunner;
 import pizza.product.ProductRepository;
 
 @TestConfiguration
-@ComponentScan({"pizza.customer", "pizza.product"})
+@ComponentScan({"pizza.product"}) // to get both service and repository beans
 @Import({
+        CustomerService.class,
         SampleDataLoaderRunner.class,
         SampleDataLoader.SmallDataLoader.class,
         DataSourceAutoConfiguration.class
