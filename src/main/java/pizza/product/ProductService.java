@@ -3,6 +3,7 @@ package pizza.product;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -52,5 +53,10 @@ public class ProductService {
             throw new IllegalStateException("The product-repository already contains a product with id " + product.getProductId());
         }
         return productRepository.save(product);
+    }
+
+    public void replaceAllProducts(List<Product> products) {
+        this.productRepository.deleteAll();
+        this.productRepository.saveAll(products);
     }
 }
