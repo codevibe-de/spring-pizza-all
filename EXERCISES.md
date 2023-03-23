@@ -36,7 +36,4 @@ Spring an.
 Testen Sie die Endpunkte z.B. mit Insomnia. Dort kann Basic-Auth als Authentifizierungsmechanismus
 genutzt werden.
 
-## d) Oauth2
-
-Ergänzen Sie die Anwendung um die `spring-boot-starter-oauth2-resource-server` Dependency.
 
