@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.AutoConfigureDataJpa;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.context.annotation.Import;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.web.servlet.MockMvc;
@@ -22,7 +21,6 @@ import pizza.product.Product;
 import pizza.product.ProductRepository;
 import pizza.product.ProductService;
 
-import javax.transaction.Transactional;
 import java.util.Collections;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -32,9 +30,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @WebMvcTest(OrderRestController.class)
 @Import({OrderService.class, CustomerService.class, ProductService.class})
 @AutoConfigureDataJpa
-@EnableJpaRepositories(basePackageClasses = {CustomerRepository.class, ProductRepository.class, OrderRepository.class})
 @TestPropertySource(properties = {"app.order.daily-discounts={MONDAY:'10', TUESDAY:'10', WEDNESDAY:'10', THURSDAY:'10', FRIDAY:'10', SATURDAY:'10', SUNDAY:'10'}"})
-@Transactional // todo required due to @BeforeEach setup, but why exactly?
 class OrderRestControllerTest {
 
     @Autowired
@@ -51,7 +47,9 @@ class OrderRestControllerTest {
 
     @BeforeEach
     void setupTestData() {
+        productRepository.deleteAll();
         productRepository.save(new Product("p1", "Product One", 1.00));
+        customerRepository.deleteAll();
         customerRepository.save(new Customer("Toni Test", null, "040-112233"));
     }
 
