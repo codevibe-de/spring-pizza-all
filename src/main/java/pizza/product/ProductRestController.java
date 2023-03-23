@@ -14,7 +14,7 @@ public class ProductRestController {
     // --- constants ---
     //
 
-    static final String ROOT = "/products";
+    public static final String ROOT = "/products";
     static final String GET_MANY_ENDPOINT = ROOT;
     static final String UPLOAD_CSV_ENDPOINT = ROOT;
 
