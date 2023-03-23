@@ -10,6 +10,7 @@ import org.springframework.security.web.SecurityFilterChain;
 import pizza.auth.MyUserDetailsService;
 import pizza.auth.WhoAmIController;
 import pizza.customer.CustomerRestController;
+import pizza.customer.CustomerService;
 import pizza.order.OrderRestController;
 import pizza.product.ProductRestController;
 
@@ -39,8 +40,8 @@ public class WebSecurityConfig {
     }
 
     @Bean
-    public UserDetailsService userDetailsService() {
-        return new MyUserDetailsService();
+    public UserDetailsService userDetailsService(CustomerService customerService) {
+        return new MyUserDetailsService(customerService);
     }
 
     @Bean
