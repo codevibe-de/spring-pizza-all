@@ -1,0 +1,42 @@
+@startuml
+
+set namespaceSeparator ::
+
+package java.security {
+    interface Principal {}
+}
+
+package org.springframework.security.core #f6fafd {
+    interface Authentication {
+    + getPrincipal() : Object
+    + getCredentials() : Object
+    + getAuthorities() : Collection<GrantedAuthority>
+    + isAuthenticated() : boolean
+    + setAuthenticated(boolean) : void
+    }
+    interface GrantedAuthority {
+    + getAuthority() : String
+    }
+    abstract class AbstractAuthenticationToken {
+    - authenticated : boolean
+    - authorities : Collection<GrantedAuthority>
+    }
+    class UsernamePasswordAuthenticationToken {
+    - principal : Object
+    - credentials : Object
+    }
+    Authentication -left-|> Principal
+    AbstractAuthenticationToken -up-|> Authentication
+    AbstractAuthenticationToken -left-> GrantedAuthority
+    UsernamePasswordAuthenticationToken -up-|> AbstractAuthenticationToken
+}
+
+'package org.springframework.security.oauth2.server.resource #fafdfa {
+'    class BearerTokenAuthenticationToken {
+'    - token : String
+'    + getToken() : String
+'    }
+'    BearerTokenAuthenticationToken -up-|> AbstractAuthenticationToken
+'}
+
+@enduml
