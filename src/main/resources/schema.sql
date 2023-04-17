@@ -27,7 +27,7 @@ CREATE TABLE customers
 (
     id LONG NOT NULL,
     full_name VARCHAR2(100),
-    phone_number VARCHAR2(100),
+    phone VARCHAR2(100),
     street VARCHAR2(100),
     postal_code VARCHAR2(100),
     city VARCHAR2(100),
