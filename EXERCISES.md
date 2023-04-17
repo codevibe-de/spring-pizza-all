@@ -1,8 +1,8 @@
-# Übung zu Kapitel "090 - API Integrations-Tests"
+# Übungen zum Kapitel "090 - API Integrationstests"
 
 ## a) CustomerRestControllerTest - getCustomer
 
-Test-Driven-Development: Schreiben Sie einen `CustomerRestControllerTest`, der die
+Test-Driven-Development (TDD): Schreiben Sie einen `CustomerRestControllerTest`, der die
 Abfrage (Lesen) eines einzelnen Kunden anhand dessen Id durchführt.
 
 Dieser Test soll die JSON Antwort zumindest zu Teilen auf Korrektheit prüfen.
@@ -37,9 +37,11 @@ Empfängers validiert.
 Versuchen Sie diesen Test nicht als `@SpringBootTest`, sondern mit der Variante `@WebMvcTest`
 zu schreiben, sodass nur ein Teil des Kontexts gestartet werden muss (schneller).
 
-Da wir ja einen vollständigen Integrationstest möchten, muss also trotz des Slicings auf Web-Komponenten
-hin auch zusätzlich noch die entsprechenden Services und Repositories angelegt werden.
+Da wir ja einen vollständigen Integrationstest möchten, muss also trotz des Slicings auf
+Web-Komponenten hin auch zusätzlich noch die entsprechenden Services und Repositories angelegt
+werden. 
 Dazu brauchen Sie einige andere Annotationen, wie z.B.
+
 * `@Import`
 * `@AutoConfigureDataJpa`
 * `@EnableJpaRepositories`
