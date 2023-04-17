@@ -1,0 +1,10 @@
+@startuml
+'https://plantuml.com/class-diagram
+set namespaceSeparator ::
+
+package "pizza.customer" <<Frame>> {
+class CustomerService
+}
+
+CustomerService -right-> ArrayList
+@enduml
