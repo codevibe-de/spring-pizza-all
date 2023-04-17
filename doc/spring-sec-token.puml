@@ -31,12 +31,11 @@ package org.springframework.security.core #f6fafd {
     UsernamePasswordAuthenticationToken -up-|> AbstractAuthenticationToken
 }
 
-'package org.springframework.security.oauth2.server.resource #fafdfa {
-'    class BearerTokenAuthenticationToken {
-'    - token : String
-'    + getToken() : String
-'    }
-'    BearerTokenAuthenticationToken -up-|> AbstractAuthenticationToken
-'}
+package org.springframework.security.oauth2.server.resource #fafdfa {
+    class BearerTokenAuthenticationToken {
+    + getToken() : String
+    }
+    BearerTokenAuthenticationToken -up-|> AbstractAuthenticationToken
+}
 
 @enduml
