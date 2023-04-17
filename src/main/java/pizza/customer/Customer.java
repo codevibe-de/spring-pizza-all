@@ -19,6 +19,7 @@ public class Customer {
     @Embedded
     private Address address;
 
+    @Column(name = "phone")
     private String phoneNumber;
 
     private Integer orderCount = 0;
