@@ -2,7 +2,7 @@
 
 ## a) pom.xml
 
-Fügen Sie die Abhängigkeit für "spring-integration-file" der `pom.xml` hinzu
+Fügen Sie die Abhängigkeit für "spring-boot-starter-security" der `pom.xml` hinzu
 
 ## b) Neustart - nichts geht mehr
 
@@ -13,7 +13,17 @@ Jedoch legt Spring auch in der Default-Konfiguration einen User an, mit dem Sie 
 anmelden können (z.B. mit Basic-Auth). Der Benutzername ist "user" - das Kennwort wird
 generiert und im Log ausgegeben.
 
-## c) eigene Security-Config
+## c) WhoAmIController
+
+Schauen Sie sich die bereitgestellte Klasse `WhoAmIController` an.
+
+Nun wo Spring-Security im Classpath ist, können Sie die kommentierten Zeilen entkommentieren.
+
+Rufen Sie diesen Endpunkt auf und schauen Sie sich das Ergebnis an.
+
+Wie könnte das leere Array an Authorities befüllt werden (via Konfiguration der Anwendung)?
+
+## d) eigene Security-Config
 
 Erstellen Sie eine eigene Security-Configuration, welche:
 
@@ -36,4 +46,7 @@ Spring an.
 Testen Sie die Endpunkte z.B. mit Insomnia. Dort kann Basic-Auth als Authentifizierungsmechanismus
 genutzt werden.
 
+## e) Behebung der Testfälle
+
+Beheben Sie die Sicherheitsprobleme in den Testfällen, so dass alle Tests wieder durchlaufen.
 
