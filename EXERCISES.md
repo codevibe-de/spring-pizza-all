@@ -17,25 +17,22 @@ generiert und im Log ausgegeben.
 
 Schauen Sie sich die bereitgestellte Klasse `WhoAmIController` an.
 
-Nun wo Spring-Security im Classpath ist, können Sie die kommentierten Zeilen entkommentieren.
+Nun, da Spring-Security im Classpath ist, können Sie die kommentierten Zeilen entkommentieren.
 
-Rufen Sie diesen Endpunkt auf und schauen Sie sich das Ergebnis an.
+Testen Sie diesen Endpunkt z.B. mit Insomnia. Dort kann Basic-Auth als Authentifizierungsmechanismus
+genutzt werden.
 
 Wie könnte das leere Array an Authorities befüllt werden (via Konfiguration der Anwendung)?
 
-## d) eigene Security-Config
+## d) eigene Benutzerverwaltung
 
-Erstellen Sie eine eigene Security-Configuration, welche:
+Implementieren Sie eine eigene Benutzerverwaltung, welche folgende Benutzer kennt:
 
-* die Endpunkte `POST /orders` und `GET /me` auch ohne Login erlaubt
-* die Endpunkte für die Fachlichkeiten "customers" und "products" nur der Rolle "STAFF" erlaubt
-* den Endpunkt `GET /orders` nur der Rolle "MANAGER" erlaubt
+* einen Administrator (Benutzername "admin", Kennwort "pwd", Authorities "ROLE_ADMIN")
+* Kunden (Benutzername ist `Customer.fullName`, Kennwort `Customer.phoneNumber`, Authorities "ROLE_CUSTOMER")
 
-Benutzer sollen sich mit Basic-Auth anmelden können.
-
-Sie benötigen eine eigene `UserDetailsService` Implementation als Bean. Dieser kann ein
-Spring `User` Objekt dynamisch erzeugen. Hier können Sie je nach Username hart-kodiert die Rollen
-zuweisen. Oder Sie bauen mit Spring Data noch eine schnelle Benutzerverwaltung ein...! :)
+Sie benötigen dafür eine eigene `UserDetailsService` Implementation als Bean. Als Return-Wert bietet
+sich eine Instanz der Spring-Security Klasse `User` an.
 
 Denken Sie daran, dass das vom `UserDetailsService` ausgelieferte `UserDetails` Objekt ein gehashtes
 Kennwort enthalten muss! Für bcrypt kann hier eines generiert werden: https://bcrypt-generator.com/
@@ -43,10 +40,22 @@ Kennwort enthalten muss! Für bcrypt kann hier eines generiert werden: https://b
 Ebenfalls brauchen Sie eine `PasswordEncoder` Bean. Hier bietet sich `BCryptPasswordEncoder` von
 Spring an.
 
-Testen Sie die Endpunkte z.B. mit Insomnia. Dort kann Basic-Auth als Authentifizierungsmechanismus
-genutzt werden.
+Testen Sie den Log-In Ihrer Benutzer und schauen Sie sich die Ausgabe des "/me" Endpunkts hierfür an.
 
-## e) Behebung der Testfälle
+## e) eigene Security-Config
 
-Beheben Sie die Sicherheitsprobleme in den Testfällen, so dass alle Tests wieder durchlaufen.
+Erstellen Sie eine eigene Security-Configuration, welche:
+
+* den Endpunkt `GET /me` auch ohne Login erlaubt
+* den Endpunkt `POST /orders` nur Benutzern mit Rolle "CUSTOMER" erlaubt
+* alle anderen Endpunkte nur Benutzern mit Rolle "ADMIN" erlaubt
+
+Benutzer sollen sich mit Basic-Auth anmelden können.
+
+Nun wo wir bei Platzierung der Bestellung einen angemeldeten Kunden haben, was kann dann in den
+JSON Bestelldaten weggelassen werden?
+
+## f) Behebung der Testfälle
+
+Beheben Sie die Sicherheitsprobleme in den Testfällen, sodass alle Tests wieder durchlaufen.
 
