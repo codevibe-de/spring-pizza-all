@@ -34,8 +34,7 @@ public class MyUserDetailsService implements UserDetailsService {
                     DEFAULT_PASSWORD_HASH,
                     List.of(new SimpleGrantedAuthority("ROLE_ADMIN"))
             );
-        }
-        else {
+        } else {
             try {
                 var customer = customerService.getCustomerByPhoneNumber(username);
                 return new User(
