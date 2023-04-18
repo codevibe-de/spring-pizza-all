@@ -29,7 +29,8 @@ Wie könnte das leere Array an Authorities befüllt werden (via Konfiguration de
 Implementieren Sie eine eigene Benutzerverwaltung, welche folgende Benutzer kennt:
 
 * einen Administrator (Benutzername "admin", Kennwort "pwd", Authorities "ROLE_ADMIN")
-* Kunden (Benutzername ist `Customer.fullName`, Kennwort `Customer.phoneNumber`, Authorities "ROLE_CUSTOMER")
+* Kunden (Benutzername ist der Wert von `Customer.phoneNumber`, Kennwort der Wert von `Customer.address.postalCode`,
+  Authorities "ROLE_CUSTOMER")
 
 Sie benötigen dafür eine eigene `UserDetailsService` Implementation als Bean. Als Return-Wert bietet
 sich eine Instanz der Spring-Security Klasse `User` an.
@@ -46,7 +47,7 @@ Testen Sie den Log-In Ihrer Benutzer und schauen Sie sich die Ausgabe des "/me" 
 
 Erstellen Sie eine eigene Security-Configuration, welche:
 
-* den Endpunkt `GET /me` auch ohne Login erlaubt
+* den Endpunkt `GET /me` und `GET /orders/greeting` auch ohne Login erlaubt
 * den Endpunkt `POST /orders` nur Benutzern mit Rolle "CUSTOMER" erlaubt
 * alle anderen Endpunkte nur Benutzern mit Rolle "ADMIN" erlaubt
 
