@@ -9,10 +9,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import pizza.auth.MyUserDetailsService;
 import pizza.auth.WhoAmIController;
-import pizza.customer.CustomerRestController;
 import pizza.customer.CustomerService;
 import pizza.order.OrderRestController;
-import pizza.product.ProductRestController;
 
 import static org.springframework.http.HttpMethod.GET;
 import static org.springframework.http.HttpMethod.POST;

@@ -14,6 +14,8 @@ import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+import pizza.WebSecurityConfig;
+import pizza.customer.Address;
 import pizza.customer.Customer;
 import pizza.customer.CustomerRepository;
 import pizza.customer.CustomerService;
@@ -23,12 +25,13 @@ import pizza.product.ProductService;
 
 import java.util.Collections;
 
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.httpBasic;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(OrderRestController.class)
-@Import({OrderService.class, CustomerService.class, ProductService.class})
+@Import({OrderService.class, CustomerService.class, ProductService.class, WebSecurityConfig.class})
 @AutoConfigureDataJpa
 @TestPropertySource(properties = {"app.order.daily-discounts={MONDAY:'10', TUESDAY:'10', WEDNESDAY:'10', THURSDAY:'10', FRIDAY:'10', SATURDAY:'10', SUNDAY:'10'}"})
 class OrderRestControllerTest {
@@ -50,7 +53,11 @@ class OrderRestControllerTest {
         productRepository.deleteAll();
         productRepository.save(new Product("p1", "Product One", 1.00));
         customerRepository.deleteAll();
-        customerRepository.save(new Customer("Toni Test", null, "040-112233"));
+        customerRepository.save(
+                new Customer(
+                        "Toni Test",
+                        new Address(null, "99988", null),
+                        "040-112233"));
     }
 
     @Test
@@ -73,6 +80,7 @@ class OrderRestControllerTest {
 
         // when
         var resultActions = this.mockMvc.perform(post(OrderRestController.PLACE_ORDER_ENDPOINT)
+                .with(httpBasic("040-112233", "99988"))
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(toJson(orderRequestData))
         );
@@ -81,7 +89,8 @@ class OrderRestControllerTest {
         resultActions
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.totalPrice", Matchers.is(1.8)))
-                .andExpect(jsonPath("$.customer.fullName", Matchers.is("Toni Test")));
+                .andExpect(jsonPath("$.customer.fullName", Matchers.is("Toni Test")))
+                .andExpect(jsonPath("$.customer.phoneNumber", Matchers.is("040-112233")));
     }
 
     private String toJson(Object object) throws JsonProcessingException {
