@@ -15,6 +15,7 @@ import pizza.order.OrderRestController;
 import pizza.product.ProductRestController;
 
 import static org.springframework.http.HttpMethod.GET;
+import static org.springframework.http.HttpMethod.POST;
 
 @EnableWebSecurity
 public class WebSecurityConfig {
@@ -25,14 +26,10 @@ public class WebSecurityConfig {
         http.authorizeRequests()
                 .antMatchers(GET, WhoAmIController.ME_ENDPOINT).permitAll()
                 .antMatchers(GET, OrderRestController.GREETING_ENDPOINT).permitAll()
-                .antMatchers(CustomerRestController.ROOT).hasRole("STAFF")
-                .antMatchers(ProductRestController.ROOT).hasRole("STAFF")
-                .antMatchers(GET, OrderRestController.GET_MANY_ENDPOINT).hasRole("MANAGER")
-                .antMatchers("/**").denyAll()
+                .antMatchers(POST, OrderRestController.PLACE_ORDER_ENDPOINT).hasRole("CUSTOMER")
+                .antMatchers("/**").hasRole("ADMIN")
             .and()
                 .httpBasic()
-            .and()
-                .formLogin()
             .and()
                 .csrf().disable(); // only for testing
         // @formatter:on
@@ -40,8 +37,8 @@ public class WebSecurityConfig {
     }
 
     @Bean
-    public UserDetailsService userDetailsService(CustomerService customerService) {
-        return new MyUserDetailsService(customerService);
+    public UserDetailsService userDetailsService(CustomerService customerService, PasswordEncoder passwordEncoder) {
+        return new MyUserDetailsService(customerService, passwordEncoder);
     }
 
     @Bean

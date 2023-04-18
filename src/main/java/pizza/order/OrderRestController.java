@@ -6,6 +6,8 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Profile;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -55,9 +57,12 @@ public class OrderRestController {
     })
     @PostMapping(PLACE_ORDER_ENDPOINT)
     @ResponseStatus(HttpStatus.CREATED)
-    public Order placeOrder(@RequestBody OrderRequest orderRequest) {
+    public Order placeOrder(
+            @RequestBody OrderRequest orderRequest,
+            @AuthenticationPrincipal UserDetails currentUser
+    ) {
         return this.orderService.placeOrder(
-                orderRequest.phoneNumber,
+                currentUser.getUsername(),
                 orderRequest.itemQuantities);
     }
 
