@@ -69,7 +69,6 @@ class OrderRestControllerTest {
     void placeOrder() throws Exception {
         // given
         OrderRequest orderRequestData = new OrderRequest();
-        orderRequestData.phoneNumber = "040-112233";
         orderRequestData.itemQuantities = Collections.singletonMap("p1", 2);
 
         // when

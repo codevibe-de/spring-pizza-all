@@ -11,8 +11,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.httpBasic;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -46,7 +48,8 @@ class CustomerRestControllerTest {
 
         // when
         String actualJson = this.mockMvc
-                .perform(get(CustomerRestController.GET_ONE_ENDPOINT, customer.getId()))
+                .perform(get(CustomerRestController.GET_ONE_ENDPOINT, customer.getId())
+                        .with(httpBasic("admin", "pwd")))
                 .andExpect(status().isOk())
                 .andReturn().getResponse().getContentAsString();
 
@@ -59,6 +62,7 @@ class CustomerRestControllerTest {
      * Validates a customer GET response using JsonPath
      */
     @Test
+    @WithMockUser(username = "admin", authorities = {"ROLE_ADMIN"})
     void getCustomer_variant2() throws Exception {
         // given
         Customer customer = new Customer(customerFullName, customerAddress, customerPhoneNumber);
@@ -80,6 +84,7 @@ class CustomerRestControllerTest {
         // when
         var resultActions = this.mockMvc
                 .perform(post(CustomerRestController.CREATE_ENDPOINT)
+                        .with(httpBasic("admin", "pwd"))
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{\"fullName\":\"Test Case\"}")
                 );

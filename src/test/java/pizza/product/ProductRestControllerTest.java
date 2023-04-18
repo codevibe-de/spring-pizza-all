@@ -17,6 +17,8 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.httpBasic;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -43,15 +45,14 @@ public class ProductRestControllerTest {
 
         // when
         var resultActions = this.mockMvc
-                .perform(MockMvcRequestBuilders
-                        .put(ProductRestController.UPLOAD_CSV_ENDPOINT)
-                        .with(httpBasic("manager", "pwd"))
+                .perform(put(ProductRestController.UPLOAD_CSV_ENDPOINT)
+                        .with(httpBasic("admin", "pwd"))
                         .contentType("text/csv")
                         .content(csvData))
                 .andDo(MockMvcResultHandlers.print());
 
         // then
-        resultActions.andExpect(MockMvcResultMatchers.status().isCreated());
+        resultActions.andExpect(status().isCreated());
 
         Mockito.verify(productRepository).saveAll(productListCaptor.capture());
         var dataList = productListCaptor.getValue();
