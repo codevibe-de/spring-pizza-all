@@ -2,10 +2,12 @@ package pizza.xtras;
 
 import org.springframework.boot.actuate.health.Health;
 import org.springframework.boot.actuate.health.HealthIndicator;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 import pizza.product.ProductService;
 
 @Component
+@Profile("default | product | order")
 public class HasProductsHealthIndicator implements HealthIndicator {
 
     private final ProductService productService;
