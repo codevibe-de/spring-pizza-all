@@ -6,13 +6,21 @@ import java.time.LocalDateTime;
 
 public class Order {
 
-    Long id;
+    //
+    // --- fields ---
+    //
+
+    private Long id;
 
     private final Customer customer;
 
     private final Double totalPrice;
 
     private final LocalDateTime estimatedTimeOfDelivery;
+
+    //
+    // --- constructors ---
+    //
 
     public Order(Customer customer, Double totalPrice, LocalDateTime estimatedTimeOfDelivery) {
         this.customer = customer;
@@ -26,6 +34,10 @@ public class Order {
         this.totalPrice = totalPrice;
         this.estimatedTimeOfDelivery = estimatedTimeOfDelivery;
     }
+
+    //
+    // --- get / set ---
+    //
 
     public void setId(long id) {
         if (this.id != null) {
@@ -49,6 +61,10 @@ public class Order {
     public LocalDateTime getEstimatedTimeOfDelivery() {
         return estimatedTimeOfDelivery;
     }
+
+    //
+    // --- other methods ---
+    //
 
     @Override
     public String toString() {

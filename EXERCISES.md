@@ -13,7 +13,8 @@
 
 ## Vorbereitung Intellij
 
-- eine Tomcat Run Configuration anlegen
+- eine Tomcat 9 Run Configuration anlegen, ggf. einen Tomcat Application Server anlegen. Dazu
+  von https://tomcat.apache.org/download-90.cgi die entsprechende ZIP Datei herunterladen und lokal entpacken
 - unter Deployment mittels "+" das Projekt als "exploded" Artefakt hinzufügen
 - URL http://localhost:8080/training_spring_pizza_war_exploded/dump als "After Launch URL" eintragen
 - Starten
@@ -25,7 +26,7 @@ Migrieren Sie die bestehende Anwendung auf Spring Boot.
 Dabei empfiehlt sich folgende Reihenfolge:
 
 1. die `pom.xml` Datei durch eine Spring-Boot-basierte Version ersetzen (insbesondere Nutzung der Boot parent-pom)
-    - wir benötigen die Starter "web" und "jdbc" 
+    - wir benötigen die Starter "web" und "jdbc"
     - außerdem noch die Bibliothek für "h2"
     - sowie (wie bisher auch) die "javax.servlet-api" Bibliothek mit scope "provided"
 2. eine Spring Boot Anwendungsklasse erstellen
