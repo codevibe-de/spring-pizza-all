@@ -4,8 +4,9 @@ import org.h2.tools.Server;
 import org.springframework.core.NestedExceptionUtils;
 import org.springframework.stereotype.Component;
 
-import java.net.BindException;
 import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
+import java.net.BindException;
 import java.sql.SQLException;
 
 @Component
@@ -23,13 +24,13 @@ public class H2Launcher implements Runnable {
             var rootCause = NestedExceptionUtils.getRootCause(e);
             if (rootCause instanceof BindException) {
                 System.out.println("Server seems to be running already (maybe in some other context?)");
-            }
-            else {
+            } else {
                 throw new IllegalStateException("Failed to launch H2 TCP server", e);
             }
         }
     }
 
+    @PreDestroy
     public void stop() {
         if (this.server != null) {
             System.out.println("Stopping H2 TCP Server");
