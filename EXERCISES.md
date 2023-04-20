@@ -13,8 +13,12 @@ Diese Übung besteht im Grunde aus drei Phasen:
 Wir brauchen eine neue `pom.xml`, damit aus der bestehenden Anwendung eine Spring-Boot Anwendung wird.
 
 Diese kann über den Spring Initializr
-generiert werden und in das Projekt reinkopiert werden. WICHTIG, Sie benötigen die Dependency
-`spring-boot-starter-jdbc` (im Initializr "JDBC API" genannt).
+generiert werden und in das Projekt reinkopiert werden.
+
+WICHTIG, Sie benötigen die Dependencies
+
+* `spring-boot-starter-jdbc` (im Initializr "JDBC API" genannt)
+* und H2 (kann auch über den Initializr hinzugefügt werden oder nachträglich aus der alten POM)
 
 ### Phase 2
 
