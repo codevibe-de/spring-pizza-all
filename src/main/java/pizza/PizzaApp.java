@@ -3,6 +3,7 @@ package pizza;
 import org.h2.jdbcx.JdbcDataSource;
 import pizza.customer.CustomerService;
 import pizza.order.OrderService;
+import pizza.product.ProductJdbcDao;
 import pizza.product.ProductService;
 
 import javax.sql.DataSource;
@@ -12,22 +13,27 @@ import static java.util.Map.ofEntries;
 
 public class PizzaApp {
 
+    private final CustomerService customService;
+    private final ProductService productService;
+    private final OrderService orderService;
+
     public PizzaApp() {
+        this.customService = new CustomerService();
+        this.productService = new ProductService(new ProductJdbcDao(getDataSource()));
+        this.orderService = new OrderService(this.customService, this.productService);
+        new SampleDataLoader.SmallDataLoader(this.productService, this.customService).run();
     }
 
     ProductService getProductService() {
-        // todo
-        return null;
+        return this.productService;
     }
 
     CustomerService getCustomerService() {
-        // todo
-        return null;
+        return this.customService;
     }
 
     OrderService getOrderService() {
-        // todo
-        return null;
+        return this.orderService;
     }
 
     DataSource getDataSource() {
