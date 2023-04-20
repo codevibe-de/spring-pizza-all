@@ -12,6 +12,9 @@ import static java.util.Map.ofEntries;
 
 public class PizzaApp {
 
+    public PizzaApp() {
+    }
+
     ProductService getProductService() {
         // todo
         return null;
