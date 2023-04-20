@@ -54,7 +54,7 @@ gestanden haben?
 
 Sie können folgende Optionen nutzen:
 
-* eine `ApplicationRunner` Instanz programmieren und zur Spring Bean deklarieren, darein lassen
+* eine `ApplicationRunner` Klasse programmieren und zur Spring Bean deklarieren, darein lassen
   Sie sich die Beans injecten, die Sie nutzen möchten (z.B. den `CustomerService`)
 * oder Sie nutzen den von `SpringApplication.run()` zurückgegebenen Kontext und holen sich dort
   Beans heraus und rufen diese auf
