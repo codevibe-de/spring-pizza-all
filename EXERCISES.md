@@ -6,11 +6,21 @@ Machen Sie aus der bestehenden Kommandozeilenanwendung eine Spring Boot basierte
 
 Die bestehende Klasse `PizzaApp` ist hierfür der Ausgangspunkt.
 
-Und wir brauchen natürlich auch eine neue `pom.xml`. Diese kann über den Spring Initializr
+Diese Übung besteht im Grunde aus drei Phasen:
+
+### Phase 1
+
+Wir brauchen eine neue `pom.xml`, damit aus der bestehenden Anwendung eine Spring-Boot Anwendung wird.
+
+Diese kann über den Spring Initializr
 generiert werden und in das Projekt reinkopiert werden. WICHTIG, Sie benötigen die Dependency
 `spring-boot-starter-jdbc` (im Initializr "JDBC API" genannt).
 
-Das Erzeugen der Instanzen überlassen wir ab jetzt natürlich Spring -- und machen dies nicht mehr
+### Phase 2
+
+Wir wollen, dass Spring nun Beans erzeugt und verwaltet.
+
+D.h. das Erzeugen der Instanzen überlassen wir ab jetzt Spring -- und machen dies nicht mehr
 mittels `new` selbst.
 
 Das heißt aber auch, dass Sie Spring darüber "informieren" müssen, welche Beans anzulegen sind.
@@ -25,7 +35,20 @@ spring.datasource.url=jdbc:h2:tcp://localhost:9092/~/training.spring-boot.pizza
 spring.datasource.driverClassName=org.h2.Driver
 ````
 
-Wie arbeiten wir dann mit den Beans? Sie können folgende Optionen nutzen:
+Was wir immer noch brauchen sind:
+
+* den `H2Launcher` (damit die Datenbank überhaupt läuft) und Aufruf dessen `start()` Methode
+* den `H2ScriptRunner` (damit das Datenbank-Schema vorhanden ist) und Aufruf dessen `run()` Methode
+* eine `SampleDataLoader` Instanz (damit Daten in der Datenbank existieren) und Aufruf dessen `run()` Methode
+
+### Phase 3
+
+Wie arbeiten wir dann mit den nun vorhandenen Service-Beans?
+
+Sprich, an welcher Stelle erfolgt nun das Ausführen der Service-Calls, die bisher in der `PizzaApp.main()` Methode
+gestanden haben?
+
+Sie können folgende Optionen nutzen:
 
 * eine `ApplicationRunner` Instanz programmieren und zur Spring Bean deklarieren, darein lassen
   Sie sich die Beans injecten, die Sie nutzen möchten (z.B. den `CustomerService`)
