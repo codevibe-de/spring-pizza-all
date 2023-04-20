@@ -4,11 +4,11 @@
 
 Machen Sie aus der bestehenden Kommandozeilenanwendung eine Spring Boot basierte Anwendung.
 
-Die bestehende Klasse `App` ist hierfür der Ausgangspunkt.
+Die bestehende Klasse `PizzaApp` ist hierfür der Ausgangspunkt.
 
 Und wir brauchen natürlich auch eine neue `pom.xml`. Diese kann über den Spring Initializr
 generiert werden und in das Projekt reinkopiert werden. WICHTIG, Sie benötigen die Dependency
-`spring-boot-starter-jdbc`.
+`spring-boot-starter-jdbc` (im Initializr "JDBC API" genannt).
 
 Das Erzeugen der Instanzen überlassen wir ab jetzt natürlich Spring -- und machen dies nicht mehr
 mittels `new` selbst.
