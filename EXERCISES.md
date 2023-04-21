@@ -48,17 +48,3 @@ Erstellen Sie zusätzlich die folgenden API-Endpunkte:
   }
 }
 ````
-
-## f) Sub-Ressource Bestellungen eines Kunden
-
-Erweitern Sie den `CustomerRestController` derart, dass mittels `GET /customers/<id>/orders`
-alle Bestellungen eines Kunden ausgeliefert werden.
-
-Hierdurch führen wir u.a. das Konzept einer "PathVariable" ein:
-https://www.amitph.com/spring-pathvariable/#reading_path_variable_from_request_uri
-
-Dies erfordert zusätzliche Service und Repository Methoden, ist dafür aber auch ein tolles Feature :)
-
-Wenn wir die Entity `Order` als Rückgabewert nehmen, wird jede Bestellung den kompletten Inhalt des (immer
-gleichen) Kunden enthalten. Das ist unschön. Daher empfiehlt es sich, hier eine dedizierte Value-Klasse für
-die Rückgabewerte zu schreiben. Hierfür eignen sich die neuen Java Records.
