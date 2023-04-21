@@ -14,6 +14,7 @@ import pizza.product.ProductService;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+// Note: Context is configured in inner @TestConfiguration class below
 @ExtendWith({SpringExtension.class})
 public class CustomerServiceTest {
 
@@ -23,6 +24,9 @@ public class CustomerServiceTest {
     @Autowired
     SampleDataLoaderRunner sampleDataLoaderRunner;
 
+    /**
+     * Tests that we can retrieve a Customer by his/her phone-number using the CustomerService
+     */
     @Test
     void getCustomerByPhoneNumber() {
         // given
@@ -41,7 +45,7 @@ public class CustomerServiceTest {
     @ComponentScan("pizza.customer") // loads EVERY bean from package including the CustomerService
     @Import({SampleDataLoaderRunner.class, SampleDataLoader.SmallDataLoader.class})
     static class TestConfig {
-        @MockBean
+        @MockBean // we don't care what the ProductService does, we just need that bean in the context for data loading
         ProductService productService;
     }
 }
