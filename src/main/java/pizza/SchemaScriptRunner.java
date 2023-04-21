@@ -6,11 +6,14 @@ import org.springframework.core.io.ClassPathResource;
 import javax.sql.DataSource;
 import java.io.InputStreamReader;
 
-public class H2ScriptRunner implements Runnable {
+/**
+ * Runs the database schema script (e.g. table creation) defined in file "/src/main/resources/schema.sql"
+ */
+public class SchemaScriptRunner implements Runnable {
 
     private final DataSource dataSource;
 
-    public H2ScriptRunner(DataSource dataSource) {
+    public SchemaScriptRunner(DataSource dataSource) {
         this.dataSource = dataSource;
     }
 

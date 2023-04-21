@@ -32,14 +32,14 @@ public class PizzaApp {
 
     DataSource getDataSource() {
         // start a H2 database instance
-        new H2Launcher().run();
+        new H2TcpServer().start();
 
         // use a H2 DataSource implementation
         var dataSource = new JdbcDataSource();
         dataSource.setUrl("jdbc:h2:tcp://localhost:9092/~/training.spring-boot.pizza");
 
         // run a script to set up the database schema (=tables)
-        new H2ScriptRunner(dataSource).run();
+        new SchemaScriptRunner(dataSource).run();
 
         // return the data source for others to work with
         return dataSource;
