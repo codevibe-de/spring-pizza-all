@@ -3,32 +3,26 @@
 ## a) CustomerRestControllerTest - getCustomer
 
 Test-Driven-Development (TDD): Schreiben Sie einen `CustomerRestControllerTest`, der die
-Abfrage (Lesen) eines einzelnen Kunden anhand dessen Id durchführt.
+Abfrage (Lesen) eines einzelnen Kunden anhand dessen Id durchführt: "GET /customers/<id>"
+
+Hier führen wir das Konzept einer "PathVariable" ein:
+https://www.amitph.com/spring-pathvariable/#reading_path_variable_from_request_uri
 
 Dieser Test soll die JSON Antwort zumindest zu Teilen auf Korrektheit prüfen.
 
-Da es den Endpunkt hierfür noch nicht gibt, wird dieser Test vorerst fehlschlagen.
+Da es den Endpunkt und die Service-Logik hierfür noch nicht gibt, wird dieser Test vorerst fehlschlagen.
 
-## b) Erweiterung CustomerService
+Ergänzen Sie also in allen erforderlichen Klassen die benötigte Funktionalität, bis der Test
+abschließend erfolgreich ist.
 
-Erweitern Sie den `CustomerService` um eine `getCustomer(long id)` Methode,
-die ebenfalls eine Exception (welche wohl?) wirft, wenn der Kunde nicht existiert.
-
-## c) Erweiterung CustomerRestController
-
-Erweitern Sie den `CustomerRestController` um einen Endpunkt für die neue
-Service-Methode.
-
-Der TDD Test sollte nun erfolgreich durchlaufen.
-
-## d) CustomerRestControllerTest - createCustomer
+## b) CustomerRestControllerTest - createCustomer
 
 Ergänzen Sie den `CustomerRestControllerTest` um einen Testfall, der die
 korrekte Anlage eines neuen Kunden prüft.
 
 Die Prüfung kann nur aus Abfrage des richtigen Statuswerts (201-CREATED) bestehen.
 
-## e) OrderRestControllerTest
+## c) OrderRestControllerTest
 
 Schreiben Sie einen `OrderRestControllerTest` für `placeOrder()`, der das erfolgreiche
 Anlegen einer Bestellung inklusive Prüfung auf korrekten Gesamtpreis und Name des
@@ -39,7 +33,7 @@ zu schreiben, sodass nur ein Teil des Kontexts gestartet werden muss (schneller)
 
 Da wir ja einen vollständigen Integrationstest möchten, muss also trotz des Slicings auf
 Web-Komponenten hin auch zusätzlich noch die entsprechenden Services und Repositories angelegt
-werden. 
+werden.
 Dazu brauchen Sie einige andere Annotationen, wie z.B.
 
 * `@Import`
@@ -49,5 +43,16 @@ Dazu brauchen Sie einige andere Annotationen, wie z.B.
 Optional kann noch ein Negativtest geschrieben werden, der das Verhalten bei
 Angabe einer falschen Kunden-Telefonnummer oder Produkt-Id prüft.
 
+## d) Bestellungen eines Kunden
 
+Diese Aufgabe können Sie "Test Driven" oder ohne Test durchführen.
+
+Erweitern Sie den `CustomerRestController` derart, dass mittels `GET /customers/<id>/orders`
+alle Bestellungen eines Kunden ausgeliefert werden.
+
+Dies erfordert zusätzliche Service und Repository Methoden, ist dafür aber auch ein tolles Feature :)
+
+Wenn wir die Entity `Order` als Rückgabewert nehmen, wird jede Bestellung den kompletten Inhalt des (immer
+gleichen) Kunden enthalten. Das ist unschön. Daher empfiehlt es sich, hier eine dedizierte Value-Klasse für
+die Rückgabewerte zu schreiben. Hierfür eignen sich die neuen Java Records.
 
