@@ -18,6 +18,7 @@ public class H2Config {
         return new H2TcpServer();
     }
 
+    // this BeanFactoryPostProcessor will make the EntityManagerFactory wait for our database to start
     @Bean
     public static BeanFactoryPostProcessor dependsOnPostProcessor() {
         return bf -> {
