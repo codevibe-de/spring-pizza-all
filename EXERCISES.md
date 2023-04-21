@@ -62,18 +62,18 @@ In dieser Übung nutzen wir die Annotation `@TestConfiguration`, um den Kontext 
 D.h. die `CustomerServiceTest` Klasse benötigt nur eine `@ExtendWith({SpringExtension.class})`
 Annotation, NICHT `@SpringBootTest`.
 
-Der Kontext soll:
+Der Kontext soll entsprechend nur aus den Klassen bestehen, die wir wirklich brauchen. Welche sind das?
 
-* nur Beans aus dem Package `product` und `customer` enthalten (z.B. `@ComponentScan` nutzen)
-* außerdem soll das `ProductRepository` durch eine "Tue nichts" Bean ersetzt werden
+* natürlich der `CustomerService`
+* und alles, was für das Laden der Sample-Daten benötigen
+* da ja leider dieser auch eine Referenz auf den `ProductService` benötigt, braucht es hierfür eine Lösung. Was bietet
+  sich hier an? Tipp: Produktdaten sind uns völlig egal, der Service kann machen, was er will (bzw. gar nichts machen)
 
 D.h. Sie brauchen eine neue Klasse, die
 
 * mit `@TestConfiguration` annotiert ist
-* vom Test importiert wird bzw. als innere Klasse automatisch genutzt wird
-* den Component-Scan deklariert
-* zusätzlich zumindest den `SampleDataLoader` und `SampleDataLoaderRunner` importiert
-* die `ProductRepository` Bean austauscht
+* vom Test importiert wird bzw. als innere statische Klasse automatisch genutzt wird
+* mittels Annotationen die benötigten Beans laden
 
 Irgendwie müssen Sie dann auch noch den `SampleDataLoaderRunner` starten, denn dies passiert
-nur dann automatisch, wenn man `@SpringBootTest` nutzt.
+nur dann automatisch, wenn man `@SpringBootTest` nutzt!
