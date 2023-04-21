@@ -3,7 +3,13 @@ package pizza.customer;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.context.TestConfiguration;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Import;
+import pizza.SampleDataLoader;
+import pizza.SampleDataLoaderRunner;
+import pizza.product.ProductService;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -20,7 +26,6 @@ public class CustomerServiceTest {
     @Test
     void getCustomerByPhoneNumber() {
         // given
-        sampleDataLoaderRunner.run(null);
         String phoneNumber = "+49 123 456789";
 
         // when
