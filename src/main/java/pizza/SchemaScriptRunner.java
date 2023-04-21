@@ -9,13 +9,17 @@ import javax.annotation.PostConstruct;
 import javax.sql.DataSource;
 import java.io.InputStreamReader;
 
+/**
+ * Runs the database schema script (e.g. table creation) defined in file "/src/main/resources/schema.sql"
+ */
+public class SchemaScriptRunner implements Runnable {
 @Component
 @DependsOn("h2Launcher")
 public class H2ScriptRunner implements Runnable {
 
     private final DataSource dataSource;
 
-    public H2ScriptRunner(DataSource dataSource) {
+    public SchemaScriptRunner(DataSource dataSource) {
         this.dataSource = dataSource;
     }
 
