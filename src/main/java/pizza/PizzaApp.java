@@ -13,7 +13,7 @@ public class PizzaApp {
     }
 
     @Bean(initMethod = "start", destroyMethod = "stop")
-    public H2TcpServer h2Launcher() {
+    public H2TcpServer h2TcpServer() {
         return new H2TcpServer();
     }
 }
