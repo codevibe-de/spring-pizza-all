@@ -4,12 +4,12 @@ In dieser Übung migrieren Sie die bisher `JdbcTemplate` basierte Persistenz
 auf Spring-Data JPA.
 
 Denken Sie bei dieser Übung daran, dass wir schon Testfälle haben, mit denen wir
-Test-Driven arbeiten können, d.h. immer wider diese ausführen, um den Fortschritt Ihrer
+Test-Driven arbeiten können, d.h. immer wieder diese ausführen, um den Fortschritt Ihrer
 Arbeit zu prüfen.
 
 ## a) pom.xml
 
-Fügen Sie den entsprechenden Starter in Ihrer `pom.xml` hinzu.
+Fügen Sie den entsprechenden Starter für "Data JPA" Ihrer `pom.xml` hinzu.
 
 Welcher Starter wird nun wohl nicht mehr benötigt und kann weg bzw. ersetzt werden?
 
