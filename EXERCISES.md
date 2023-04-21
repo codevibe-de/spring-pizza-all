@@ -37,13 +37,21 @@ Erstellen Sie zusätzlich die folgenden API-Endpunkte:
 * `GET /orders`, der alle Bestellungen zurückgibt
 * `POST /orders`, durch den eine neue Bestellung aufgegeben werden kann. Die Bestellung ist durch
   folgenden JSON Inhalt definiert:
+
 ````json
 {
-    "phoneNumber": "123-4567",
-    "itemQuantities": {
-        "S-02": 1,
-        "P-10": 2,
-        "P-12": 1
-    }
+  "phoneNumber": "123-4567",
+  "itemQuantities": {
+    "S-02": 1,
+    "P-10": 2,
+    "P-12": 1
+  }
 }
 ````
+
+## f) Sub-Ressource Bestellungen eines Kunden
+
+Erweitern Sie den `CustomerRestController` derart, dass mittels `GET /customers/<id>/orders`
+alle Bestellungen eines Kunden ausgeliefert werden.
+
+Dies erfordert zusätzliche Service und Repository Methoden, ist dafür aber auch ein tolles Feature :)
