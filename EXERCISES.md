@@ -45,6 +45,8 @@ Was wir immer noch brauchen sind:
 * eine `SampleDataLoader` Instanz (damit Daten in der Datenbank existieren) und Aufruf dessen `run()` Methode (am besten
   auch über einen Runner)
 
+Achtung -- die Reihenfolge der Runner ist entscheidend (Script vor SampleData). Hierfür die Annotation `@Order` nutzen.
+
 ### Phase 3
 
 Wie arbeiten wir dann mit den nun vorhandenen Service-Beans?
