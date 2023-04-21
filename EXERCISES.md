@@ -1,10 +1,10 @@
 # Übungen zum Kapitel "050 Spring-Data JPA"
 
-In dieser Übung migrieren Sie die bisher `JdbcTemplate` basierte Persistenz
-auf Spring-Data JPA.
+In dieser Übung migrieren Sie die bisher ausprogrammierte Persistenz von Produkten
+auf Spring-Data JPA -- und können auch für andere Fachlichkeiten eine Datenbank-Persistenz einführen.
 
 Denken Sie bei dieser Übung daran, dass wir schon Testfälle haben, mit denen wir
-Test-Driven arbeiten können, d.h. immer wieder diese ausführen, um den Fortschritt Ihrer
+Test-Driven arbeiten können, d.h. Sie können diese Testfälle immer wieder ausführen, um den Fortschritt Ihrer
 Arbeit zu prüfen.
 
 ## a) pom.xml
@@ -13,21 +13,29 @@ Fügen Sie den entsprechenden Starter für "Data JPA" Ihrer `pom.xml` hinzu.
 
 Welcher Starter wird nun wohl nicht mehr benötigt und kann weg bzw. ersetzt werden?
 
-## b) Umstellung auf in-memory H2
+## b) Allgemeines Setup und Bean Timing Probleme
 
-Leider ist die Nutzung unseres bisherigen H2 Servers, der Verbindungen über TCP
-annimmt, mit Spring Boot nicht einfach so weiter nutzbar.
+Nun, da wir unter der Haube JPA benutzen, wird das Timing der Bean Erstellung immer wichtiger.
 
-Daher steigen wir um auf eine In-Memory H2 Datenbank, die von Spring Boot
-auto-konfiguriert wird. Dies erfolgt am einfachsten, wenn alle `spring.datasource.*`
-Properties entfernt werden.
+Wir nutzen bisher ja einen manuell gestarteten H2 Server, der über TCP Verbindungen annehmen kann. Dies hat der Vorteil,
+dass wir uns mit externen Datenbank-Tools den Inhalt der Datenbank anzeigen lassen können.
 
-Fügen Sie aber unbedingt noch das notwendige Property ein, um Hibernate an der automatischen
-Generierung des Datenbank-Schemas zu hindern. Wir wollen ja (wie im echten
-Produktionsbetrieb) mit einem fertigen Schema arbeiten, welches in der `schema.sql`
-definiert ist.
+Wenn wir dies beibehalten wollen, benötigt es nun etwas mehr Fine-Tuning der Reihenfolge der Bean Erstellung.
 
-Nun können auch die `H2Launcher` und `H2ScriptRunner` Klassen weg. Warum?
+Dazu wurde eine neue Klasse `H2Config` eingeführt, welche diese Reihenfolge etabliert.
+
+Alternativ könnten wir auch Spring die Bereitstellung einer reinen In-Memory Datenbank überlassen. Dazu:
+
+* `H2Config` und `H2TcpServer` Klassen löschen
+* alle `spring.datasource.*` Properties entfernen
+
+In jedem Fall brauchen wollen wir Hibernate verbieten, das Schema automatisch anzulegen. Dafür braucht es das
+Property `spring.jpa.hibernate.ddl-auto=none`.
+Hintergrund: Wir wollen ja (wie im echten Produktionsbetrieb) mit einem fertigen Schema arbeiten, welches in
+der `schema.sql` definiert ist.
+
+Da Spring-Data nun das Schema automatisch aus der Datei `schema.sql` einliest, brauchen wir den entsprechenden Runner
+nicht mehr.
 
 ## c) Migration `ProductJdbcDao`
 
@@ -60,11 +68,10 @@ Ebenfalls arbeitet der `CustomerService` noch mit einer in der Klasse verwaltete
 
 Stellen Sie dies auf eine Spring-Data basierte Persistenz um.
 
-Dies führt zu zwei Problemen im `CustomerServiceTest`: einerseits muss auf @DataJpaTest umgestellt
-werden, und andererseits muss dann der sample-data runner nicht mehr manuell gestartet werden, da
+Dies führt zu zwei Problemen im `CustomerServiceTest`: einerseits muss auf `@DataJpaTest` umgestellt
+werden, und andererseits muss dann der `SampleDataLoaderRunner` nicht mehr manuell gestartet werden, da
 dies dann automatisch passiert (und mit dem manuellen Start doppelt!)
 
 ACHTUNG, außerdem fehlen noch Spaltendefinitionen in der `schema.sql` Datei -- siehe `TODO`
 Kommentar dort. Insbesondere die Einbettung der `Address` in die Tabelle ist eine fortgeschrittene
-Übung. Folgende Seite kann hierbei
-helfen: https://en.wikibooks.org/wiki/Java_Persistence/Embeddables
+Übung. Folgende Seite kann hierbei helfen: https://en.wikibooks.org/wiki/Java_Persistence/Embeddables
