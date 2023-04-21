@@ -23,10 +23,10 @@ public class CustomerService {
     // business logic
     //
 
-    public Customer getCustomer(long id) {
+    public Customer getCustomerById(long customerId) {
         return customerRepository
-                .findById(id)
-                .orElseThrow(() -> new CustomerNotFoundException("For id `" + id + "`"));
+                .findById(customerId)
+                .orElseThrow(() -> new CustomerNotFoundException("For id `" + customerId + "`"));
     }
 
     public Customer getCustomerByPhoneNumber(String phoneNumber) {
@@ -51,4 +51,5 @@ public class CustomerService {
         // customer might not yet be visible to this transaction in case it just has been created
         customerFromThisTrx.ifPresent(Customer::increaseOrderCount);
     }
+
 }

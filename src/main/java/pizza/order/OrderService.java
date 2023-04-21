@@ -12,6 +12,7 @@ import javax.annotation.PostConstruct;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -57,6 +58,15 @@ public class OrderService {
     // business logic
     //
 
+    /**
+     * Places an order for a Customer identified by his/her phone number.
+     * <p>
+     * The kind and number of products ordered are given in the <code>productQuantities</code> map.
+     *
+     * @param phoneNumber       required argument, the phone number to identify the Customer with
+     * @param productQuantities required argument, a mapping of product-ids to their desired quantities
+     * @return the {@link Order} entity which contains the total price and estimated time of delivery
+     */
     @Transactional(propagation = Propagation.REQUIRED)
     public Order placeOrder(String phoneNumber, Map<String, Integer> productQuantities) {
         // make sure customer exists -- throws exception if it doesn't
@@ -87,5 +97,9 @@ public class OrderService {
 
     public Iterable<Order> getOrders() {
         return orderRepository.findAll();
+    }
+
+    public List<Order> getOrdersForCustomer(Customer customer) {
+        return orderRepository.findByCustomer(customer);
     }
 }
