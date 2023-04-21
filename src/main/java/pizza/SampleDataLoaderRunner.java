@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
  * but wasn't available afterwards for querying (empty tables).
  */
 @Component
-@Order(0)
+@Order(1)
 public class SampleDataLoaderRunner implements ApplicationRunner {
 
     private final SampleDataLoader sampleDataLoader;

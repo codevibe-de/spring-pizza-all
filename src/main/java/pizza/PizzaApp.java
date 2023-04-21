@@ -12,8 +12,8 @@ public class PizzaApp {
         SpringApplication.run(PizzaApp.class, args);
     }
 
-    @Bean(initMethod = "run", destroyMethod = "stop")
-    H2Launcher h2Launcher() {
-        return new H2Launcher();
+    @Bean(initMethod = "start", destroyMethod = "stop")
+    public H2TcpServer h2TcpServer() {
+        return new H2TcpServer();
     }
 }
