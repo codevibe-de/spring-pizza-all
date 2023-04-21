@@ -3,13 +3,10 @@ package pizza;
 import org.h2.tools.RunScript;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
-import org.springframework.boot.CommandLineRunner;
-import org.springframework.context.annotation.DependsOn;
 import org.springframework.core.annotation.Order;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.PostConstruct;
 import javax.sql.DataSource;
 import java.io.InputStreamReader;
 
@@ -27,7 +24,7 @@ public class SchemaScriptRunner implements ApplicationRunner {
     }
 
     @Override
-    public void run(ApplicationArguments args) throws Exception {
+    public void run(ApplicationArguments args) {
         System.out.println("Running schema script");
         var resource = new ClassPathResource("/schema.sql");
         try (var inStream = new InputStreamReader(resource.getInputStream())) {
