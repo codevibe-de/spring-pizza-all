@@ -12,7 +12,6 @@ import javax.annotation.PostConstruct;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @Service
@@ -97,9 +96,5 @@ public class OrderService {
 
     public Iterable<Order> getOrders() {
         return orderRepository.findAll();
-    }
-
-    public List<Order> getOrdersForCustomer(Customer customer) {
-        return orderRepository.findByCustomer(customer);
     }
 }

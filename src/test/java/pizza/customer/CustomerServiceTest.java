@@ -9,7 +9,6 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Import;
 import pizza.SampleDataLoader;
 import pizza.SampleDataLoaderRunner;
-import pizza.order.OrderService;
 import pizza.product.ProductService;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -43,7 +42,5 @@ public class CustomerServiceTest {
     static class TestConfig {
         @MockBean // we don't care what the ProductService does, we just need that bean in the context for data loading
         ProductService productService;
-        @MockBean
-        OrderService orderService;
     }
 }
