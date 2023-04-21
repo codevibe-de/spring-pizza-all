@@ -4,7 +4,6 @@ import org.h2.jdbcx.JdbcDataSource;
 import pizza.customer.CustomerService;
 import pizza.order.OrderService;
 import pizza.product.ProductJdbcDao;
-import pizza.product.ProductRepository;
 import pizza.product.ProductService;
 
 import javax.sql.DataSource;
@@ -14,47 +13,39 @@ import static java.util.Map.ofEntries;
 
 public class PizzaApp {
 
+    private final CustomerService customService;
     private final ProductService productService;
-    private final CustomerService customerService;
     private final OrderService orderService;
-    private final DataSource dataSource;
 
-    PizzaApp() {
-        dataSource = getDataSource();
-
-        this.customerService = new CustomerService();
-
-        ProductRepository productRepository = new ProductJdbcDao(dataSource);
-        this.productService = new ProductService(productRepository);
-
-        this.orderService = new OrderService(customerService, productService);
-
-        SampleDataLoader loader = new SampleDataLoader.SmallDataLoader(productService, customerService);
-        loader.run();
+    public PizzaApp() {
+        this.customService = new CustomerService();
+        this.productService = new ProductService(new ProductJdbcDao(getDataSource()));
+        this.orderService = new OrderService(this.customService, this.productService);
+        new SampleDataLoader.SmallDataLoader(this.productService, this.customService).run();
     }
 
     ProductService getProductService() {
-        return productService;
+        return this.productService;
     }
 
     CustomerService getCustomerService() {
-        return customerService;
+        return this.customService;
     }
 
     OrderService getOrderService() {
-        return orderService;
+        return this.orderService;
     }
 
     DataSource getDataSource() {
         // start a H2 database instance
-        new H2Launcher().run();
+        new H2TcpServer().start();
 
         // use a H2 DataSource implementation
         var dataSource = new JdbcDataSource();
         dataSource.setUrl("jdbc:h2:tcp://localhost:9092/~/training.spring-boot.pizza");
 
         // run a script to set up the database schema (=tables)
-        new H2ScriptRunner(dataSource).run();
+        new SchemaScriptRunner(dataSource).run();
 
         // return the data source for others to work with
         return dataSource;
