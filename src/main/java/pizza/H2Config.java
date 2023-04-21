@@ -3,8 +3,8 @@ package pizza;
 import org.springframework.beans.factory.config.BeanFactoryPostProcessor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.ResolvableType;
 
-import javax.persistence.EntityManagerFactory;
 import java.util.stream.Stream;
 
 /**
@@ -21,10 +21,17 @@ public class H2Config {
     @Bean
     public static BeanFactoryPostProcessor dependsOnPostProcessor() {
         return bf -> {
-            String[] jpa = bf.getBeanNamesForType(EntityManagerFactory.class);
-            Stream.of(jpa)
-                    .map(bf::getBeanDefinition)
-                    .forEach(it -> it.setDependsOn("h2TcpServer"));
+            try {
+                // since EntityManagerFactory is not on classpath in 050-exercise branch we need
+                // to work around that using "ResolvableType"
+                ResolvableType entityMgrType = ResolvableType.forClass(Class.forName("javax.persistence.EntityManagerFactory"));
+                String[] jpa = bf.getBeanNamesForType(entityMgrType);
+                Stream.of(jpa)
+                        .map(bf::getBeanDefinition)
+                        .forEach(it -> it.setDependsOn("h2TcpServer"));
+            } catch (ClassNotFoundException e) {
+                // this is okay, might not be on classpath in "exercise" branch
+            }
         };
     }
 }
