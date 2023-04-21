@@ -10,10 +10,9 @@ Diese Übung besteht im Grunde aus drei Phasen:
 
 ### Phase 1
 
-Wir brauchen eine neue `pom.xml`, damit aus der bestehenden Anwendung eine Spring-Boot Anwendung wird.
+Wir brauchen eine neue `pom.xml`, damit aus der bestehenden Anwendung eine Spring-Boot-Anwendung wird.
 
-Diese kann über den Spring Initializr
-generiert werden und in das Projekt reinkopiert werden.
+Diese kann über den Spring Initializr generiert werden und in das Projekt reinkopiert werden.
 
 WICHTIG, Sie benötigen die Dependencies
 
@@ -41,9 +40,10 @@ spring.datasource.driverClassName=org.h2.Driver
 
 Was wir immer noch brauchen sind:
 
-* den `H2Launcher` (damit die Datenbank überhaupt läuft) und Aufruf dessen `start()` Methode
-* den `H2ScriptRunner` (damit das Datenbank-Schema vorhanden ist) und Aufruf dessen `run()` Methode
-* eine `SampleDataLoader` Instanz (damit Daten in der Datenbank existieren) und Aufruf dessen `run()` Methode
+* eine `H2TcpServer` Bean (damit die Datenbank überhaupt läuft) und der automatische Aufruf dessen `start()` Methode
+* den `SchemaScriptRunner` (damit das Datenbank-Schema vorhanden ist) und Aufruf dessen `run()` Methode
+* eine `SampleDataLoader` Instanz (damit Daten in der Datenbank existieren) und Aufruf dessen `run()` Methode (am besten
+  auch über einen Runner)
 
 ### Phase 3
 
@@ -63,5 +63,3 @@ Sie können folgende Optionen nutzen:
 
 * Es gibt keine `DataSource` Bean -- dies liegt vermutlich daran, dass Sie
   den `spring-boot-starter-jdbc` nicht in der POM haben
-* Database Connection Timeout -- der `H2Launcher` muss vor dem `H2ScriptRunner` ausgeführt werden.
-  Hier hilft die `@DependsOn` Annotation
