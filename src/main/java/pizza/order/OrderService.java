@@ -45,6 +45,15 @@ public class OrderService {
     // business logic
     //
 
+    /**
+     * Places an order for a Customer identified by his/her phone number.
+     * <p>
+     * The kind and number of products ordered are given in the <code>productQuantities</code> map.
+     *
+     * @param phoneNumber       required argument, the phone number to identify the Customer with
+     * @param productQuantities required argument, a mapping of product-ids to their desired quantities
+     * @return the {@link Order} entity which contains the total price and estimated time of delivery
+     */
     public Order placeOrder(String phoneNumber, Map<String, Integer> productQuantities) {
         // make sure customer exists -- throws exception if it doesn't
         Customer customer = this.customerService.getCustomerByPhoneNumber(phoneNumber);

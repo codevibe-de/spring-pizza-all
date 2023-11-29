@@ -3,11 +3,28 @@
 set namespaceSeparator ::
 
 package "pizza.product" <<Frame>> {
-class ProductService
-interface ProductRepository
-class ProductJdbcDao extends ProductRepository
+
+class ProductService {
+createProduct(p : Product)
+getProduct(id : String) : Product
+getAllProducts() : Iterable<Product>
+getTotalPrice(prdQnts : Map<String,Integer>) : double
+}
+
+interface ProductRepository {
+save(p : Product) : Product
+existsById(id : String) : bool
+findAll() : Collection<Product>
+findById(id : String) : Optional<Product>
+}
+
+class ProductJdbcDao implements ProductRepository
+}
+
+interface DataSource {
+getConnection() : Connection
 }
 
 ProductService -right-> ProductRepository
-ProductJdbcDao -right-> DataSource
+ProductJdbcDao .-right-> DataSource
 @enduml
