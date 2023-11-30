@@ -1,3 +1,9 @@
 /target
 /.idea
 /maven.out
+
+# eclipse
+bin/
+.project
+.classpath
+.settings/
