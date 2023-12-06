@@ -1,7 +1,6 @@
 package pizza;
 
 import org.h2.tools.Server;
-import org.springframework.core.NestedExceptionUtils;
 
 import java.net.BindException;
 import java.sql.SQLException;
@@ -20,7 +19,7 @@ public class H2TcpServer {
         try {
             server = Server.createTcpServer("-tcp", "-ifNotExists", "-tcpPort", "9092").start();
         } catch (SQLException e) {
-            var rootCause = NestedExceptionUtils.getRootCause(e);
+            var rootCause = getRootCause(e);
             if (rootCause instanceof BindException) {
                 System.out.println("Server seems to be running already (maybe in some other context?)");
             }
@@ -28,6 +27,14 @@ public class H2TcpServer {
                 throw new IllegalStateException("Failed to start H2 TCP server", e);
             }
         }
+    }
+
+    private Throwable getRootCause(SQLException e) {
+        Throwable rootCause = e;
+        while (rootCause.getCause() != null) {
+            rootCause = e.getCause();
+        }
+        return rootCause;
     }
 
     public void stop() {
