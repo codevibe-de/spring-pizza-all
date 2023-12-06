@@ -12,31 +12,28 @@ import static java.util.Map.ofEntries;
 
 public class PizzaApp {
 
+    private final ProductService productService;
+    private final CustomerService customerService;
+    private final OrderService orderService;
+    private final DataSource dataSource;
+
     public PizzaApp() {
+        // hint: you only need the DataSource if you want to uae the JdbcProductRepository
+        // (instead of InMemoryProductRepository)
+        dataSource = createDataSource();
+        // TODO create services and required helper instances here
+        productService = null;
+        customerService = null;
+        orderService = null;
     }
 
-    ProductService getProductService() {
-        // todo
-        return null;
-    }
-
-    CustomerService getCustomerService() {
-        // todo
-        return null;
-    }
-
-    OrderService getOrderService() {
-        // todo
-        return null;
-    }
-
-    DataSource getDataSource() {
+    DataSource createDataSource() {
         // start a H2 database instance
         new H2TcpServer().start();
 
         // use a H2 DataSource implementation
         var dataSource = new JdbcDataSource();
-        dataSource.setUrl("jdbc:h2:tcp://localhost:9092/~/training.spring-boot.pizza");
+        dataSource.setUrl("jdbc:h2:tcp://localhost:9092/~/training.spring.pizza");
 
         // run a script to set up the database schema (=tables)
         new SchemaScriptRunner(dataSource).run();
@@ -44,6 +41,22 @@ public class PizzaApp {
         // return the data source for others to work with
         return dataSource;
     }
+
+    // --- bean getters for business logic below (not really required but helpful later) ---
+
+    ProductService getProductService() {
+        return this.productService;
+    }
+
+    CustomerService getCustomerService() {
+        return this.customerService;
+    }
+
+    OrderService getOrderService() {
+        return this.orderService;
+    }
+
+    // --- business logic ---
 
     public static void main(String[] args) {
         // launch pizzeria

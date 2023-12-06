@@ -9,7 +9,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
-public class ProductJdbcDao implements ProductRepository {
+public class JdbcProductRepository implements ProductRepository {
 
     public static final String INSERT_SQL = "INSERT INTO products (pk, name, price) VALUES (?, ?, ?)";
     public static final String SELECT_COUNT_SQL = "SELECT COUNT(p.*) FROM products p WHERE p.pk=?";
@@ -17,7 +17,7 @@ public class ProductJdbcDao implements ProductRepository {
     public static final String SELECT_ONE_SQL = "SELECT p.* FROM products p WHERE p.pk = ?";
     private final DataSource dataSource;
 
-    public ProductJdbcDao(DataSource dataSource) {
+    public JdbcProductRepository(DataSource dataSource) {
         this.dataSource = dataSource;
     }
 
