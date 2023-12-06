@@ -16,33 +16,25 @@ public class PizzaApp {
     private final CustomerService customService;
     private final ProductService productService;
     private final OrderService orderService;
+    private final DataSource dataSource;
 
     public PizzaApp() {
+        // hint: you only need the DataSource if you want to uae the JdbcProductRepository
+        // (instead of InMemoryProductRepository)
+        dataSource = createDataSource();
         this.customService = new CustomerService();
         this.productService = new ProductService(new ProductJdbcDao(getDataSource()));
         this.orderService = new OrderService(this.customService, this.productService);
         new SampleDataLoader.SmallDataLoader(this.productService, this.customService).run();
     }
 
-    ProductService getProductService() {
-        return this.productService;
-    }
-
-    CustomerService getCustomerService() {
-        return this.customService;
-    }
-
-    OrderService getOrderService() {
-        return this.orderService;
-    }
-
-    DataSource getDataSource() {
+    DataSource createDataSource() {
         // start a H2 database instance
         new H2TcpServer().start();
 
         // use a H2 DataSource implementation
         var dataSource = new JdbcDataSource();
-        dataSource.setUrl("jdbc:h2:tcp://localhost:9092/~/training.spring-boot.pizza");
+        dataSource.setUrl("jdbc:h2:tcp://localhost:9092/~/training.spring.pizza");
 
         // run a script to set up the database schema (=tables)
         new SchemaScriptRunner(dataSource).run();
@@ -50,6 +42,22 @@ public class PizzaApp {
         // return the data source for others to work with
         return dataSource;
     }
+
+    // --- bean getters for business logic below (not really required but helpful later) ---
+
+    ProductService getProductService() {
+        return this.productService;
+    }
+
+    CustomerService getCustomerService() {
+        return this.customerService;
+    }
+
+    OrderService getOrderService() {
+        return this.orderService;
+    }
+
+    // --- business logic ---
 
     public static void main(String[] args) {
         // launch pizzeria

@@ -14,3 +14,5 @@ Instanziierungen.
 
 Ergänzen Sie die fehlenden Teile (z.B. in dem noch leeren PizzaApp Konstruktor), sodass die Anwendung fehlerfrei läuft
 und Ausgaben erzeugt.
+
+Und: Die Datenbank ist anfangs leer - wie kann man das wohl ändern ...?
