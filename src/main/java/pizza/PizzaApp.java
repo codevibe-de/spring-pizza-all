@@ -3,7 +3,7 @@ package pizza;
 import org.h2.jdbcx.JdbcDataSource;
 import pizza.customer.CustomerService;
 import pizza.order.OrderService;
-import pizza.product.ProductJdbcDao;
+import pizza.product.InMemoryProductRepository;
 import pizza.product.ProductService;
 
 import javax.sql.DataSource;
@@ -13,7 +13,7 @@ import static java.util.Map.ofEntries;
 
 public class PizzaApp {
 
-    private final CustomerService customService;
+    private final CustomerService customerService;
     private final ProductService productService;
     private final OrderService orderService;
     private final DataSource dataSource;
@@ -22,10 +22,10 @@ public class PizzaApp {
         // hint: you only need the DataSource if you want to uae the JdbcProductRepository
         // (instead of InMemoryProductRepository)
         dataSource = createDataSource();
-        this.customService = new CustomerService();
-        this.productService = new ProductService(new ProductJdbcDao(getDataSource()));
-        this.orderService = new OrderService(this.customService, this.productService);
-        new SampleDataLoader.SmallDataLoader(this.productService, this.customService).run();
+        this.customerService = new CustomerService();
+        this.productService = new ProductService(new InMemoryProductRepository());
+        this.orderService = new OrderService(this.customerService, this.productService);
+        new SampleDataRunner.SmallSampleDataRunner(this.productService, this.customerService).run();
     }
 
     DataSource createDataSource() {
