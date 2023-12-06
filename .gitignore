@@ -1,9 +1,17 @@
-/target
-/.idea
-/maven.out
+# inellij
+.idea/
+*.iml
 
 # eclipse
 bin/
 .project
 .classpath
 .settings/
+
+# maven
+/target
+/maven.out
+
+# gradle
+.gradle/
+build/
