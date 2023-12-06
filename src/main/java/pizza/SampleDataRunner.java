@@ -13,20 +13,20 @@ import pizza.product.ProductService;
  * This interface contains multiple implementations to load no or some data into the system for demo
  * purposes.
  */
-public interface SampleDataLoader extends Runnable {
+public interface SampleDataRunner extends Runnable {
 
-    class NoOpDataLoader implements SampleDataLoader {
+    class NoOpSampleDataRunner implements SampleDataRunner {
         @Override
         public void run() {
         }
     }
 
-    class SmallDataLoader implements SampleDataLoader {
+    class SmallSampleDataRunner implements SampleDataRunner {
 
         private final ProductService productService;
         private final CustomerService customerService;
 
-        public SmallDataLoader(ProductService productService, CustomerService customerService) {
+        public SmallSampleDataRunner(ProductService productService, CustomerService customerService) {
             this.productService = productService;
             this.customerService = customerService;
         }
@@ -41,8 +41,10 @@ public interface SampleDataLoader extends Runnable {
             createProduct("P-12", "Pizza Spinat und Feta", 7.00);
 
             var address1 = createAddress("Wasserstr. 123", "40302", "Atlantis");
+            var address2 = createAddress("Schlossallee 1", "88776", "Monopolhausen");
 
             createCustomer("Enrico Pallazzo", "+49 123 456789", address1);
+            createCustomer("Elizabeth Magie", "+1 77 551237", address2);
         }
 
         protected void createProduct(String productId, String name, double price) {
