@@ -15,12 +15,11 @@ public class PizzaApp {
     private final ProductService productService;
     private final CustomerService customerService;
     private final OrderService orderService;
-    private final DataSource dataSource;
 
     public PizzaApp() {
         // hint: you only need the DataSource if you want to uae the JdbcProductRepository
         // (instead of InMemoryProductRepository)
-        dataSource = createDataSource();
+        DataSource dataSource = createDataSource();
         // TODO create services and required helper instances here
         productService = null;
         customerService = null;
