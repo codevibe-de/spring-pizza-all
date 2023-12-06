@@ -6,9 +6,9 @@ import java.net.BindException;
 import java.sql.SQLException;
 
 /**
- * Provides support for starting and stopping an H2 database server instance. This instance
- * can be reached by TCP connections, which makes connecting to it from your IDE (e.g.
- * Intellij Database Tools) easy.
+ * Provides support for starting and stopping an H2 database server instance. This instance can be
+ * reached by TCP connections, which makes connecting to it from your IDE (e.g. Intellij Database
+ * Tools) easy.
  */
 public class H2TcpServer {
 
@@ -22,8 +22,7 @@ public class H2TcpServer {
             var rootCause = getRootCause(e);
             if (rootCause instanceof BindException) {
                 System.out.println("Server seems to be running already (maybe in some other context?)");
-            }
-            else {
+            } else {
                 throw new IllegalStateException("Failed to start H2 TCP server", e);
             }
         }

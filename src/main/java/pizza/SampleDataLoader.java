@@ -7,11 +7,11 @@ import pizza.product.Product;
 import pizza.product.ProductService;
 
 /**
- * The <code>SampleDataLoader</code> interface is simply an extension of the
- * {@link Runnable} interface without any additional functionality.
+ * The <code>SampleDataLoader</code> interface is simply an extension of the {@link Runnable}
+ * interface without any additional functionality.
  * <p>
- * This interface contains multiple implementations to load no or some data into the
- * system for demo purposes.
+ * This interface contains multiple implementations to load no or some data into the system for demo
+ * purposes.
  */
 public interface SampleDataLoader extends Runnable {
 
