@@ -21,9 +21,10 @@ public class PizzaApp {
         // hint: you only need the DataSource if you want to uae the JdbcProductRepository
         // (instead of InMemoryProductRepository)
         DataSource dataSource = createDataSource();
-        productService = null;
-        customerService = null;
-        orderService = null;
+        this.customerService = new CustomerService();
+        this.productService = new ProductService(new InMemoryProductRepository());
+        this.orderService = new OrderService(this.customerService, this.productService);
+        new SampleDataRunner.SmallSampleDataRunner(this.productService, this.customerService).run();
     }
 
     DataSource createDataSource() {
