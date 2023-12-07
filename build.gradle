@@ -1,9 +1,13 @@
 plugins {
-    id 'java'
+    id 'application'
 }
 
 group = 'de.codevibe'
 version = '1.0-SNAPSHOT'
+
+application {
+    mainClass = 'pizza.PizzaApp'
+}
 
 repositories {
     mavenCentral()
