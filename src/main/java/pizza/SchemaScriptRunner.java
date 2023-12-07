@@ -1,13 +1,14 @@
 package pizza;
 
 import org.h2.tools.RunScript;
-import org.springframework.core.io.ClassPathResource;
 
 import javax.sql.DataSource;
 import java.io.InputStreamReader;
+import java.util.Objects;
 
 /**
- * Runs the database schema script (e.g. table creation) defined in file "/src/main/resources/schema.sql"
+ * Runs the database schema script (e.g. table creation) defined in file
+ * "/src/main/resources/schema.sql"
  */
 public class SchemaScriptRunner implements Runnable {
 
@@ -20,8 +21,11 @@ public class SchemaScriptRunner implements Runnable {
     @Override
     public void run() {
         System.out.println("Running schema script");
-        var resource = new ClassPathResource("/schema.sql");
-        try (var inStream = new InputStreamReader(resource.getInputStream())) {
+        var resourceAsStream = Objects.requireNonNull(
+                getClass().getResourceAsStream("/schema.sql"),
+                "Resource /schema.sql not found"
+        );
+        try (var inStream = new InputStreamReader(resourceAsStream)) {
             RunScript.execute(this.dataSource.getConnection(), inStream);
         } catch (Exception e) {
             throw new RuntimeException(e);
