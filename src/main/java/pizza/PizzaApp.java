@@ -16,6 +16,7 @@ public class PizzaApp {
     private final CustomerService customerService;
     private final ProductService productService;
     private final OrderService orderService;
+    private H2TcpServer h2TcpServer;
 
     public PizzaApp() {
         // hint: you only need the DataSource if you want to uae the JdbcProductRepository
@@ -24,12 +25,13 @@ public class PizzaApp {
         this.customerService = new CustomerService();
         this.productService = new ProductService(new InMemoryProductRepository());
         this.orderService = new OrderService(this.customerService, this.productService);
-        new SampleDataRunner.SmallSampleDataRunner(this.productService, this.customerService).run();
+        new DataLoader.Sample(this.productService, this.customerService).run();
     }
 
     DataSource createDataSource() {
         // start a H2 database instance
-        new H2TcpServer().start();
+        this.h2TcpServer = new H2TcpServer();
+        this.h2TcpServer.start();
 
         // use a H2 DataSource implementation
         var dataSource = new JdbcDataSource();
@@ -79,5 +81,10 @@ public class PizzaApp {
                 )
         );
         System.out.println(order);
+
+        // we need to stop the server so that VM terminates properly
+        if (app.h2TcpServer != null) {
+            app.h2TcpServer.stop();
+        }
     }
 }
