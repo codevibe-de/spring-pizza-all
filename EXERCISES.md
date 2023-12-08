@@ -19,30 +19,29 @@ Dafür haben wir die notwendigen Annotationen kennengelernt.
 
 ### Bonus: Nutzung Datenbank
 
-Wer die Datenbank-Variante des `ProductRepository` nzutzen möchte, braucht hierfür eine laufende
+Wer die Datenbank-Variante des `ProductRepository` nutzen möchte, braucht hierfür eine laufende
 Datenbank und eine `DataSource` Bean. Diese legt Spring Boot für uns automatisch an, da wir die H2 Datenbank
 im Classpath haben (Autoconfiguration).
 
-TODO:
+Somit können eine ganze Reihe an eigenen Klassen entfernt werden:
 
-* eine `H2TcpServer` Bean (damit die Datenbank überhaupt läuft) und der automatische Aufruf dessen `start()` Methode
-* den `SchemaScriptRunner` (damit das Datenbank-Schema vorhanden ist) und Aufruf dessen `run()` Methode
-* eine `SampleDataLoader` Instanz (damit Daten in der Datenbank existieren) und Aufruf dessen `run()` Methode (am besten
-  auch über einen Runner)
-
-Achtung -- die Reihenfolge der Runner ist entscheidend (Script vor SampleData). Hierfür die Annotation `@Order` nutzen.
+* `H2TcpServer.java` -- denn Spring startet automatisch eine interne H2 Datenbank
+* `SchemaScriptRunner.java` -- denn Spring führt automatisch eine vorhandene `schema.sql` Datei aus
+* `PersistenceException.java` -- das Spring JDBC Projekt bringt eine Reihe an Exceptions mit
 
 ## Phase 2
 
-Wie arbeiten wir dann mit den nun vorhandenen Service-Beans?
+Wie arbeiten wir nun mit den jetzt vorhandenen Service-Beans?
 
-Sprich, an welcher Stelle erfolgt nun das Ausführen der Service-Calls, die bisher in der `PizzaApp.main()` Methode
-gestanden haben?
+Sprich, an welcher Stelle erfolgt nun das Ausführen der Geschäftslogik, die bisher in der `PizzaApp.main()` Methode
+gestanden hat?
 
 Sie können folgende Optionen nutzen:
 
-* eine `ApplicationRunner` Klasse programmieren und zur Spring Bean deklarieren, darein lassen
-  Sie sich die Beans injecten, die Sie nutzen möchten
-* oder Sie nutzen den von `SpringApplication.run()` zurückgegebenen Kontext und holen sich dort
-  Beans heraus und rufen diese auf
+* eine `LogicRunner` Klasse anlegen (implementiert `ApplicationRunner`)
+  * zur Spring Bean deklarieren
+  * Geschäftslogik hierhin kopieren
+  * notwendige Beans autowiren
+* oder Sie nutzen den von `SpringApplication.run()` zurückgegebenen Kontext und holen sich von dort
+  die notwendigen Beans 
 
