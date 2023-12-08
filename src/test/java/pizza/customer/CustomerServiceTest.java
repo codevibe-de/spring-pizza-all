@@ -7,8 +7,8 @@ import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Import;
-import pizza.SampleDataLoader;
-import pizza.SampleDataLoaderRunner;
+import pizza.DataLoader;
+import pizza.DataLoadRunner;
 import pizza.product.ProductService;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -38,7 +38,7 @@ public class CustomerServiceTest {
 
     @TestConfiguration
     @ComponentScan("pizza.customer") // loads EVERY bean from package including the CustomerService
-    @Import({SampleDataLoaderRunner.class, SampleDataLoader.SmallDataLoader.class})
+    @Import({DataLoadRunner.class, DataLoader.Sample.class})
     static class TestConfig {
         @MockBean // we don't care what the ProductService does, we just need that bean in the context for data loading
         ProductService productService;
