@@ -1,6 +1,6 @@
 package pizza.customer;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "customers")
@@ -11,7 +11,7 @@ public class Customer {
     //
 
     @Id
-    @GeneratedValue
+    @GeneratedValue()
     private Long id;
 
     private String fullName;
