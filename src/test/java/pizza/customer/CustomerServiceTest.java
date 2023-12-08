@@ -3,13 +3,13 @@ package pizza.customer;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Import;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
-import pizza.SampleDataLoader;
-import pizza.SampleDataLoaderRunner;
+import pizza.DataLoader;
 import pizza.product.ProductService;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -22,7 +22,8 @@ public class CustomerServiceTest {
     CustomerService customerService;
 
     @Autowired
-    SampleDataLoaderRunner sampleDataLoaderRunner;
+    @Qualifier("sample")
+    DataLoader dataLoader;
 
     /**
      * Tests that we can retrieve a Customer by his/her phone-number using the CustomerService
@@ -30,7 +31,7 @@ public class CustomerServiceTest {
     @Test
     void getCustomerByPhoneNumber() {
         // given
-        sampleDataLoaderRunner.run(null);
+        dataLoader.run();
         String phoneNumber = "+49 123 456789";
 
         // when
@@ -43,7 +44,7 @@ public class CustomerServiceTest {
 
     @TestConfiguration
     @ComponentScan("pizza.customer") // loads EVERY bean from package including the CustomerService
-    @Import({SampleDataLoaderRunner.class, SampleDataLoader.SmallDataLoader.class})
+    @Import({DataLoader.Sample.class})
     static class TestConfig {
         @MockBean // we don't care what the ProductService does, we just need that bean in the context for data loading
         ProductService productService;
