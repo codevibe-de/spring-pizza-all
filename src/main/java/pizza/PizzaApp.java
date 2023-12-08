@@ -9,7 +9,6 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 public class PizzaApp {
 
     public static void main(String[] args) {
-        // run boot app
         SpringApplication.run(PizzaApp.class, args);
     }
 
