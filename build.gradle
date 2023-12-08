@@ -5,7 +5,7 @@ plugins {
 }
 
 group = 'de.codevibe'
-version = '060'
+version = '070'
 
 java {
     sourceCompatibility = '17'
