@@ -2,6 +2,7 @@ package pizza;
 
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 import pizza.customer.CustomerService;
 import pizza.order.OrderService;
@@ -10,6 +11,7 @@ import pizza.product.ProductService;
 import java.util.Map;
 
 @Component
+@Order(50)
 public class LogicRunner implements ApplicationRunner {
 
     private final ProductService productService;
