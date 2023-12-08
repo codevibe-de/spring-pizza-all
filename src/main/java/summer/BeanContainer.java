@@ -1,4 +1,4 @@
-package mola;
+package summer;
 
 import java.lang.reflect.Constructor;
 import java.util.ArrayList;
@@ -8,14 +8,17 @@ import java.util.Map;
 
 public class BeanContainer {
 
+    // --- fields ---
+
     private final List<BeanDefinition> beanDefinitions = new ArrayList<>();
 
     private final Map<Class<?>, List<Object>> beansByTypeMap = new HashMap<>();
 
-    public BeanContainer() {
-    }
+    private final Map<String, Object> beansByNameMap = new HashMap<>();
 
-    public void defineBean(String id, Class<?> beanClass) {
+    // --- bean container business logic ---
+
+    public void defineBean(String name, Class<?> beanClass) {
         this.beanDefinitions.add(
                 new BeanDefinition(id, beanClass)
         );
@@ -35,6 +38,16 @@ public class BeanContainer {
             }
         }
     }
+
+    public <T> T getBean(String name, Class<T> requiredType) {
+        return null;
+    }
+
+    public Object getBean(String name) {
+        return null;
+    }
+
+    // --- internal helper methods ---
 
     private Constructor<?> findConstructor(Class<?> beanClass) {
         return beanClass.getConstructors()[0];
