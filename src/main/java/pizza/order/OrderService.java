@@ -53,8 +53,10 @@ public class OrderService {
      * The kind and number of products ordered are given in the <code>productQuantities</code> map.
      *
      * @param phoneNumber       required argument, the phone number to identify the Customer with
-     * @param productQuantities required argument, a mapping of product-ids to their desired quantities
-     * @return the {@link Order} entity which contains the total price and estimated time of delivery
+     * @param productQuantities required argument, a mapping of product-ids to their desired
+     *                          quantities
+     * @return the {@link Order} entity which contains the total price and estimated time of
+     * delivery
      */
     public Order placeOrder(String phoneNumber, Map<String, Integer> productQuantities) {
         // make sure customer exists -- throws exception if it doesn't
