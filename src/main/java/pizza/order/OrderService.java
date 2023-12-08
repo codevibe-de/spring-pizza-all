@@ -1,16 +1,15 @@
 package pizza.order;
 
+import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import pizza.customer.Customer;
 import pizza.customer.CustomerService;
 import pizza.product.ProductService;
 
-import javax.annotation.PostConstruct;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -52,8 +51,12 @@ public class OrderService {
 
     @PostConstruct
     public void dumpConfiguration() {
-        System.out.println("Using configuration:\n  deliveryTimeInMinutes=" + deliveryTimeInMinutes
-                + "\n  dailyDiscounts=" + dailyDiscounts);
+        System.out.printf("""
+                Using configuration:
+                - deliveryTimeInMinutes=%d
+                - discountDays=%s
+                - discountRate=%f
+                %n""", deliveryTimeInMinutes, discountDays, discountRate);
     }
 
     //
