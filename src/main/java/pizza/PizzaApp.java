@@ -7,7 +7,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class PizzaApp {
 
     public static void main(String[] args) {
-        // run boot app
         SpringApplication.run(PizzaApp.class, args);
     }
 
