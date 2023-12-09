@@ -1,4 +1,4 @@
-package mola;
+package summer.exception;
 
 public class NoUniqueBeanDefinitionException extends BeansException {
     public <T> NoUniqueBeanDefinitionException(Class<T> type) {
