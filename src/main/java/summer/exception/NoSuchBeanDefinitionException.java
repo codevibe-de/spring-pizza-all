@@ -1,4 +1,4 @@
-package mola;
+package summer.exception;
 
 public class NoSuchBeanDefinitionException extends BeansException {
     public <T> NoSuchBeanDefinitionException(Class<?> type) {
