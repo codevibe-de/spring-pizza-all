@@ -1,5 +1,7 @@
 package summer;
 
+import summer.exception.BeanInitializationException;
+import summer.exception.BeansException;
 import summer.exception.NoSuchBeanDefinitionException;
 import summer.exception.NoUniqueBeanDefinitionException;
 
@@ -19,9 +21,63 @@ public class BeanContainer {
     // --- bean container business logic ---
 
     public void defineBean(String name, Class<?> beanClass) {
+        beanDefinitions.add(new BeanDefinition(name, beanClass));
     }
 
     public void refresh() {
+        beansByNameMap.clear();
+        beansByTypeMap.clear();
+        // we uee the dependency-map for two things:
+        // 1) each map key tells us, which bean we still need to create
+        // 2) each map value is a list of bean names, which do not exist yet. Hence, we can only
+        // start with creating beans that have an empty list. With each new bean we thin out these
+        // lists to make other beans creatable since their dependencies now exist
+        Map<String, Set<String>> workToDoMap = createBeanDependencyMap(beanDefinitions);
+        while (!workToDoMap.isEmpty()) {
+            // what bean to create/realize next? must have an empty set of missing dependencies
+            var beanName = workToDoMap.entrySet().stream()
+                    .filter(e -> e.getValue().isEmpty())
+                    .map(Map.Entry::getKey)
+                    .findFirst()
+                    .orElse(null);
+            // got one?
+            if (beanName == null) {
+                throw new BeansException("Circular dependency detected, unfinished beans: " + workToDoMap.keySet());
+            } else {
+                createBean(beanName);
+                // remove the newly created bean from our to-do list
+                workToDoMap.remove(beanName);
+                // remove the new bean from each others bean's missing list
+                workToDoMap.values().forEach(set -> set.remove(beanName));
+            }
+        }
+    }
+
+    private void createBean(String name) {
+        try {
+            BeanDefinition def = getBeanDefinition(name);
+            var constr = findConstructor(def.getType());
+            var constrParamTypes = constr.getParameterTypes();
+            var constrParamBeanNames = resolveBeanNames(constrParamTypes, beanDefinitions);
+            var beans = getBeans(constrParamBeanNames);
+            Object bean = constr.newInstance(beans);
+            registerBean(bean, def.getName());
+        } catch (Exception e) {
+            throw new BeanInitializationException(name, e);
+        }
+    }
+
+    private void registerBean(Object bean, String name) {
+        beansByNameMap.put(name, bean);
+        beansByTypeMap.computeIfAbsent(
+                bean.getClass(),
+                t -> new ArrayList<>()
+        ).add(bean);
+    }
+
+    private BeanDefinition getBeanDefinition(String beanName) {
+        return beanDefinitions.stream().filter(def -> def.getName().equals(beanName))
+                .findAny().orElseThrow(() -> new NoSuchBeanDefinitionException("beanName"));
     }
 
     public <T> T getBean(Class<T> requiredType) {
@@ -34,6 +90,12 @@ public class BeanContainer {
 
     public Object getBean(String name) {
         return null;
+    }
+
+    public Object[] getBeans(String[] names) {
+        return Arrays.stream(names)
+                .map(this::getBean)
+                .toArray();
     }
 
     // --- internal helper methods ---
@@ -51,7 +113,7 @@ public class BeanContainer {
         return constructor.getParameterTypes();
     }
 
-    Map<String,Set<String>> createBeanDependencyMap(Collection<BeanDefinition> defs) {
+    Map<String, Set<String>> createBeanDependencyMap(Collection<BeanDefinition> defs) {
         var map = new HashMap<String, Set<String>>();
         for (var def : defs) {
             Class<?>[] constructorParamTypes = findConstructorParameterTypes(def.getType());
@@ -63,8 +125,8 @@ public class BeanContainer {
 
     String[] resolveBeanNames(Class<?>[] types, Collection<BeanDefinition> defs) {
         var names = new String[types.length];
-        for (int n=0; n<types.length; n++) {
-            names[n] = resolveBeanName(types[n],  defs);
+        for (int n = 0; n < types.length; n++) {
+            names[n] = resolveBeanName(types[n], defs);
         }
         return names;
     }
