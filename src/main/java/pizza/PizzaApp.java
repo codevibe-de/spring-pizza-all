@@ -19,7 +19,7 @@ public class PizzaApp {
     private H2TcpServer h2TcpServer;
 
     public PizzaApp() {
-        // hint: you only need the DataSource if you want to uae the JdbcProductRepository
+        // hint: you only need the DataSource if you want to use the JdbcProductRepository
         // (instead of InMemoryProductRepository)
         DataSource dataSource = createDataSource();
         this.customerService = new CustomerService();
