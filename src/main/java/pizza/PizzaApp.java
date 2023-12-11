@@ -3,7 +3,7 @@ package pizza;
 import org.h2.jdbcx.JdbcDataSource;
 import pizza.customer.CustomerService;
 import pizza.order.OrderService;
-import pizza.product.ProductJdbcDao;
+import pizza.product.InMemoryProductRepository;
 import pizza.product.ProductService;
 
 import javax.sql.DataSource;
@@ -13,36 +13,29 @@ import static java.util.Map.ofEntries;
 
 public class PizzaApp {
 
-    private final CustomerService customService;
+    private final CustomerService customerService;
     private final ProductService productService;
     private final OrderService orderService;
+    private H2TcpServer h2TcpServer;
 
     public PizzaApp() {
-        this.customService = new CustomerService();
-        this.productService = new ProductService(new ProductJdbcDao(getDataSource()));
-        this.orderService = new OrderService(this.customService, this.productService);
-        new SampleDataLoader.SmallDataLoader(this.productService, this.customService).run();
+        // hint: you only need the DataSource if you want to use the JdbcProductRepository
+        // (instead of InMemoryProductRepository)
+        DataSource dataSource = createDataSource();
+        this.customerService = new CustomerService();
+        this.productService = new ProductService(new InMemoryProductRepository());
+        this.orderService = new OrderService(this.customerService, this.productService);
+        new DataLoader.Sample(this.productService, this.customerService).run();
     }
 
-    ProductService getProductService() {
-        return this.productService;
-    }
-
-    CustomerService getCustomerService() {
-        return this.customService;
-    }
-
-    OrderService getOrderService() {
-        return this.orderService;
-    }
-
-    DataSource getDataSource() {
+    DataSource createDataSource() {
         // start a H2 database instance
-        new H2TcpServer().start();
+        this.h2TcpServer = new H2TcpServer();
+        this.h2TcpServer.start();
 
         // use a H2 DataSource implementation
         var dataSource = new JdbcDataSource();
-        dataSource.setUrl("jdbc:h2:tcp://localhost:9092/~/training.spring-boot.pizza");
+        dataSource.setUrl("jdbc:h2:tcp://localhost:9092/~/training.spring.pizza");
 
         // run a script to set up the database schema (=tables)
         new SchemaScriptRunner(dataSource).run();
@@ -50,6 +43,22 @@ public class PizzaApp {
         // return the data source for others to work with
         return dataSource;
     }
+
+    // --- bean getters for business logic below (not really required but helpful later) ---
+
+    ProductService getProductService() {
+        return this.productService;
+    }
+
+    CustomerService getCustomerService() {
+        return this.customerService;
+    }
+
+    OrderService getOrderService() {
+        return this.orderService;
+    }
+
+    // --- business logic ---
 
     public static void main(String[] args) {
         // launch pizzeria
@@ -72,5 +81,10 @@ public class PizzaApp {
                 )
         );
         System.out.println(order);
+
+        // we need to stop the server so that VM terminates properly
+        if (app.h2TcpServer != null) {
+            app.h2TcpServer.stop();
+        }
     }
 }
