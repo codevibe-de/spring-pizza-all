@@ -4,33 +4,37 @@
 
 Bei Bedarf können Sie den "Insomnia Core" Rest Client installieren: https://insomnia.rest/
 
-Im Projekt ist ab diesem Branch ein exportierter Insomnia Workspace vorhanden, den Sie in das Tool importieren können.
-Oder Sie legen die wenigen Requests selbst an.
+Im Projekt ist ab diesem Branch ein exportierter Insomnia Workspace vorhanden, den Sie in das Tool
+importieren können. Damit können Sie dann komfortabel die später programmierten Endpunkte anfragen.
 
 Alternativ können Sie zum Testen der Endpunkte natürlich auch andere Tools wie z.B. Postman oder den
-Kommandozeilenbefehl `curl` nehmen.
+Kommandozeilenbefehl `curl` nehmen. Oder den in Intellij vorhandenen HTTP-Client.
 
-## b) OrderRestController
+## b) Starter
+
+Fügen Sie die Maven Dependency `spring-boot-starter-web` zum Build hinzu.
+
+## c) OrderRestController
 
 Erstellen Sie einen API-Endpunkt `/orders/greeting` der für ein GET
 eine Begrüßung als String zurückgibt.
 
 Testen Sie die URL in Ihrem Browser: http://localhost:8080/orders/greeting
 
-## c) CustomerRestController
+## d) CustomerRestController
 
 Erstellen Sie die folgenden API-Endpunkte:
 
 * `GET /customers`, der alle Kunden zurückgibt
 * `POST /customers`, der einen neuen Kunden anlegt
 
-## d) ProductRestController
+## e) ProductRestController
 
 Erstellen Sie die folgenden API-Endpunkte:
 
 * `GET /products`, der alle Produkte zurückgibt
 
-## e) Erweiterung OrderRestController
+## f) Erweiterung OrderRestController
 
 Erstellen Sie zusätzlich die folgenden API-Endpunkte:
 
