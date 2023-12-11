@@ -1,7 +1,14 @@
 package summer;
 
+import org.assertj.core.api.Assertions;
+import org.assertj.core.api.ThrowableAssert;
+import org.assertj.core.api.ThrowableAssert.ThrowingCallable;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.function.Executable;
+import pizza.DataLoader;
+import pizza.customer.CustomerService;
+import pizza.product.InMemoryProductRepository;
+import pizza.product.ProductService;
 import summer.exception.NoSuchBeanDefinitionException;
 import summer.exception.NoUniqueBeanDefinitionException;
 
@@ -20,6 +27,23 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 class BeanContainerTest {
 
     private final BeanContainer beanContainer = new BeanContainer();
+
+    @Test
+    void getBean__NoUniqueBeanDefinitionException() {
+        // given
+        beanContainer.defineBean("prodRepo", InMemoryProductRepository.class);
+        beanContainer.defineBean("prodSrv", ProductService.class);
+        beanContainer.defineBean("custSrv", CustomerService.class);
+        beanContainer.defineBean("sample", DataLoader.Sample.class);
+        beanContainer.defineBean("none", DataLoader.None.class);
+        beanContainer.refresh();
+
+        // when
+        ThrowingCallable callable = () -> beanContainer.getBean(Runnable.class);
+
+        // then
+        Assertions.assertThatThrownBy(callable).isInstanceOf(NoUniqueBeanDefinitionException.class);
+    }
 
     @Test
     void resolveBeanName_NoSuchBeanDefinitionException() {

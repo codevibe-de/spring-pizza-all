@@ -14,8 +14,6 @@ public class BeanContainer {
 
     private final List<BeanDefinition> beanDefinitions = new ArrayList<>();
 
-    private final Map<Class<?>, List<Object>> beansByTypeMap = new HashMap<>();
-
     private final Map<String, Object> beansByNameMap = new HashMap<>();
 
     // --- bean container business logic ---
@@ -26,7 +24,6 @@ public class BeanContainer {
 
     public void refresh() {
         beansByNameMap.clear();
-        beansByTypeMap.clear();
         // we uee the dependency-map for two things:
         // 1) each map key tells us, which bean we still need to create
         // 2) each map value is a list of bean names, which do not exist yet. Hence, we can only
@@ -69,10 +66,6 @@ public class BeanContainer {
 
     private void registerBean(Object bean, String name) {
         beansByNameMap.put(name, bean);
-        beansByTypeMap.computeIfAbsent(
-                bean.getClass(),
-                t -> new ArrayList<>()
-        ).add(bean);
     }
 
     private BeanDefinition getBeanDefinition(String beanName) {
@@ -81,15 +74,16 @@ public class BeanContainer {
     }
 
     public <T> T getBean(Class<T> requiredType) {
-        return null;
+        var beanName = resolveBeanName(requiredType, this.beanDefinitions);
+        return getBean(beanName, requiredType);
     }
 
     public <T> T getBean(String name, Class<T> requiredType) {
-        return null;
+        return (T) getBean(name);
     }
 
     public Object getBean(String name) {
-        return null;
+        return this.beansByNameMap.get(name);
     }
 
     public Object[] getBeans(String[] names) {
