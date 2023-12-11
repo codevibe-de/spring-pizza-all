@@ -26,7 +26,18 @@ Die Prüfung kann nur aus Abfrage des richtigen Statuswerts (201-CREATED) besteh
 
 Schreiben Sie einen `OrderRestControllerTest` für `placeOrder()`, der das erfolgreiche
 Anlegen einer Bestellung inklusive Prüfung auf korrekten Gesamtpreis und Name des
-Empfängers validiert.
+Empfängers validiert, beispielsweise mit folgendem JSON:
+
+````json
+{
+  "phoneNumber": "123-4567",
+  "itemQuantities": {
+    "S-02": 1,
+    "P-10": 2,
+    "P-12": 1
+  }
+}
+````
 
 Versuchen Sie diesen Test nicht als `@SpringBootTest`, sondern mit der Variante `@WebMvcTest`
 zu schreiben, sodass nur ein Teil des Kontexts gestartet werden muss (schneller).
@@ -56,14 +67,3 @@ Wenn wir die Entity `Order` als Rückgabewert nehmen, wird jede Bestellung den k
 gleichen) Kunden enthalten. Das ist unschön. Daher empfiehlt es sich, hier eine dedizierte Value-Klasse für
 die Rückgabewerte zu schreiben. Hierfür eignen sich die neuen Java Records.
 
-
-````json
-{
-  "phoneNumber": "123-4567",
-  "itemQuantities": {
-    "S-02": 1,
-    "P-10": 2,
-    "P-12": 1
-  }
-}
-````
