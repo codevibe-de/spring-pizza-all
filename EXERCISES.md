@@ -56,3 +56,14 @@ Wenn wir die Entity `Order` als Rückgabewert nehmen, wird jede Bestellung den k
 gleichen) Kunden enthalten. Das ist unschön. Daher empfiehlt es sich, hier eine dedizierte Value-Klasse für
 die Rückgabewerte zu schreiben. Hierfür eignen sich die neuen Java Records.
 
+
+````json
+{
+  "phoneNumber": "123-4567",
+  "itemQuantities": {
+    "S-02": 1,
+    "P-10": 2,
+    "P-12": 1
+  }
+}
+````
