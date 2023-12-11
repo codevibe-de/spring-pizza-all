@@ -2,17 +2,15 @@
 
 ## a) Test zur Abfrage eines Produkts
 
-Oops, ein Entwickler hat einen Fehler in der Datenbankschicht
-gemacht. Finden Sie diesen mittels eines Integrationstests!
+Oops, ein Entwickler hat einen Fehler in der Datenbankschicht gemacht. Finden Sie diesen mittels
+eines Integrationstests!
 
-Dazu erstellen Sie eine `ProductServiceTest` Klasse mit der Testmethode
-`getProduct()`.
+Dazu erstellen Sie eine `ProductServiceTest` Klasse mit der Testmethode `getProduct()`.
 
 In diesem Test soll die Abfrage eines Produkts anhand der Methode `ProductService.getProduct()`
 getestet werden.
 
-Der Test soll mittels einer `ProductRepository` Instanz
-die benötigten Testdaten selbst anlegen.
+Der Test soll mittels einer `ProductRepository` Instanz die benötigten Testdaten selbst anlegen.
 
 Also z.B. folgende Reihenfolge:
 
@@ -24,9 +22,8 @@ Also z.B. folgende Reihenfolge:
 ## b) Test zur Vermeidung doppelter Product-Ids
 
 Ergänzen Sie die Testklasse von oben um einen Test `createProduct__failsForDuplicateId()`,
-der sicherstellt, dass bei Anlage
-zweier Produkte mit der gleichen Product-Id eine `IllegalStateException` geworfen wird (wenn
-das zweite Produkt angelegt werden soll).
+der sicherstellt, dass bei Anlage zweier Produkte mit der gleichen Product-Id
+eine `IllegalStateException` geworfen wird (wenn das zweite Produkt angelegt werden soll).
 
 **Hinweis:** In Assertj gibt es hierfür auch eine spezielle assert-Methode
 namens `assertThatThrownBy()`.
@@ -39,11 +36,12 @@ Preisberechnung validiert wird.
 
 Dieser Test wird vorerst fehlschlagen, da diese Service-Methode leer ist.
 
-Implementieren Sie dann die Service-Methode.
+Implementieren Sie dann die Service-Methode (alternativ können Sie sich diesen Code-Block auch
+einfach aus dem `solution` Branch ziehen).
 
 **Hinweis:** Bei dieser Aufgabe können Sie mit den berüchtigten Ungenauigkeiten der Floating-Point
-Arithmetik
-konfrontiert werden (https://en.wikipedia.org/wiki/Floating-point_arithmetic#Accuracy_problems).
+Arithmetik konfrontiert
+werden (https://en.wikipedia.org/wiki/Floating-point_arithmetic#Accuracy_problems).
 
 Diese treten z.B. dann auf (Bonus-Aufgabe!), wenn Sie 3 Produkte zu 2,10 € und 1 Produkt zu 6,99 €
 bestellen.
@@ -62,12 +60,14 @@ In dieser Übung nutzen wir die Annotation `@TestConfiguration`, um den Kontext 
 D.h. die `CustomerServiceTest` Klasse benötigt nur eine `@ExtendWith({SpringExtension.class})`
 Annotation, NICHT `@SpringBootTest`.
 
-Der Kontext soll entsprechend nur aus den Klassen bestehen, die wir wirklich brauchen. Welche sind das?
+Der Kontext soll entsprechend nur aus den Klassen bestehen, die wir wirklich brauchen. Welche sind
+das?
 
 * natürlich der `CustomerService`
 * und alles, was für das Laden der Sample-Daten benötigen
-* da ja leider dieser auch eine Referenz auf den `ProductService` benötigt, braucht es hierfür eine Lösung. Was bietet
-  sich hier an? Tipp: Produktdaten sind uns völlig egal, der Service kann machen, was er will (bzw. gar nichts machen)
+* da ja leider dieser auch eine Referenz auf den `ProductService` benötigt, braucht es hierfür eine
+  Lösung. Was bietet sich hier an? Tipp: Produktdaten sind uns völlig egal, der Service kann machen,
+  was er will (bzw. gar nichts machen)
 
 D.h. Sie brauchen eine neue Klasse, die
 

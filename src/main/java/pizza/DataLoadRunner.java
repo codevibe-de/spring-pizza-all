@@ -15,16 +15,16 @@ import org.springframework.stereotype.Component;
  */
 @Component
 @Order(1)
-public class SampleDataLoaderRunner implements ApplicationRunner {
+public class DataLoadRunner implements ApplicationRunner {
 
-    private final SampleDataLoader sampleDataLoader;
+    private final DataLoader dataLoader;
 
-    public SampleDataLoaderRunner(@Qualifier("small") SampleDataLoader sampleDataLoader) {
-        this.sampleDataLoader = sampleDataLoader;
+    public DataLoadRunner(@Qualifier("sample") DataLoader dataLoader) {
+        this.dataLoader = dataLoader;
     }
 
     @Override
     public void run(ApplicationArguments args) {
-        this.sampleDataLoader.run();
+        this.dataLoader.run();
     }
 }
