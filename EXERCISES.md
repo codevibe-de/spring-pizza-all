@@ -1,5 +1,8 @@
 # Übungen zu Kapitel "040 Testing"
 
+Hinweis: Aufgabe d) hat den stärksten Spring-bezug, da hier viel mit einem individuellen Kontext
+gearbeitet wird.
+
 ## a) Test zur Abfrage eines Produkts
 
 Oops, ein Entwickler hat einen Fehler in der Datenbankschicht gemacht. Finden Sie diesen mittels
@@ -52,7 +55,7 @@ Oder wie kann der Service verbessert werden, um diese Probleme zu umgehen?
 
 ## d) CustomerServiceTest mit individuellem Kontext
 
-Ziel des Tests ist es, dass ein durch den `SampleDataLoader` angelegter Kunde über den
+Ziel des Tests ist es, dass ein durch den `DataLoader` angelegter Kunde über den
 `CustomerService` geladen werden soll (z.B. Abfrage via Mobilnummer).
 
 In dieser Übung nutzen wir die Annotation `@TestConfiguration`, um den Kontext per Hand aufzubauen.
@@ -75,5 +78,5 @@ D.h. Sie brauchen eine neue Klasse, die
 * vom Test importiert wird bzw. als innere statische Klasse automatisch genutzt wird
 * mittels Annotationen die benötigten Beans laden
 
-Irgendwie müssen Sie dann auch noch den `SampleDataLoaderRunner` starten, denn dies passiert
+Irgendwie müssen Sie dann auch noch den `DataLoadRunner` starten, denn dies passiert
 nur dann automatisch, wenn man `@SpringBootTest` nutzt!
