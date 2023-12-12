@@ -9,9 +9,9 @@ import org.springframework.stereotype.Component;
 /**
  * Performs loading of sample data after the context has started up.
  * <p>
- * We do not want to use @PostConstruct in any SampleDataLoader implementation itself since this
+ * We do not want to use @PostConstruct in any {@code DataLoader} implementation itself since this
  * caused timing issues when using the default Spring Boot H2 data source. The data could be loaded
- * but wasn't available afterwards for querying (empty tables).
+ * but wasn't available afterward for querying (empty tables).
  */
 @Component
 @Order(1)
