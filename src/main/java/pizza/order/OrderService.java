@@ -24,10 +24,10 @@ public class OrderService {
     private Integer deliveryTimeInMinutes = 30;
 
     @Value("${app.order.discount-days}")
-    private final List<String> discountDays = new ArrayList<>();
+    private List<String> discountDays = new ArrayList<>();
 
     @Value("${app.order.discount-rate}")
-    private final double discountRate = 0.0d;
+    private double discountRate = 0.0d;
 
     //
     // injected beans
@@ -51,11 +51,12 @@ public class OrderService {
 
     @PostConstruct
     public void dumpConfiguration() {
+        System.out.println(discountRate);
         System.out.printf("""
                 Using configuration:
                 - deliveryTimeInMinutes=%d
                 - discountDays=%s
-                - discountRate=%f
+                - discountRate=%2.2f
                 %n""", deliveryTimeInMinutes, discountDays, discountRate);
     }
 
@@ -84,8 +85,8 @@ public class OrderService {
         // discounts
         double todaysDiscountRate = getTodaysDiscountRate();
         double discountedTotalPrice = totalPrice * (1.0 - todaysDiscountRate / 100.0);
-        System.out.println("Reducing price of order from " + totalPrice + " to " + todaysDiscountRate
-                + " due to today's discount of " + discountRate + "%");
+        System.out.println("Reducing price of order from " + totalPrice + " to " + discountedTotalPrice
+                + " due to today's discount of " + todaysDiscountRate + "%");
 
         // create order
         Order order = new Order(
