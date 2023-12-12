@@ -19,11 +19,11 @@ public class OrderService {
     // fields
     //
 
-    private final Integer deliveryTimeInMinutes = 30;
+    private Integer deliveryTimeInMinutes = 30;
 
-    private final List<String> discountDays = new ArrayList<>();
+    private List<String> discountDays = new ArrayList<>();
 
-    private final double discountRate = 0.0d;
+    private double discountRate = 0.0d;
 
     private final ArrayList<Order> orders;
 
@@ -70,8 +70,8 @@ public class OrderService {
         // discounts
         double todaysDiscountRate = getTodaysDiscountRate();
         double discountedTotalPrice = totalPrice * (1.0 - todaysDiscountRate / 100.0);
-        System.out.println("Reducing price of order from " + totalPrice + " to " + todaysDiscountRate
-                + " due to today's discount of " + discountRate + "%");
+        System.out.println("Reducing price of order from " + totalPrice + " to " + discountedTotalPrice
+                + " due to today's discount of " + todaysDiscountRate + "%");
 
         // create order
         Order order = new Order(
