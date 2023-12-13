@@ -15,7 +15,8 @@ eine neue `OrderProperties` Klasse injectet bekommen.
 
 Über die Testklasse `OrderServiceTest` können Sie probeweise einen Bestellvorgang auslösen.
 
-In Übung c) werden die Werte dann in der `application.properties` gesetzt.
+In der nächsten Übung b) werden die Werte in der `application.properties` Datei gesetzt und
+probeweise ausgegeben.
 
 ## b) Ausgabe der Konfiguration
 
@@ -29,7 +30,7 @@ Setzen Sie Werte für die Konfiguration des `OrderService` in der `application.p
 Starten Sie nun die Anwendung und prüfen Sie die tatsächlich vorliegende Konfiguration --
 wird der Wert aus der `application.properties` genutzt?
 
-## d) Konfiguration von außen
+## c) Konfiguration von außen
 
 Starten Sie Ihre Anwendung auf eine Art und Weise, dass nicht die Lieferzeit in Minuten
 aus den `application.properties` genutzt wird, sondern von außen durch einen anderen Wert
