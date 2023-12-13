@@ -33,6 +33,7 @@ Erstellen Sie die folgenden API-Endpunkte:
 Erstellen Sie die folgenden API-Endpunkte:
 
 * `GET /products`, der alle Produkte zurückgibt
+* `GET /product/{id}`, der das Produkt mit der angegebenen Id zurückgibt (Nutzung `@PathVariable`)
 
 ## f) Erweiterung OrderRestController
 
