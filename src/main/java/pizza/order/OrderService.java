@@ -20,14 +20,14 @@ public class OrderService {
     // fields
     //
 
-    @Value("${app.order.delivery-time-in-minutes}")
-    private Integer deliveryTimeInMinutes = 30;
+    @Value("${app.order.delivery-time-in-minutes:30}")
+    private Integer deliveryTimeInMinutes;
 
-    @Value("${app.order.discount-days}")
-    private List<String> discountDays = new ArrayList<>();
+    @Value("${app.order.discount-days:''}")
+    private List<String> discountDays;
 
-    @Value("${app.order.discount-rate}")
-    private double discountRate = 0.0d;
+    @Value("${app.order.discount-rate:0.0}")
+    private double discountRate;
 
     //
     // injected beans
