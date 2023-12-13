@@ -7,50 +7,29 @@ Denken Sie bei dieser Übung daran, dass wir schon Testfälle haben, mit denen w
 Test-Driven arbeiten können, d.h. Sie können diese Testfälle immer wieder ausführen, um den Fortschritt Ihrer
 Arbeit zu prüfen.
 
-## a) pom.xml
+## a) Build Files anpassen
 
-Fügen Sie den entsprechenden Starter für "Data JPA" Ihrer `pom.xml` hinzu.
+Fügen Sie den entsprechenden Starter für "Data JPA" Ihrer `pom.xml` bzw. `build.gradle` Datei hinzu.
 
 Welcher Starter wird nun wohl nicht mehr benötigt und kann weg bzw. ersetzt werden?
 
-## b) Allgemeines Setup und Bean Timing Probleme
+## b) Migration `JdbcProductRepository`
 
-Nun, da wir unter der Haube JPA benutzen, wird das Timing der Bean Erstellung immer wichtiger.
-
-Wir nutzen bisher ja einen manuell gestarteten H2 Server, der über TCP Verbindungen annehmen kann. Dies hat der Vorteil,
-dass wir uns mit externen Datenbank-Tools den Inhalt der Datenbank anzeigen lassen können.
-
-Wenn wir dies beibehalten wollen, benötigt es nun etwas mehr Fine-Tuning der Reihenfolge der Bean Erstellung.
-
-Dazu wurde eine neue Klasse `H2Config` eingeführt, welche diese Reihenfolge etabliert.
-
-Alternativ könnten wir auch Spring die Bereitstellung einer reinen In-Memory Datenbank überlassen. Dazu:
-
-* `H2Config` und `H2TcpServer` Klassen löschen
-* alle `spring.datasource.*` Properties entfernen
-
-In jedem Fall brauchen wollen wir Hibernate verbieten, das Schema automatisch anzulegen. Dafür braucht es das
-Property `spring.jpa.hibernate.ddl-auto=none`.
-Hintergrund: Wir wollen ja (wie im echten Produktionsbetrieb) mit einem fertigen Schema arbeiten, welches in
-der `schema.sql` definiert ist.
-
-Da Spring-Data nun das Schema automatisch aus der Datei `schema.sql` einliest, brauchen wir den entsprechenden Runner
-nicht mehr.
-
-## c) Migration `ProductJdbcDao`
-
-Die Klasse `ProductJdbcDao` wird mit Spring-Data nicht mehr benötigt.
+Die Klasse `JdbcProductRepository` wird mit Spring-Data nicht mehr benötigt.
 
 Entfernen Sie diese und schreiben Sie das `ProductRepository` so um, dass es von Spring erkannt wird
-und als Ersatz für das gelöschte `ProductJdbcDao` fungiert.
+und als Ersatz für das gelöschte `JdbcProductRepository` fungiert.
 
-## d) JPA Entity `Product`
+Ebenfalls kann die Klasse `InMemoryProductRepository` nun entfernt werden, da wir immer mit der
+Datenbank arbeiten.
+
+## c) JPA Entity `Product`
 
 Die Klasse `Product` muss noch zur vollwertigen JPA Entity mit Annotationen ergänzt werden.
 
 Denken Sie daran, dass unser Schema (Namen von Tabelle und Feldern) zu berücksichtigen ist!
 
-## e) Bonus: Persistenz für Bestellungen
+## d) Bonus: Persistenz für Bestellungen
 
 Momentan arbeitet der `OrderService` noch mit einer in der Klasse verwalteten `List` an
 Bestellungen (quasi in-memory).
@@ -62,14 +41,14 @@ Annotationen beachten. Für das ManyToOne mapping muss auch noch der Name der JO
 Column definiert werden (`@JoinColumn`),
 siehe https://en.wikibooks.org/wiki/Java_Persistence/ManyToOne#Example_of_a_ManyToOne_relationship_annotations
 
-## f) Bonus: Persistenz für Kunden
+## e) Bonus: Persistenz für Kunden
 
 Ebenfalls arbeitet der `CustomerService` noch mit einer in der Klasse verwalteten `List` an Kunden.
 
 Stellen Sie dies auf eine Spring-Data basierte Persistenz um.
 
 Dies führt zu zwei Problemen im `CustomerServiceTest`: einerseits muss auf `@DataJpaTest` umgestellt
-werden, und andererseits muss dann der `SampleDataLoaderRunner` nicht mehr manuell gestartet werden, da
+werden, und andererseits muss dann der `DataLoadRunner` nicht mehr manuell gestartet werden, da
 dies dann automatisch passiert (und mit dem manuellen Start doppelt!)
 
 ACHTUNG, außerdem fehlen noch Spaltendefinitionen in der `schema.sql` Datei -- siehe `TODO`
