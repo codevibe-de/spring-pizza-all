@@ -2,22 +2,27 @@
 
 ## a) OrderService konfigurierbar machen
 
-Verändern Sie den `OrderService`, sodass die erwartete Lieferzeit in Minuten sowie die
-Rabattierung je Wochentag in einer externen Konfigurationsquelle hinterlegt werden kann.
+Verändern Sie den `OrderService`, sodass die dort definierten Eigenschaften mittels Konfiguration
+gesetzt werden können:
 
-Hinweis: Hierfür gibt es zwei Möglichkeiten (mittels `@Value` oder `@ConfigurationProperties`,
-letztere ist schwerer aufgrund des noch zu implementierenden Converters, siehe Musterlösung)
+* erwartete Lieferzeit in Minuten
+* die Wochentage, an denen der Rabatt gilt 
+* der Rabattsatz (in %)
+
+Hinweis: Hierfür gibt es zwei Möglichkeiten (mittels `@Value` oder `@ConfigurationProperties`).
+Bei letzterem Ansatz brauchen Sie die Felder der Klasse nicht mehr, da Sie ja dann diese über
+eine neue `OrderProperties` Klasse injectet bekommen. 
 
 Über die Testklasse `OrderServiceTest` können Sie probeweise einen Bestellvorgang auslösen.
+
+In Übung c) werden die Werte dann in der `application.properties` gesetzt.
 
 ## b) Ausgabe der Konfiguration
 
 Ergänzen Sie den `OrderService` um eine Methode, in der die Konfiguration via `System.out`
 ausgegeben wird (damit wir sehen können, was gerade gilt).
 
-Lassen Sie Spring diese Methode automatisch beim Start ausführen. Wie ging das nochmal...? :)
-
-## c) Konfiguration via application.properties
+Lassen Sie Spring diese Methode automatisch beim Start ausführen. Wie ging das nochmal ...? :)
 
 Setzen Sie Werte für die Konfiguration des `OrderService` in der `application.properties` Datei.
 
