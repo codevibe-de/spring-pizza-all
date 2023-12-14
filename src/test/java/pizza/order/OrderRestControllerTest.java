@@ -30,7 +30,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @WebMvcTest(OrderRestController.class)
 @Import({OrderService.class, CustomerService.class, ProductService.class})
 @AutoConfigureDataJpa
-@TestPropertySource(properties = {"app.order.daily-discounts={MONDAY:'10', TUESDAY:'10', WEDNESDAY:'10', THURSDAY:'10', FRIDAY:'10', SATURDAY:'10', SUNDAY:'10'}"})
+@TestPropertySource(properties = {
+        "app.order.discount-days=MONDAY,TUESDAY,WEDNESDAY,THURSDAY,FRIDAY,SATURDAY,SUNDAY",
+        "app.order.discount-rate=10.0"
+})
 class OrderRestControllerTest {
 
     @Autowired

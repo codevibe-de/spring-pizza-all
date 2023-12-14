@@ -1,5 +1,6 @@
 package pizza.order;
 
+import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -8,10 +9,10 @@ import pizza.customer.Customer;
 import pizza.customer.CustomerService;
 import pizza.product.ProductService;
 
-import javax.annotation.PostConstruct;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.HashMap;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -21,11 +22,14 @@ public class OrderService {
     // fields
     //
 
-    @Value("${app.order.delivery-time-in-minutes}")
-    private Integer deliveryTimeInMinutes = 30;
+    @Value("${app.order.delivery-time-in-minutes:30}")
+    private Integer deliveryTimeInMinutes;
 
-    @Value("#{${app.order.daily-discounts}}")
-    private Map<String, Double> dailyDiscounts = new HashMap<>();
+    @Value("${app.order.discount-days:''}")
+    private List<String> discountDays;
+
+    @Value("${app.order.discount-rate:0.0}")
+    private double discountRate;
 
     //
     // injected beans
@@ -49,14 +53,30 @@ public class OrderService {
 
     @PostConstruct
     public void dumpConfiguration() {
-        System.out.println("Using configuration:\n  deliveryTimeInMinutes=" + deliveryTimeInMinutes
-                + "\n  dailyDiscounts=" + dailyDiscounts);
+        System.out.println(discountRate);
+        System.out.printf("""
+                Using configuration:
+                - deliveryTimeInMinutes=%d
+                - discountDays=%s
+                - discountRate=%2.2f
+                %n""", deliveryTimeInMinutes, discountDays, discountRate);
     }
 
     //
     // business logic
     //
 
+    /**
+     * Places an order for a Customer identified by his/her phone number.
+     * <p>
+     * The kind and number of products ordered are given in the <code>productQuantities</code> map.
+     *
+     * @param phoneNumber       required argument, the phone number to identify the Customer with
+     * @param productQuantities required argument, a mapping of product-ids to their desired
+     *                          quantities
+     * @return the {@link Order} entity which contains the total price and estimated time of
+     * delivery
+     */
     @Transactional(propagation = Propagation.REQUIRED)
     public Order placeOrder(String phoneNumber, Map<String, Integer> productQuantities) {
         // make sure customer exists -- throws exception if it doesn't
@@ -69,11 +89,10 @@ public class OrderService {
         Double totalPrice = this.productService.getTotalPrice(productQuantities);
 
         // discounts
-        String nameOfDayOfWeek = LocalDate.now().getDayOfWeek().name();
-        Double discountRate = this.dailyDiscounts.getOrDefault(nameOfDayOfWeek, 0.0);
-        Double discountedTotalPrice = totalPrice * (1.0 - discountRate / 100.0);
+        double todaysDiscountRate = getTodaysDiscountRate();
+        double discountedTotalPrice = totalPrice * (1.0 - todaysDiscountRate / 100.0);
         System.out.println("Reducing price of order from " + totalPrice + " to " + discountedTotalPrice
-                + " due to today's discount of " + discountRate + "%");
+                + " due to today's discount of " + todaysDiscountRate + "%");
 
         // create order
         Order order = new Order(
@@ -83,6 +102,15 @@ public class OrderService {
 
         // persist and return it
         return orderRepository.save(order);
+    }
+
+    private double getTodaysDiscountRate() {
+        String nameOfDayOfWeek = LocalDate.now().getDayOfWeek().name();
+        if (this.discountDays.contains(nameOfDayOfWeek)) {
+            return this.discountRate;
+        } else {
+            return 0.0d;
+        }
     }
 
     public Iterable<Order> getOrders() {

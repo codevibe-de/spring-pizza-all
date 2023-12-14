@@ -1,8 +1,8 @@
 package pizza.order;
 
+import jakarta.persistence.*;
 import pizza.customer.Customer;
 
-import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
