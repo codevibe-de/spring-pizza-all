@@ -1,0 +1,30 @@
+GET http://localhost:8080/products
+
+###
+
+GET http://localhost:8080/products/P-11
+
+###
+
+GET http://localhost:8080/customers
+
+###
+
+GET http://localhost:8080/orders
+
+###
+
+POST http://localhost:8080/orders
+Content-Type: application/json
+
+{
+  "phoneNumber": "+49 123 456789",
+  "itemQuantities": {
+    "P-11": 3,
+    "P-12": 1
+  }
+}
+
+###
+
+GET http://localhost:8080/actuator/info

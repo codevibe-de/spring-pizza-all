@@ -9,13 +9,13 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.core.convert.ConversionService;
 
 import java.util.Optional;
+import org.springframework.boot.context.properties.ConfigurationPropertiesScan;
 
 @SpringBootApplication
-@EnableConfigurationProperties
+@ConfigurationPropertiesScan
 public class PizzaApp {
 
     public static void main(String[] args) {
-        // run boot app
         SpringApplication.run(PizzaApp.class, args);
     }
 
