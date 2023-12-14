@@ -1,14 +1,23 @@
 # Übungen zum Kapitel "080 - RESTful API"
 
-## a) Insomnia Rest Client
+## a) Clients
+
+### Insomnia
 
 Bei Bedarf können Sie den "Insomnia Core" Rest Client installieren: https://insomnia.rest/
 
 Im Projekt ist ab diesem Branch ein exportierter Insomnia Workspace vorhanden, den Sie in das Tool
 importieren können. Damit können Sie dann komfortabel die später programmierten Endpunkte anfragen.
 
+### Intellij
+
+Ebenfalls findet sich nun die Datei `requests.http` im Projektwurzelverzeichnis. Das können Sie in
+Intellij öffnen und von dort die Requsts direkt mit dem grünen Pfeil ausführen lassen.
+
+### Sonstige
+
 Alternativ können Sie zum Testen der Endpunkte natürlich auch andere Tools wie z.B. Postman oder den
-Kommandozeilenbefehl `curl` nehmen. Oder den in Intellij vorhandenen HTTP-Client.
+Kommandozeilenbefehl `curl` nehmen.
 
 ## b) Starter
 
@@ -16,8 +25,8 @@ Fügen Sie die Maven Dependency `spring-boot-starter-web` zum Build hinzu.
 
 ## c) OrderRestController
 
-Erstellen Sie einen API-Endpunkt `/orders/greeting` der für ein GET
-eine Begrüßung als String zurückgibt.
+Erstellen Sie einen API-Endpunkt `/orders/greeting` der für ein GET eine Begrüßung als String
+zurückgibt.
 
 Testen Sie die URL in Ihrem Browser: http://localhost:8080/orders/greeting
 
@@ -53,3 +62,15 @@ Erstellen Sie zusätzlich die folgenden API-Endpunkte:
   }
 }
 ````
+
+## g) Bestellungen eines Kunden
+
+Hier üben wir den Umgang mit Sub-Ressourcen und/oder Query-Parametern.
+
+Es geht darum, dass Sie die Abfrage der Bestellungen eines Kunden (identifiziert über dessen
+Customer-Id) ausliefern.
+
+Dies geht entweder mittels:
+
+* der Sub-Ressource: `/customers/{id}/orders`
+* oder über einen Query-Parameter: `/orders?customerId={id}` 
