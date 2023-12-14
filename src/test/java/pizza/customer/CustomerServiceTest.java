@@ -2,19 +2,21 @@ package pizza.customer;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.convert.ApplicationConversionService;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Import;
-import pizza.DataLoader;
 import pizza.DataLoadRunner;
+import pizza.DataLoader;
 import pizza.product.ProductService;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 // Note: Context is configured in inner @TestConfiguration class below
 @DataJpaTest
+@Import(ApplicationConversionService.class) // fixes missing ConversionService bean in sliced ctx
 public class CustomerServiceTest {
 
     @Autowired
