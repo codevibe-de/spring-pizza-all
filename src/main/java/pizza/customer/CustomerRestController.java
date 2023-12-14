@@ -12,7 +12,7 @@ public class CustomerRestController {
     // --- constants ---
     //
 
-    private static final String ROOT = "/customers";
+    public static final String ROOT = "/customers";
     public static final String GET_ONE_ENDPOINT = ROOT + "/{id}";
     public static final String GET_ALL_ENDPOINT = ROOT;
     public static final String CREATE_ENDPOINT = ROOT;
