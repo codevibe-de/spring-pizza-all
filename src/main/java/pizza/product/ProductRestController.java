@@ -14,9 +14,10 @@ public class ProductRestController {
     // --- constants ---
     //
 
-    static final String ROOT = "/products";
-    static final String GET_MANY_ENDPOINT = ROOT;
-    static final String UPLOAD_CSV_ENDPOINT = ROOT;
+    public static final String ROOT = "/products";
+    public static final String GET_ONE_ENDPOINT = ROOT + "/{id}";
+    public static final String GET_MANY_ENDPOINT = ROOT;
+    public static final String UPLOAD_CSV_ENDPOINT = ROOT;
 
     //
     // --- injected beans ---
@@ -35,6 +36,11 @@ public class ProductRestController {
     //
     // --- REST endpoints ---
     //
+
+    @GetMapping(GET_ONE_ENDPOINT)
+    public Product getProduct(@PathVariable("id") String productId) {
+        return this.productService.getProduct(productId);
+    }
 
     @GetMapping(GET_MANY_ENDPOINT)
     public Iterable<Product> getProducts() {
