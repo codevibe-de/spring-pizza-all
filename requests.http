@@ -24,3 +24,7 @@ Content-Type: application/json
     "P-12": 1
   }
 }
+
+###
+
+GET http://localhost:8080/actuator/info
