@@ -1,4 +1,17 @@
+# inellij
+.idea/
+*.iml
+
+# eclipse
+bin/
+.project
+.classpath
+.settings/
+
+# maven
 /target
-/.idea
-/src/main/java2/
 /maven.out
+
+# gradle
+.gradle/
+build/
