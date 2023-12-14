@@ -18,7 +18,7 @@ import pizza.product.ProductService;
  */
 public abstract class DataLoader implements Runnable {
 
-    private static final Logger LOG = LoggerFactory.getLogger(OrderService.class);
+    private static final Logger LOG = LoggerFactory.getLogger(DataLoader.class);
 
     private final ProductService productService;
     private final CustomerService customerService;
@@ -30,7 +30,7 @@ public abstract class DataLoader implements Runnable {
 
     protected void createProduct(String productId, String name, double price) {
         Product p = this.productService.createProduct(new Product(productId, name, price));
-        LOG.debug("Created: {}", p);
+        LOG.debug("Created product: {}", p);
     }
 
     protected Address createAddress(String street, String postalCode, String city) {
@@ -43,7 +43,7 @@ public abstract class DataLoader implements Runnable {
                 address,
                 phoneNumber
         ));
-        LOG.debug("Created: {}", c);
+        LOG.debug("Created customer: {}", c);
     }
 
     //
