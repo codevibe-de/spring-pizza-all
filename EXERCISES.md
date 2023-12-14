@@ -62,15 +62,3 @@ Erstellen Sie zusätzlich die folgenden API-Endpunkte:
   }
 }
 ````
-
-## g) Bestellungen eines Kunden
-
-Hier üben wir den Umgang mit Sub-Ressourcen und/oder Query-Parametern.
-
-Es geht darum, dass Sie die Abfrage der Bestellungen eines Kunden (identifiziert über dessen
-Customer-Id) ausliefern.
-
-Dies geht entweder mittels:
-
-* der Sub-Ressource: `/customers/{id}/orders`
-* oder über einen Query-Parameter: `/orders?customerId={id}` 
