@@ -15,16 +15,27 @@ GET http://localhost:8080/orders
 ###
 
 POST http://localhost:8080/orders
+Authorization: Basic KzQ5IDEyMyA0NTY3ODk6NDAzMDI=
 Content-Type: application/json
 
 {
-  "phoneNumber": "+49 123 456789",
   "itemQuantities": {
     "P-11": 3,
     "P-12": 1
   }
 }
 
+### log in as Customer with phone-number '+49 123 456789'
+
+GET http://localhost:8080/me
+Authorization: Basic KzQ5IDEyMyA0NTY3ODk6NDAzMDI=
+
 ###
 
 GET http://localhost:8080/actuator/info
+Authorization: Basic YWRtaW46cHdk
+
+###
+
+GET http://localhost:8080/actuator/health
+Authorization: Basic YWRtaW46cHdk
