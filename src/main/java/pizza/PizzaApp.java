@@ -3,7 +3,7 @@ package pizza;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.boot.context.properties.ConfigurationPropertiesScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Primary;
 import org.springframework.core.convert.ConversionService;
@@ -11,11 +11,10 @@ import org.springframework.core.convert.ConversionService;
 import java.util.Optional;
 
 @SpringBootApplication
-@EnableConfigurationProperties
+@ConfigurationPropertiesScan
 public class PizzaApp {
 
     public static void main(String[] args) {
-        // run boot app
         SpringApplication.run(PizzaApp.class, args);
     }
 

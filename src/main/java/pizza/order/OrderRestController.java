@@ -18,7 +18,7 @@ public class OrderRestController {
     // --- constants ---
     //
 
-    static final String ROOT = "/orders";
+    public static final String ROOT = "/orders";
     public static final String GREETING_ENDPOINT = ROOT + "/greeting";
     public static final String PLACE_ORDER_ENDPOINT = ROOT;
     public static final String GET_MANY_ENDPOINT = ROOT;
