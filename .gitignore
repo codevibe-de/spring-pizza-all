@@ -1,4 +1,4 @@
-# inellij
+# intellij
 .idea/
 *.iml
 
@@ -15,3 +15,5 @@ bin/
 # gradle
 .gradle/
 build/
+/gradle.out
+
