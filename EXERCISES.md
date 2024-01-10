@@ -12,7 +12,6 @@ Die Anwendung kann über die `main()` Methode gestartet werden, erzeugt dann abe
 Bei einem Blick in die Klasse ist der Grund dafür schnell klar -- es fehlen noch die
 Instanziierungen.
 
-Ergänzen Sie die fehlenden Teile (z.B. in dem noch leeren PizzaApp Konstruktor), sodass die Anwendung fehlerfrei läuft
-und Ausgaben erzeugt.
+Ergänzen Sie die fehlenden Teile, sodass die Anwendung fehlerfrei läuft und Ausgaben erzeugt.
 
-Und: Anfangs existieren noch keine Daten in den Services -- wie kann man das wohl ändern ...?
+**Anfangs existieren noch keine Daten in den Services -- wie kann man das wohl ändern?**
