@@ -1,10 +1,20 @@
-# Übungen zu 011 - Beans Container
+# Übungen zu 016
 
-Migrieren Sie die Pizza Anwendung auf den "Summer Bean-Container".
+## Entwicklung des Aspekts
 
-Das heißt, wir wollen die Erzeugung und Verdrahtung von Beans diesem Container überlassen, sodass
-wir selbst nur noch die Beans definieren und abfragen müssen.
+Schreiben Sie einen AOP Aspekt als eine Klasse namens `ExecutionTimeAspect`.
 
-Die Nutzung des `JdbcProductRepository` ist für unseren eigenen Bean-Container noch zu schwer, daher
-bitte auf `HashMapProductRepository` umstellen. Wer mag, kann sich überlegen, was es bräuchte, um auch
-die Datenbank in unserem Bean-Container nutzen zu können.
+Diese soll zwei Methoden haben:
+
+- `beforeMethodInvocation()`
+- `afterMethodInvocation(String methodName)`
+
+In der Klasse wird bei "before" die aktuelle Systemzeit als Millisekunden festgehalten
+und in "after" die Differenz zusammen mit dem Methodennamen als Information ausgegeben.
+
+## Anwendung des Aspekts
+
+Wenden Sie den entwickelten Aspekt auf eine der Klassen im Projekt an:
+
+- mittels des Java `Proxy` Konzepts, wenn die Klasse ein Interface implementiert
+- mittels Vererbung, wenn nicht
