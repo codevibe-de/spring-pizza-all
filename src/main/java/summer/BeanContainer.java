@@ -12,8 +12,6 @@ public class BeanContainer {
 
     private final List<BeanDefinition> beanDefinitions = new ArrayList<>();
 
-    private final Map<Class<?>, List<Object>> beansByTypeMap = new HashMap<>();
-
     private final Map<String, Object> beansByNameMap = new HashMap<>();
 
     // --- bean container business logic ---
@@ -51,7 +49,7 @@ public class BeanContainer {
         return constructor.getParameterTypes();
     }
 
-    Map<String,Set<String>> createBeanDependencyMap(Collection<BeanDefinition> defs) {
+    Map<String, Set<String>> createBeanDependencyMap(Collection<BeanDefinition> defs) {
         var map = new HashMap<String, Set<String>>();
         for (var def : defs) {
             Class<?>[] constructorParamTypes = findConstructorParameterTypes(def.getType());
@@ -63,8 +61,8 @@ public class BeanContainer {
 
     String[] resolveBeanNames(Class<?>[] types, Collection<BeanDefinition> defs) {
         var names = new String[types.length];
-        for (int n=0; n<types.length; n++) {
-            names[n] = resolveBeanName(types[n],  defs);
+        for (int n = 0; n < types.length; n++) {
+            names[n] = resolveBeanName(types[n], defs);
         }
         return names;
     }
