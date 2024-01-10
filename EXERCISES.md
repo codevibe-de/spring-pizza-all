@@ -1,18 +1,6 @@
-# Übungen zu 005
+# Übungen zu 011 - Beans Container
 
-Schauen Sie sich die Klasse `PizzaApp` an. Diese ist noch unvollständig, führt allerdings schon
-einige Operationen aus und gibt deren Ergebnis auf `System.out` aus:
+Migrieren Sie die Pizza Anwendung auf den "Summer Bean-Container".
 
-* Abfrage und Ausgabe des Produkts mit Id "P-10"
-* Abfrage und Ausgabe des Kunden mit Mobilnummer "+49 123 456789"
-* Platzierung einer Bestellung, konkret 3-mal die Pizza "P-10" und einmal den Salat "S-01"
-
-Die Anwendung kann über die `main()` Methode gestartet werden, erzeugt dann aber noch Fehler.
-
-Bei einem Blick in die Klasse ist der Grund dafür schnell klar -- es fehlen noch die
-Instanziierungen.
-
-Ergänzen Sie die fehlenden Teile (z.B. in dem noch leeren PizzaApp Konstruktor), sodass die Anwendung fehlerfrei läuft
-und Ausgaben erzeugt.
-
-Und: Die Datenbank ist anfangs leer - wie kann man das wohl ändern ...?
+Das heißt, wir wollen die Erzeugung und Verdrahtung von Beans diesem Container überlassen, sodass
+wir selbst nur noch die Beans definieren und abfragen müssen.

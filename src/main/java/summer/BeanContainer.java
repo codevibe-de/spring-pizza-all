@@ -24,14 +24,14 @@ public class BeanContainer {
 
     public void refresh() {
         beansByNameMap.clear();
-        // we uee the dependency-map for two things:
-        // 1) each map key tells us, which bean we still need to create
+        // we use the dependency-map for two things:
+        // 1) each map key tells us, which bean we still need to create (by name)
         // 2) each map value is a list of bean names, which do not exist yet. Hence, we can only
         // start with creating beans that have an empty list. With each new bean we thin out these
-        // lists to make other beans creatable since their dependencies now exist
+        // lists to make other beans creatable
         Map<String, Set<String>> workToDoMap = createBeanDependencyMap(beanDefinitions);
         while (!workToDoMap.isEmpty()) {
-            // what bean to create/realize next? must have an empty set of missing dependencies
+            // which bean to create/realize next? must have an empty set of missing dependencies
             var beanName = workToDoMap.entrySet().stream()
                     .filter(e -> e.getValue().isEmpty())
                     .map(Map.Entry::getKey)
