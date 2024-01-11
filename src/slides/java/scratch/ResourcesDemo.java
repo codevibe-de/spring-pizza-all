@@ -20,6 +20,7 @@ public class ResourcesDemo {
         // absolute path
         Resource classpathResource = new ClassPathResource("/data/stuff.csv");
         analyseResource(classpathResource);
+        // relative path
         Resource classpathResource2 = new ClassPathResource("relative.txt", ResourcesDemo.class);
         analyseResource(classpathResource2);
 
