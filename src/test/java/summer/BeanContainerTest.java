@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.function.Executable;
 import pizza.DataLoader;
 import pizza.customer.CustomerService;
-import pizza.product.InMemoryProductRepository;
+import pizza.product.HashMapProductRepository;
 import pizza.product.ProductRepository;
 import pizza.product.ProductService;
 import summer.exception.BeansException;
@@ -33,7 +33,7 @@ class BeanContainerTest {
     @Test
     void getBean() {
         // given
-        beanContainer.defineBean("prodRepo", InMemoryProductRepository.class);
+        beanContainer.defineBean("prodRepo", HashMapProductRepository.class);
         beanContainer.refresh();
 
         // when
@@ -41,14 +41,14 @@ class BeanContainerTest {
 
         // then
         Assertions.assertThat(productRepository).isNotNull();
-        Assertions.assertThat(productRepository).isInstanceOf(InMemoryProductRepository.class);
+        Assertions.assertThat(productRepository).isInstanceOf(HashMapProductRepository.class);
     }
 
 
     @Test
     void getBean__NoUniqueBeanDefinitionException() {
         // given
-        beanContainer.defineBean("prodRepo", InMemoryProductRepository.class);
+        beanContainer.defineBean("prodRepo", HashMapProductRepository.class);
         beanContainer.defineBean("prodSrv", ProductService.class);
         beanContainer.defineBean("custSrv", CustomerService.class);
         beanContainer.defineBean("sample", DataLoader.Sample.class);
