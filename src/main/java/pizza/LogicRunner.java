@@ -11,7 +11,7 @@ import pizza.product.ProductService;
 import java.util.Map;
 
 @Component
-@Order(50)
+@Order(2)
 public class LogicRunner implements ApplicationRunner {
 
     private final ProductService productService;
