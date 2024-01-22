@@ -2,7 +2,7 @@ package scratch;
 
 import pizza.customer.CustomerService;
 import pizza.order.OrderService;
-import pizza.product.InMemoryProductRepository;
+import pizza.product.HashMapProductRepository;
 import pizza.product.ProductService;
 
 import java.lang.reflect.Constructor;
@@ -27,7 +27,7 @@ public class Reflection {
         }
 
         //
-        var constructorArgs = new Object[]{new InMemoryProductRepository()};
+        var constructorArgs = new Object[]{new HashMapProductRepository()};
         Object untypedInstance = ProductService.class
                 .getConstructors()[0]
                 .newInstance(constructorArgs);
