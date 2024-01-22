@@ -6,7 +6,7 @@ import java.util.Map;
 import java.util.Optional;
 
 //@Component
-public class InMemoryProductRepository implements ProductRepository {
+public class HashMapProductRepository implements ProductRepository {
 
     private final Map<String, Product> productsMap = new HashMap<>();
 
