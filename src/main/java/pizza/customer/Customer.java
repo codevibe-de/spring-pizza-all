@@ -21,6 +21,8 @@ public class Customer {
 
     private String phoneNumber;
 
+    private Integer orderCount = 0;
+
     //
     // --- constructors ---
     //
@@ -80,9 +82,17 @@ public class Customer {
         this.phoneNumber = phoneNumber;
     }
 
+    public Integer getOrderCount() {
+        return orderCount;
+    }
+
     //
     // --- other methods ---
     //
+
+    public int increaseOrderCount() {
+        return this.orderCount++;
+    }
 
     @Override
     public String toString() {
@@ -91,6 +101,7 @@ public class Customer {
                 ", fullName='" + fullName + '\'' +
                 ", address=" + address +
                 ", phoneNumber='" + phoneNumber + '\'' +
+                ", orderCount=" + orderCount +
                 '}';
     }
 }

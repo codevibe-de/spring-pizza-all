@@ -2,7 +2,7 @@ package pizza.customer;
 
 import org.springframework.stereotype.Service;
 
-import java.util.Random;
+import java.util.Optional;
 
 @Service
 public class CustomerService {
@@ -35,4 +35,8 @@ public class CustomerService {
         return customerRepository.save(customer);
     }
 
+    public void increaseOrderCount(long customerId) {
+        Optional<Customer> customer = this.customerRepository.findById(customerId);
+        customer.ifPresent(Customer::increaseOrderCount);
+    }
 }
