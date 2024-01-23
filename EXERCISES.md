@@ -4,7 +4,8 @@
 
 Markieren Sie alle relevanten Beans mit `@Profile` Annotationen, sodass bei Aufruf
 der Anwendung mit dem Profil "customer" nur die Funktionalität des Customer-Moduls
-zur Verfügung steht.
+zur Verfügung steht. Denken Sie daran, dass nach wie vor der Aufruf ohne ein gesetztes Profil
+(d.h. mit Profil "default") möglich sein muss!
 
 Gerne können Sie auch die Übung so weit treiben, dass die folgenden Profile zur Auswahl
 stehen und die Anwendung bei jedem der Profile lauffähig ist:
@@ -21,8 +22,8 @@ Logging Ausgaben generiert werden, z.B. Logging-Level aller "pizza" Klassen auf 
 
 ## c) System.out durch Logging
 
-Ersetzen Sie Ausgaben in der Anwendung, die bisher per System.out.println() erfolgt sind,
-durch Logging Ausgaben.
+Ersetzen Sie Ausgaben in der Anwendung, die bisher per `System.out.println()` erfolgt sind,
+durch Logging-Ausgaben.
 
 ## d) Monitoring aktivieren
 
@@ -55,8 +56,9 @@ springBoot {
 }
 ````
 
-Wenn Sie nun die Anwendung über **Gradle** bauen und starten (also nicht via IDE), dann werden diese
-Informationen über den Info-Endpoint angezeigt.
+Wenn Sie nun die Anwendung über **Gradle** bauen und starten, dann werden diese
+Informationen über den Info-Endpoint angezeigt. Falls Ihre IDE intern Gradle zum Bauen nutzt, so 
+kann die Anwendung auch über die IDE gestartet werden und die Daten sind sichtbar.
 
 ### Maven
 
