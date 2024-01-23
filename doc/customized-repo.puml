@@ -10,6 +10,7 @@ package "org.springframework.data.jpa.repository" <<Frame>> {
 package "pizza.order" <<Frame>> {
 
     interface CustomizedOrderRepository {
+        +findOverdueOrders() : List<Order>
     }
     class CustomizedOrderRepositoryImpl {
     }
