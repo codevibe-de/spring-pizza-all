@@ -20,7 +20,7 @@ Die Klasse `JdbcProductRepository` wird mit Spring-Data nicht mehr benötigt.
 Entfernen Sie diese und schreiben Sie das `ProductRepository` so um, dass es von Spring erkannt wird
 und als Ersatz für das gelöschte `JdbcProductRepository` fungiert.
 
-Ebenfalls kann die Klasse `InMemoryProductRepository` nun entfernt werden, da wir immer mit der
+Ebenfalls kann die Klasse `HashMapProductRepository` nun entfernt werden, da wir immer mit der
 Datenbank arbeiten.
 
 ## c) JPA Entity `Product`
