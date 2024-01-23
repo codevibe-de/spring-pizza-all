@@ -1,20 +1,26 @@
 # Übungen zum Kapitel "090 - API Integrationstests"
 
+HINWEIS: Auch in dieser Übung müssen Sie nicht streng von a) nach d) arbeiten, sondern können sich
+**die Übung(en) heraussuchen, welche Ihnen spannend und attraktiv vorkommen**. Sie haben vermutlich
+nicht genug Zeit, um alle Übungen durchzuführen!
+
 ## a) CustomerRestControllerTest - getCustomer
 
 **Test-Driven-Development (TDD)**: Schreiben Sie einen `CustomerRestControllerTest`, der die
-Abfrage (Lesen) eines einzelnen Kunden anhand dessen Id durchführt: "GET /customers/<id>". Diesen
-Endpunkt gibt es noch nicht, es ist also Teil dieser Aufgabe, diesen zu implementieren.
+Abfrage (Lesen) eines einzelnen Kunden anhand dessen Id durchführt:
+
+````http request
+GET /customers/<id>
+````
+
+Diesen Endpunkt gibt es noch nicht, es ist also Teil dieser Aufgabe, diesen zu implementieren.
 
 Vorgehen:
 
 1. Test schreiben -- da es den Endpunkt und die Service-Logik hierfür noch nicht gibt, wird dieser
    Test vorerst fehlschlagen.
 2. Funktionalität rudimentär implementieren
-3. Code refakturieren und verbessern, dabei immer Test wieder ausführen als Garantie
-
-Hier führen wir das Konzept einer "PathVariable" ein:
-https://www.amitph.com/spring-pathvariable/#reading_path_variable_from_request_uri
+3. Code refaktorisieren und verbessern, dabei den Test immer wieder ausführen
 
 Dieser Test soll die JSON Antwort zumindest zu Teilen auf Korrektheit prüfen.
 
@@ -68,8 +74,7 @@ Dies erfordert zusätzliche Service und Repository Methoden, ist dafür aber auc
 Feature :)
 
 Wenn wir die Entity `Order` als Rückgabewert nehmen, wird jede Bestellung den kompletten Inhalt
-des (immer
-gleichen) Kunden enthalten. Das ist unschön. Daher empfiehlt es sich, hier eine dedizierte
-Value-Klasse für
-die Rückgabewerte zu schreiben. Hierfür eignen sich die neuen Java Records.
+des (immer gleichen) Kunden enthalten. Das ist unschön. Daher empfiehlt es sich, hier eine
+dedizierte Value-Klasse für die Rückgabewerte zu schreiben. Hierfür eignen sich die neuen Java
+Records.
 
