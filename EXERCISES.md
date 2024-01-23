@@ -5,7 +5,7 @@ einige Operationen aus und gibt deren Ergebnis auf `System.out` aus:
 
 * Abfrage und Ausgabe des Produkts mit Id "P-10"
 * Abfrage und Ausgabe des Kunden mit Mobilnummer "+49 123 456789"
-* Platzierung einer Bestellung, konkret 3-mal die Pizza "P-10" und einmal den Salat "S-01"
+* Platzierung einer Bestellung, konkret 3-mal die Pizza "P-10" und einmal den Salat "S-03"
 
 Die Anwendung kann über die `main()` Methode gestartet werden, erzeugt dann aber noch Fehler.
 
