@@ -1,4 +1,4 @@
-package demo.datajpa;
+package scratch.datajpa;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.criteria.CriteriaQuery;
