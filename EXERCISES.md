@@ -1,29 +1,28 @@
 # Übungen zum Kapitel "070 - Transaktionen"
 
-## a) Customer um "orderCount" erweitern
+Für diese Übung wurden folgende Änderungen am Code vorbereitet:
 
-Fügen Sie einen Counter (Zählwert) im Customer namens `orderCount` ein –
-die Getter-Methode dafür bitte nicht vergessen.
+* eine `Customer` Entität hat nun einen Zähler für die Anzahl Bestellversuche (`orderCount`)
+* der `CustomerService` hat eine neue Methode, um für einen Kunden die Anzahl Bestellversuche zu
+  erhöhen
 
-Dies ist ein Zähler für die Anzahl **versuchter** (nicht unbedingt erfolgreicher) Bestellungen.
+## a) CustomerService transaktionalisieren
 
-## b) CustomerService erweitern
-
-Fügen Sie eine neue Methode
-`com.example.pizza.customer.CustomerService#increaseOrderCount()` ein, die in einer
-neuen Transaktion den Zähler hochsetzt und den neuen Wert persistiert.
+Machen Sie die neue Methode
+`pizza.customer.CustomerService#increaseOrderCount()` transaktional, sodass in einer
+neuen Transaktion der Zähler hochgesetzt und persistiert wird.
 
 ## c) OrderService erweitern
 
-Rufen Sie die neue Methode im `CustomerService` aus `OrderService#placeOrder()` auf,  
-und zwar gleich, nachdem der Customer geladen wurde.
+Rufen Sie diese Methode im `CustomerService` aus `OrderService#placeOrder()` auf,  
+und zwar gleich, nachdem der Customer geladen wurde (und bevor die Produkte geladen werden).
 
 Außerdem soll die `placeOrder()` Methode auch in einer Transaktion ablaufen.
 
 ## d) Test
 
 Schreiben Sie einen Test
-`com.example.pizza.order.OrderServiceTest#placeOrder_customerOrderCountIncreasesDespiteTransactionFail()`
+`pizza.order.OrderServiceTest#placeOrder_customerOrderCountIncreasesDespiteTransactionFail()`
 der einen ungültigen Bestellvorgang auslöst und dann prüft, dass dennoch
-der Zähler der Customer Entität erhöht wurde.
+der Zähler der Customer-Entität erhöht wurde.
 
