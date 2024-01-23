@@ -1,4 +1,4 @@
-package demo.datajpa;
+package scratch.datajpa;
 
 import pizza.order.Order;
 

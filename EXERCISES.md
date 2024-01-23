@@ -4,7 +4,7 @@
 
 ### Insomnia
 
-Bei Bedarf können Sie den "Insomnia Core" Rest Client installieren: https://insomnia.rest/
+Bei Bedarf können Sie den "Insomnia" Rest Client installieren: https://insomnia.rest/
 
 Im Projekt ist ab diesem Branch ein exportierter Insomnia Workspace vorhanden, den Sie in das Tool
 importieren können. Damit können Sie dann komfortabel die später programmierten Endpunkte anfragen.
@@ -12,7 +12,7 @@ importieren können. Damit können Sie dann komfortabel die später programmiert
 ### Intellij
 
 Ebenfalls findet sich nun die Datei `requests.http` im Projektwurzelverzeichnis. Das können Sie in
-Intellij öffnen und von dort die Requsts direkt mit dem grünen Pfeil ausführen lassen.
+Intellij öffnen und von dort die Requests direkt mit dem grünen Pfeil ausführen lassen.
 
 ### Sonstige
 
