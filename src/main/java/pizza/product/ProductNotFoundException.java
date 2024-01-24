@@ -1,9 +1,12 @@
 package pizza.product;
 
-public class ProductNotFoundException extends RuntimeException {
+import org.springframework.http.HttpStatus;
+import pizza.error.ManagedException;
+
+public class ProductNotFoundException extends ManagedException {
 
     public ProductNotFoundException(String message) {
-        super(message);
+        super(HttpStatus.NOT_FOUND, message);
     }
 
 }
