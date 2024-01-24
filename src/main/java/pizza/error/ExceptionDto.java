@@ -22,7 +22,11 @@ public class ExceptionDto {
     }
 
     public static ExceptionDto of(ManagedException ex) {
-        return new ExceptionDto(ex.getStatus(), ex.getClass().getSimpleName(), ex.getMessage());
+        return new ExceptionDto(
+                ex.getStatus(),
+                ex.getClass().getSimpleName(),
+                ex.getMessage()
+        );
     }
 
     public HttpStatus getStatus() {
