@@ -16,8 +16,6 @@ Instanziierungen.
 
 Was macht wohl diese Code-Zeile?
 
-````java
-new DataLoader.Sample(productService, customerService).
-
-run();
+````
+new DataLoader.Sample(productService, customerService).run();
 ````
