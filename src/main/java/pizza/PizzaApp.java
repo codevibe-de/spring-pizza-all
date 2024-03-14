@@ -22,6 +22,7 @@ public class PizzaApp {
         ProductService productService = null;
         CustomerService customerService = null;
         OrderService orderService = null;
+        new DataLoader.Sample(productService, customerService).run();
 
         // Get a product ---
         var product = productService.getProduct("P-10");
