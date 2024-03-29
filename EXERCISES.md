@@ -1,10 +1,12 @@
-# Übungen zu 011 - Beans Container
+# Übungen zu 013 - XML Beans Container
 
-Migrieren Sie die Pizza Anwendung auf den "Summer Bean-Container".
+Migrieren Sie die Pizza Anwendung auf den "Summer **XML** Bean-Container".
 
-Das heißt, wir wollen die Erzeugung und Verdrahtung von Beans diesem Container überlassen, sodass
-wir selbst nur noch die Beans definieren und abfragen müssen.
+Das heißt, die Bean-Definition erfolgen nun in einer separaten XML-Datei, welche folgendes Format aufweist:
 
-Die Nutzung des `JdbcProductRepository` ist für unseren eigenen Bean-Container noch zu schwer, daher
-bitte auf `HashMapProductRepository` umstellen. Wer mag, kann sich überlegen, was es bräuchte, um auch
-die Datenbank in unserem Bean-Container nutzen zu können.
+````xml
+
+<beans>
+    <bean name="the-name" class="de.example.the.Class"/>
+</beans>
+````
