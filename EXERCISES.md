@@ -1,20 +1,29 @@
-# Übungen zu 016
+# Übungen zu 017 Resources
 
-## Entwicklung des Aspekts
+## Laden eines XML Kontext
 
-Schreiben Sie einen AOP Aspekt als eine Klasse namens `ExecutionTimeAspect`.
+Erstellen Sie eine Instanz der Klasse `FileSystemXmlApplicationContext`.
 
-Diese soll zwei Methoden haben:
+Diese soll die Beans aus der Datei `default-beans.xml` im Projektverzeichnis lesen.
 
-- `beforeMethodInvocation()`
-- `afterMethodInvocation(String methodName)`
+Jedoch ist diese Datei noch fast leer - Sie dürfen die Beans hier noch definieren.
 
-In der Klasse wird bei "before" die aktuelle Systemzeit als Millisekunden festgehalten
-und in "after" die Differenz zusammen mit dem Methodennamen als Information ausgegeben.
+Hinweis: für XML-definierte Beans macht Spring **kein Autowiring** per Konstruktor von sich aus,
+dies muss mit dem `<bean autowire="constructor">` Attribut aktiviert werden.
 
-## Anwendung des Aspekts
+## Classpath Kontext
 
-Wenden Sie den entwickelten Aspekt auf eine der Klassen im Projekt an:
+Ändern Sie den Typ des Kontexts um in einen `ClassPathXmlApplicationContext`, der
+die XML-Datei aus `src/main/resources/beans/default-beans.xml` liest. Wie muss die
+Ressource nun im Konstruktor benannt werden?
 
-- mittels des Java `Proxy` Konzepts, wenn die Klasse ein Interface implementiert
-- mittels Vererbung, wenn nicht
+## Generic Kontext
+
+Ändern Sie den Kontext nun um auf einen `GenericXmlApplicationContext` -- dieser benötigt
+eine `Resource` als Parameter.
+
+Hierfür stehen fertige Typen zur Verfügung, wie z.B.
+
+- `ClassPathResource`
+- `FileSystemResource`
+- `ByteArrayResource`
