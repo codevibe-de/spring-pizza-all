@@ -39,6 +39,19 @@
             <artifactId>assertj-core</artifactId>
             <version>3.24.2</version>
         </dependency>
+
+        <!-- XML parsing -->
+        <dependency>
+            <groupId>jakarta.xml.bind</groupId>
+            <artifactId>jakarta.xml.bind-api</artifactId>
+            <version>4.0.2</version>
+        </dependency>
+        <dependency>
+            <groupId>com.sun.xml.bind</groupId>
+            <artifactId>jaxb-impl</artifactId>
+            <version>4.0.5</version>
+            <scope>runtime</scope>
+        </dependency>
     </dependencies>
 
 </project>
