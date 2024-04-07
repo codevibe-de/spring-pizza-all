@@ -1,7 +1,7 @@
 package pizza;
 
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.FileSystemXmlApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import pizza.customer.CustomerService;
 import pizza.order.OrderService;
 import pizza.product.ProductService;
@@ -13,7 +13,8 @@ public class PizzaApp {
 
     public static void main(String[] args) {
         // Instantiate context
-        ApplicationContext beanContainer = new FileSystemXmlApplicationContext("default-beans.xml");
+//        ApplicationContext beanContainer = new FileSystemXmlApplicationContext("default-beans.xml");
+        ApplicationContext beanContainer = new ClassPathXmlApplicationContext("beans/default-beans.xml");
 
         // query and use beans
         beanContainer.getBean(DataLoader.class).run();
