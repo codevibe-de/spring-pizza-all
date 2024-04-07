@@ -2,7 +2,7 @@
 
 ## Entwicklung des Aspekts
 
-Schreiben Sie einen AOP Aspekt als eine Klasse namens `ExecutionTimeAspect`.
+Schreiben Sie einen AOP Aspekt als eine neue Klasse namens `ExecutionTimeAspect`.
 
 Diese soll zwei Methoden haben:
 
@@ -18,3 +18,6 @@ Wenden Sie den entwickelten Aspekt auf eine der Klassen im Projekt an:
 
 - mittels des Java `Proxy` Konzepts, wenn die Klasse ein Interface implementiert
 - mittels Vererbung, wenn nicht
+
+Eine gute Stelle hierfür ist nach Abfrage der Bean Instanzen aus dem Container. Sie können eine Hilfsmethode
+schreiben, welche den AOP-Proxy erstellt.
