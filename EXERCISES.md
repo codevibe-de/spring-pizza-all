@@ -1,29 +1,23 @@
-# Übungen zu 017 Resources
+# Übungen zu 018 Spring Expression Language
 
-## Laden eines XML Kontext
+## Lieferzeit definieren
 
-Erstellen Sie eine Instanz der Klasse `FileSystemXmlApplicationContext`.
+Die Klasse `OrderService` hat nun eine Setter-Methode, mit der das Property `deliveryTimeInMinutes` gesetzt werden kann.
 
-Diese soll die Beans aus der Datei `default-beans.xml` im Projektverzeichnis lesen.
+In der Beans-XML-Datei kann entsprechend dieser Wert nun konfiguriert werden:
 
-Jedoch ist diese Datei noch fast leer - Sie dürfen die Beans hier noch definieren.
+````xml
 
-Hinweis: für XML-definierte Beans macht Spring **kein Autowiring** per Konstruktor von sich aus,
-dies muss mit dem `<bean autowire="constructor">` Attribut aktiviert werden.
+<bean class="pizza.order.OrderService" autowire="constructor">
+    <property name="deliveryTimeInMinutes" value="..."/>
+</bean>
+````
 
-## Classpath Kontext
+Nutzen Sie die SpEL, um diesen Wert auf nicht-triviale Art zu setzen, wie z.B.
 
-Ändern Sie den Typ des Kontexts um in einen `ClassPathXmlApplicationContext`, der
-die XML-Datei aus `src/main/resources/beans/default-beans.xml` liest. Wie muss die
-Ressource nun im Konstruktor benannt werden?
+- Auslesen des Environments (Tipp: dort sind auch alle Umgebungsvariablen definiert)
+- Berechnung
+- Aufruf einer Bean
+- Zufallszahl
 
-## Generic Kontext
-
-Ändern Sie den Kontext nun um auf einen `GenericXmlApplicationContext` -- dieser benötigt
-eine `Resource` als Parameter.
-
-Hierfür stehen fertige Typen zur Verfügung, wie z.B.
-
-- `ClassPathResource`
-- `FileSystemResource`
-- `ByteArrayResource`
+Siehe auch https://docs.spring.io/spring-framework/reference/core/expressions/beandef.html

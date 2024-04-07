@@ -13,8 +13,8 @@ public class PizzaApp {
 
     public static void main(String[] args) {
         // Instantiate context
-//        ApplicationContext beanContainer = new FileSystemXmlApplicationContext("default-beans.xml");
         ApplicationContext beanContainer = new ClassPathXmlApplicationContext("beans/default-beans.xml");
+
 
         // query and use beans
         beanContainer.getBean(DataLoader.class).run();
