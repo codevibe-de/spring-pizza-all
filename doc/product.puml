@@ -26,11 +26,11 @@ package "pizza.product" <<Frame>> {
 
     class JdbcProductRepository implements ProductRepository {
     }
-    class InMemoryProductRepository implements ProductRepository {
+    class HashMapProductRepository implements ProductRepository {
     }
 
     ProductService -right-> ProductRepository
-    InMemoryProductRepository -[hidden]> JdbcProductRepository
+    HashMapProductRepository -[hidden]> JdbcProductRepository
     JdbcProductRepository .-right-> DataSource
 }
 
