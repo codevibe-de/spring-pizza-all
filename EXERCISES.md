@@ -36,12 +36,12 @@ Wie arbeiten wir nun mit den jetzt vorhandenen Service-Beans?
 Sprich, an welcher Stelle erfolgt nun das Ausführen der Geschäftslogik, die bisher in der `PizzaApp.main()` Methode
 gestanden hat?
 
-Sie können folgende Optionen nutzen:
+Sie können eine der folgenden zwei Optionen nutzen:
 
-* eine `LogicRunner` Klasse anlegen (implementiert `ApplicationRunner`)
-  * zur Spring Bean deklarieren
-  * Geschäftslogik hierhin kopieren
-  * notwendige Beans autowiren
-* oder Sie nutzen den von `SpringApplication.run()` zurückgegebenen Kontext und holen sich von dort
-  die notwendigen Beans 
+1. eine `LogicRunner` Klasse anlegen (implementiert `ApplicationRunner`)
+   - zur Spring Bean deklarieren
+   - Geschäftslogik hierhin kopieren
+   - notwendige Beans autowiren
+2. oder Sie nutzen den von `SpringApplication.run()` zurückgegebenen Kontext und holen sich von dort
+   die notwendigen Beans 
 
