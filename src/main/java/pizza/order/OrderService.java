@@ -43,11 +43,6 @@ public class OrderService {
         this.orders = new ArrayList<>();
     }
 
-    public void setDeliveryTimeInMinutes(Integer deliveryTimeInMinutes) {
-        System.out.println("Setting delivery time in minutes to " + deliveryTimeInMinutes);
-        this.deliveryTimeInMinutes = deliveryTimeInMinutes;
-    }
-
     //
     // business logic
     //
