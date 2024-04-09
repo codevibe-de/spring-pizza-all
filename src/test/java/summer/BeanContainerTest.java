@@ -32,8 +32,8 @@ class BeanContainerTest {
     private final BeanContainer beanContainer = new BeanContainer();
 
     @Test
+    // remove @Disabled annotation once bean-container has been implemented
     @Disabled
-        // remove this once bean-container is implemented
     void getBean() {
         // given
         beanContainer.defineBean("prodRepo", HashMapProductRepository.class);
@@ -49,8 +49,8 @@ class BeanContainerTest {
 
 
     @Test
+    // remove @Disabled annotation once bean-container has been implemented
     @Disabled
-        // remove this once bean-container is implemented
     void getBean__NoUniqueBeanDefinitionException() {
         // given
         beanContainer.defineBean("prodRepo", HashMapProductRepository.class);
@@ -69,8 +69,8 @@ class BeanContainerTest {
 
 
     @Test
+    // remove @Disabled annotation once bean-container has been implemented
     @Disabled
-        // remove this once bean-container is implemented
     void refresh__failsForCircularDependencies() {
         // when
         beanContainer.defineBean("beanX", X.class);
