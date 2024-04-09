@@ -5,7 +5,7 @@
 
     <groupId>de.auinger.training.spring</groupId>
     <artifactId>pizza-app</artifactId>
-    <version>017</version>
+    <version>018</version>
     <packaging>jar</packaging>
 
     <properties>
