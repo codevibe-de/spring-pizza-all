@@ -34,7 +34,7 @@ public class XmlBeanContainer extends BeanContainer {
                     try {
                         this.defineBean(
                                 b.name,
-                                Class.forName(b.className)
+                                Class.forName(b.className)      // String --> Class<?>
                         );
                     } catch (ClassNotFoundException e) {
                         throw new BeanDefinitionStoreException("Class not found for bean " + b.name, e);
@@ -49,10 +49,10 @@ public class XmlBeanContainer extends BeanContainer {
     }
 }
 
-@XmlRootElement(name = "beans")
+@XmlRootElement(name = "beans")     // <beans>...</beans>
 class BeansElement {
     @XmlElement(name = "bean")
-    public List<BeanElement> beans;
+    public List<BeanElement> beans; // <bean ... />
 }
 
 class BeanElement {
