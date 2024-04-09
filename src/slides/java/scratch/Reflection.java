@@ -17,6 +17,16 @@ public class Reflection {
         // get-Methode auf Instanz
         Class<?> myClass = new CustomerService().getClass();
 
+        Constructor<?>[] constructors = OrderService.class.getDeclaredConstructors();
+        Constructor<?> firstConstructor = constructors[0];
+        firstConstructor.newInstance(); // no arguments
+
+        //
+        for (Constructor<?> constructor : constructors) {
+            Class<?>[] parameterTypes = constructor.getParameterTypes();
+            System.out.println("Constructor with " + parameterTypes.length + " parameters:");
+        }
+
         //
         for (Constructor<?> c : OrderService.class.getConstructors()) {
             Class<?>[] parameterTypes = c.getParameterTypes();
