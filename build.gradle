@@ -3,7 +3,7 @@ plugins {
 }
 
 group = 'de.codevibe'
-version = '018'
+version = '017'
 
 application {
     mainClass = 'pizza.PizzaApp'
@@ -14,12 +14,14 @@ repositories {
 }
 
 dependencies {
-    implementation 'org.springframework:spring-aop:6.1.2'
+    implementation 'org.springframework:spring-context:6.1.2'
     implementation 'com.h2database:h2:2.2.224'
     testImplementation platform('org.junit:junit-bom:5.9.1')
     testImplementation 'org.junit.jupiter:junit-jupiter'
     testImplementation 'org.assertj:assertj-core:3.24.2'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+    implementation 'jakarta.xml.bind:jakarta.xml.bind-api:4.0.2'
+    implementation 'com.sun.xml.bind:jaxb-impl:4.0.5'
 }
 
 test {
