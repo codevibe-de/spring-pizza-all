@@ -10,7 +10,10 @@
 
     <bean class="pizza.customer.CustomerService" autowire="constructor"/>
 
-    <bean class="pizza.order.OrderService" autowire="constructor"/>
+    <bean class="pizza.order.OrderService" autowire="constructor">
+        <!--        <property name="deliveryTimeInMinutes" value="#{T(java.lang.Math).random()*100}"/>-->
+        <property name="deliveryTimeInMinutes" value="#{environment['APP_DELIVERYTIMEINMINUTES']}"/>
+    </bean>
 
     <bean class="pizza.DataLoader.Sample" autowire="constructor"/>
 
