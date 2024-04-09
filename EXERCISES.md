@@ -1,15 +1,21 @@
 # Übungen zu 017 Resources
 
+**Hinweis:** Für diese Übung wurden die Build-Skripte um die Bibliothek `org.springframework:spring-context`
+erweitert -- ggf. müssen Sie das Projekt in Ihrer IDE aktualisieren lassen.
+
 ## Laden eines XML Kontext
 
-Erstellen Sie eine Instanz der Klasse `FileSystemXmlApplicationContext`.
+Die Spring-Klasse `FileSystemXmlApplicationContext` ist das (professionelle) Gegenstück unseres
+handgemachten `XmlBeanContainers` -- und funktioniert sehr ähnlich.
 
-Diese soll die Beans aus der Datei `default-beans.xml` im Projektverzeichnis lesen.
+Ziel dieser Übung ist es, eine Instanz des `FileSystemXmlApplicationContext` zu erzeugen und diese
+statt unseres `XmlBeanContainers` zu nutzen.
 
-Jedoch ist diese Datei noch fast leer - Sie dürfen die Beans hier noch definieren.
+Die Beans sollen aus der Datei `default-beans.xml` im Projektverzeichnis gelesen werden, die schon
+existiert, jedoch noch fast leer ist. Hier dürfen Sie die notwendigen Beans definieren.
 
 Hinweis: für XML-definierte Beans macht Spring **kein Autowiring** per Konstruktor von sich aus,
-dies muss mit dem `<bean autowire="constructor">` Attribut aktiviert werden.
+dies muss mit dem `<bean ... autowire="constructor">` Attribut aktiviert werden.
 
 ## Classpath Kontext
 
