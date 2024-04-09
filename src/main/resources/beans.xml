@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<beans>
+    <!-- util beans -->
+    <bean name="dataLoader" class="pizza.DataLoader$Sample"/>
+
+    <!-- persistence beans -->
+    <bean name="prodRepo" class="pizza.product.HashMapProductRepository"/>
+
+    <!-- service layer -->
+    <bean name="prodService" class="pizza.product.ProductService"/>
+    <bean name="custService" class="pizza.customer.CustomerService"/>
+    <bean name="ordrService" class="pizza.order.OrderService"/>
+
+</beans>
