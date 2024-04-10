@@ -5,7 +5,7 @@
 
     <groupId>de.auinger.training.spring</groupId>
     <artifactId>pizza-app</artifactId>
-    <version>013</version>
+    <version>016</version>
     <packaging>jar</packaging>
 
     <properties>
@@ -21,7 +21,7 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-aop</artifactId>
-            <version>6.1.2</version>
+            <version>6.1.5</version>
         </dependency>
         <dependency>
             <groupId>com.h2database</groupId>
