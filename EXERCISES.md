@@ -2,30 +2,37 @@
 
 ## Setup
 
-Fügen Sie folgende Starter dem Build hinzu:
+Ihre Build-Skripte wurden bereits um folgende Dependencies erweitert:
 
 - `spring-boot-starter-web`
 - `spring-boot-starter-thymeleaf`
 
-Erzeugen Sie folgende Verzeichnisse:
+Ebenso ist ein neues Verzeichnis mit statischem Inhalt vorbereitet:
 
 - `src/main/resources/static`
+
+Was noch fehlt, ist das Verzeichnis für die Templates -- bitte anlegen:
+
 - `src/main/resources/templates`
 
-## Kunden Controller
+## ProductWebController
 
-Schreiben Sie einen Controller, der einen Kunden lädt und dem Model hinzufügt.
+Schreiben Sie einen Controller namens `ProductWebController`, der ein Produkt lädt und dem Model hinzufügt.
 
-Der Kunde kann über einen Query-Parameter (z.B. `custId`) identifiziert werden.
+Das Produkt können Sie über zwei Möglichkeiten identifizieren lassen:
 
-Dieser Controller soll die View "customer" rendern lassen.
+- Query-Parameter (wie auf den Folien zu sehen)
+- Path-Variable (dies ist die REST-konforme Variante) -- dies geht über die Annotation `@PathVariable` und eine
+  gemappte URL wie z.B. `/products/{productId}`
 
-## Kunden Template
+Der Controller soll die View mit Namen "products/single-product" rendern lassen.
 
-Schreiben Sie nun eine HTML-Template-Datei (`src/main/resources/templates/customer.html`), welche die Darstellung
-des Kunden als HTML-Response übernimmt.
+## Template
 
-Hier können verschiedene Attribute des Kunden dargestellt werden, die aus dem Model gezogen werden.
+Erstellen Sie nun eine HTML-Template-Datei (`src/main/resources/templates/products/single-product.html`),
+welche die Darstellung des Kunden als HTML-Response definiert.
 
-Denken Sie daran, über welchen Namen Sie den Kunden dem Model hinzugefügt haben -- dies ist der Einstiegspunkt zu den
-Kundendaten.
+Hier können verschiedene Attribute des Produkts dargestellt werden, die aus dem Model gezogen werden.
+
+Denken Sie daran, über welchen Namen Sie das Produkt dem Model hinzugefügt haben -- dies ist der Einstiegspunkt zu den
+Daten im Template.
