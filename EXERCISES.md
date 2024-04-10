@@ -1,28 +1,31 @@
-# Übungen zum Kapitel "070 - Transaktionen"
+# Übungen zum Kapitel "075 - Web Application"
 
-Für diese Übung wurden folgende Änderungen am Code vorbereitet:
+## Setup
 
-* eine `Customer` Entität hat nun einen Zähler für die Anzahl Bestellversuche (`orderCount`)
-* der `CustomerService` hat eine neue Methode, um für einen Kunden die Anzahl Bestellversuche zu
-  erhöhen
+Fügen Sie folgende Starter dem Build hinzu:
 
-## a) CustomerService transaktionalisieren
+- `spring-boot-starter-web`
+- `spring-boot-starter-thymeleaf`
 
-Machen Sie die neue Methode
-`pizza.customer.CustomerService#increaseOrderCount()` transaktional, sodass in einer
-neuen Transaktion der Zähler hochgesetzt und persistiert wird.
+Erzeugen Sie folgende Verzeichnisse:
 
-## c) OrderService erweitern
+- `src/main/resources/static`
+- `src/main/resources/templates`
 
-Rufen Sie diese Methode im `CustomerService` aus `OrderService#placeOrder()` auf,  
-und zwar gleich, nachdem der Customer geladen wurde (und bevor die Produkte geladen werden).
+## Kunden Controller
 
-Außerdem soll die `placeOrder()` Methode auch in einer Transaktion ablaufen.
+Schreiben Sie einen Controller, der einen Kunden lädt und dem Model hinzufügt.
 
-## d) Test
+Der Kunde kann über einen Query-Parameter (z.B. `custId`) identifiziert werden.
 
-Schreiben Sie einen Test
-`pizza.order.OrderServiceTest#placeOrder_customerOrderCountIncreasesDespiteTransactionFail()`
-der einen ungültigen Bestellvorgang auslöst und dann prüft, dass dennoch
-der Zähler der Customer-Entität erhöht wurde.
+Dieser Controller soll die View "customer" rendern lassen.
 
+## Kunden Template
+
+Schreiben Sie nun eine HTML-Template-Datei (`src/main/resources/templates/customer.html`), welche die Darstellung
+des Kunden als HTML-Response übernimmt.
+
+Hier können verschiedene Attribute des Kunden dargestellt werden, die aus dem Model gezogen werden.
+
+Denken Sie daran, über welchen Namen Sie den Kunden dem Model hinzugefügt haben -- dies ist der Einstiegspunkt zu den
+Kundendaten.
