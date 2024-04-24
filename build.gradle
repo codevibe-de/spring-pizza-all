@@ -16,7 +16,6 @@ repositories {
 }
 
 dependencies {
-    implementation 'org.springframework.boot:spring-boot-starter'
     implementation 'org.springframework.boot:spring-boot-starter-jdbc'
     implementation 'com.h2database:h2:2.2.224'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
@@ -26,3 +25,5 @@ dependencies {
 tasks.named('test') {
     useJUnitPlatform()
 }
+
+
