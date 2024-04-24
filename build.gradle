@@ -9,16 +9,20 @@ application {
     mainClass = 'pizza.PizzaApp'
 }
 
+ext {
+    springVersion = '6.1.6'
+}
+
 repositories {
     mavenCentral()
 }
 
 dependencies {
-    implementation 'org.springframework:spring-aop:6.1.5'
+    implementation "org.springframework:spring-aop:$springVersion"
     implementation 'com.h2database:h2:2.2.224'
-    testImplementation platform('org.junit:junit-bom:5.9.1')
+    testImplementation platform('org.junit:junit-bom:5.10.2')
     testImplementation 'org.junit.jupiter:junit-jupiter'
-    testImplementation 'org.assertj:assertj-core:3.24.2'
+    testImplementation 'org.assertj:assertj-core:3.25.3'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 
     implementation 'jakarta.xml.bind:jakarta.xml.bind-api:4.0.2'
