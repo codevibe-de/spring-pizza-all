@@ -1,23 +1,17 @@
 # Übungen zu 016
 
-## Entwicklung des Aspekts
+## a) Entwicklung eines Tracing-Aspekts
 
-Schreiben Sie einen AOP Aspekt als eine neue Klasse namens `ExecutionTimeAspect`.
+Implementieren Sie das Interface `MethodBeforeAdvice`, um einen Aspekt zu implementieren, der vor jedem Aufruf einer
+Methode eine Nachricht auf `System.out` schreibt (z.B. "About to execute method xyz()")
 
-Diese soll zwei Methoden haben:
+Lassen Sie Spring mittels der `ProxyFactoryBean` einen AOP-Proxy von einer Instanz generieren (z.B. `ProductService`)
+und rufen Sie dann diese Instanz auf. Wird der AOP-Aspekt ausgeführt?
 
-- `beforeMethodInvocation()`
-- `afterMethodInvocation(String methodName)`
+## b) Entwicklung eines Profiling-Aspekts
 
-In der Klasse wird bei "before" die aktuelle Systemzeit als Millisekunden festgehalten
-und in "after" die Differenz zusammen mit dem Methodennamen als Information ausgegeben.
+Implementieren Sie dann das Interface `MethodInterceptor`, um **vor und nach** einer Methode Code ausführen zu können
+(Umwicklung eines Aufrufs). Führen Sie darin eine vorher/nachher Zeitmessung durch und geben dann auf der Konsole aus,
+wie lange die umwickelte Methode für die Ausführung gebraucht hat.
 
-## Anwendung des Aspekts
 
-Wenden Sie den entwickelten Aspekt auf eine der Klassen im Projekt an:
-
-- mittels des Java `Proxy` Konzepts, wenn die Klasse ein Interface implementiert
-- mittels Vererbung, wenn nicht
-
-Eine gute Stelle hierfür ist nach Abfrage der Bean Instanzen aus dem Container. Sie können eine Hilfsmethode
-schreiben, welche den AOP-Proxy erstellt.
