@@ -3,7 +3,7 @@ plugins {
 }
 
 group = 'de.codevibe'
-version = '017'
+version = '018'
 
 application {
     mainClass = 'pizza.PizzaApp'
