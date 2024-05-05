@@ -1,4 +1,4 @@
-package scratch;
+package d017_resources;
 
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.FileSystemResource;

@@ -1,4 +1,4 @@
-package scratch;
+package d016_aop;
 
 import org.springframework.aop.MethodBeforeAdvice;
 import org.springframework.aop.framework.ProxyFactoryBean;
