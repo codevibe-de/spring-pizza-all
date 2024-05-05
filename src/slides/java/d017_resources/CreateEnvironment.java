@@ -10,15 +10,22 @@ import java.io.IOException;
 public class CreateEnvironment {
 
     public static void main(String[] args) throws IOException {
-        var environment = new StandardEnvironment();
+        var environment = createStandardEnvironment();
+        System.out.println(environment.getProperty("temp"));
+        System.out.println(environment.getProperty("username"));
+        System.out.println(environment.getProperty("app.my-value"));
+    }
 
+
+    public static StandardEnvironment createStandardEnvironment() throws IOException {
+        // create env
+        var environment = new StandardEnvironment();
+        // load and add properties to env
         var resource = new DefaultResourceLoader().getResource("app.properties");
         var properties = PropertiesLoaderUtils.loadProperties(resource);
         var propertySource = new PropertiesPropertySource("app", properties);
         environment.getPropertySources().addLast(propertySource);
-
-        System.out.println(environment.getProperty("temp"));
-        System.out.println(environment.getProperty("username"));
-        System.out.println(environment.getProperty("app.my-value"));
+        // done
+        return environment;
     }
 }
