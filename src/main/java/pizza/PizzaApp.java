@@ -2,6 +2,9 @@ package pizza;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.aop.framework.ProxyFactoryBean;
+import pizza.aop.ProfilingInterceptor;
+import pizza.aop.TraceBeforeMethodAdvice;
 import pizza.customer.CustomerService;
 import pizza.order.OrderService;
 import pizza.product.ProductService;
@@ -21,6 +24,17 @@ public class PizzaApp {
         ProductService productService = beanContainer.getBean(ProductService.class);
         CustomerService customerService = beanContainer.getBean(CustomerService.class);
         OrderService orderService = beanContainer.getBean(OrderService.class);
+
+        // apply AOP
+        var proxyFactory = new ProxyFactoryBean();
+        proxyFactory.setTarget(productService);
+        proxyFactory.addAdvice(new TraceBeforeMethodAdvice());
+        productService = (ProductService) proxyFactory.getObject();
+
+        proxyFactory = new ProxyFactoryBean();
+        proxyFactory.setTarget(orderService);
+        proxyFactory.addAdvice(new ProfilingInterceptor());
+        orderService = (OrderService) proxyFactory.getObject();
 
         // Get a product ---
         var product = productService.getProduct("P-10");
