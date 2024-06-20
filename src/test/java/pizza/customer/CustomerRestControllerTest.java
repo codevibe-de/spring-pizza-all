@@ -12,6 +12,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.ResultActions;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -45,12 +46,12 @@ class CustomerRestControllerTest {
         customer = customerRepository.save(customer);
 
         // when
-        String actualJson = this.mockMvc
-                .perform(get(CustomerRestController.GET_ONE_ENDPOINT, customer.getId()))
-                .andExpect(status().isOk())
-                .andReturn().getResponse().getContentAsString();
+        ResultActions resultActions = this.mockMvc
+                .perform(get(CustomerRestController.GET_ONE_ENDPOINT, customer.getId()));
+        String actualJson = resultActions.andReturn().getResponse().getContentAsString();
 
         // then
+        resultActions.andExpect(status().isOk());
         String expectedJson = toJson(customer);
         JSONAssert.assertEquals(expectedJson, actualJson, false);
     }
@@ -66,11 +67,11 @@ class CustomerRestControllerTest {
 
         // when
         var resultActions = this.mockMvc
-                .perform(get(CustomerRestController.GET_ONE_ENDPOINT, customer.getId()))
-                .andExpect(status().isOk());
+                .perform(get(CustomerRestController.GET_ONE_ENDPOINT, customer.getId()));
 
         // then
         resultActions
+                .andExpect(status().isOk())
                 .andExpect(jsonPath("$.fullName", Matchers.is(customerFullName)))
                 .andExpect(jsonPath("$.address.city", Matchers.is(customerAddress.getCity())));
     }
