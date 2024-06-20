@@ -6,13 +6,13 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.1.6</version>
+        <version>3.3.1</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
     <groupId>de.auinger.training.spring-boot</groupId>
     <artifactId>pizza-app</artifactId>
-    <version>040</version>
+    <version>045</version>
 
     <properties>
         <java.version>17</java.version>
