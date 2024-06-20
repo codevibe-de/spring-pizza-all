@@ -1,4 +1,4 @@
-# SPRING TRAININGS
+# The Spring Pizza API Project 
 
 ## About
 
