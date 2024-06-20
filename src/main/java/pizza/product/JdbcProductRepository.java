@@ -13,12 +13,13 @@ import java.util.Collection;
 import java.util.Optional;
 
 @Component
-public class JdbcProductRepository implements ProductRepository, RowMapper<Product> {
+public class JdbcProductRepository implements ProductRepository {
 
     public static final String INSERT_SQL = "INSERT INTO products (pk, name, price) VALUES (?, ?, ?)";
     public static final String SELECT_COUNT_SQL = "SELECT COUNT(p.*) FROM products p WHERE p.pk=?";
     public static final String SELECT_ALL_SQL = "SELECT p.* FROM products p";
     public static final String SELECT_ONE_SQL = "SELECT p.* FROM products p WHERE p.pk = ?";
+
     private final JdbcTemplate jdbcTemplate;
 
     public JdbcProductRepository(DataSource dataSource) {
@@ -28,8 +29,9 @@ public class JdbcProductRepository implements ProductRepository, RowMapper<Produ
     @Override
     public Product save(Product product) {
         this.jdbcTemplate.update(
-                "INSERT INTO products (pk, name, price) VALUES (?, ?, ?)",
-                product.getProductId(), product.getName(), product.getPrice());
+                INSERT_SQL,
+                product.getProductId(), product.getName(), product.getPrice()
+        );
         return product;
     }
 
@@ -38,7 +40,8 @@ public class JdbcProductRepository implements ProductRepository, RowMapper<Produ
         var count = this.jdbcTemplate.queryForObject(
                 SELECT_COUNT_SQL,
                 Integer.class,
-                productId);
+                productId
+        );
         return (count != null && count == 1);
     }
 
@@ -48,7 +51,7 @@ public class JdbcProductRepository implements ProductRepository, RowMapper<Produ
                 SELECT_ALL_SQL,
                 new Object[]{},
                 new int[]{},
-                this
+                ProductRowMapper.INSTANCE
         );
     }
 
@@ -59,7 +62,7 @@ public class JdbcProductRepository implements ProductRepository, RowMapper<Produ
                     SELECT_ONE_SQL,
                     new Object[]{productId},
                     new int[]{Types.VARCHAR},
-                    this
+                    ProductRowMapper.INSTANCE
             );
             return Optional.ofNullable(p);
         } catch (IncorrectResultSizeDataAccessException e) {
@@ -67,12 +70,24 @@ public class JdbcProductRepository implements ProductRepository, RowMapper<Produ
         }
     }
 
-    @Override
-    public Product mapRow(ResultSet rs, int rowNum) throws SQLException {
-        return new Product(
-                rs.getString("pk"),
-                rs.getString("name"),
-                rs.getDouble("price")
-        );
+    //
+    // --- inner classes ---
+    //
+
+    static class ProductRowMapper implements RowMapper<Product> {
+        // singleton design pattern
+        public static ProductRowMapper INSTANCE = new ProductRowMapper();
+
+        private ProductRowMapper() {
+        }
+
+        @Override
+        public Product mapRow(ResultSet rs, int rowNum) throws SQLException {
+            return new Product(
+                    rs.getString("pk"),
+                    rs.getString("name"),
+                    rs.getDouble("price")
+            );
+        }
     }
 }
