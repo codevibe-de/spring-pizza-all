@@ -1,4 +1,4 @@
-package scratch;
+package d016_aop;
 
 import pizza.product.HashMapProductRepository;
 import pizza.product.Product;
