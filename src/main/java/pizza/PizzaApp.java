@@ -7,7 +7,10 @@ import org.springframework.boot.context.properties.ConfigurationPropertiesScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Primary;
 import org.springframework.core.convert.ConversionService;
+import org.springframework.web.servlet.LocaleResolver;
+import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 
+import java.util.Locale;
 import java.util.Optional;
 
 @SpringBootApplication
@@ -16,6 +19,14 @@ public class PizzaApp {
 
     public static void main(String[] args) {
         SpringApplication.run(PizzaApp.class, args);
+    }
+
+    // required for making Thymeleaf print correct currency symbol
+    @Bean
+    public LocaleResolver localeResolver() {
+        var sessionLocaleResolver = new SessionLocaleResolver();
+        sessionLocaleResolver.setDefaultLocale(Locale.GERMANY);
+        return sessionLocaleResolver;
     }
 
     // This fixes the problem that the application won't start anymore after adding spring-integration libraries since
