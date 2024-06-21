@@ -6,7 +6,6 @@ import org.springframework.stereotype.Component;
 import pizza.customer.Address;
 import pizza.customer.Customer;
 import pizza.customer.CustomerService;
-import pizza.order.OrderService;
 import pizza.product.Product;
 import pizza.product.ProductService;
 
