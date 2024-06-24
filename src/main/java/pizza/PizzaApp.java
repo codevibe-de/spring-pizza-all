@@ -1,6 +1,8 @@
 package pizza;
 
 import org.h2.jdbcx.JdbcDataSource;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 import pizza.customer.CustomerService;
 import pizza.order.OrderService;
 import pizza.product.JdbcProductRepository;
@@ -11,9 +13,13 @@ import javax.sql.DataSource;
 import static java.util.Map.entry;
 import static java.util.Map.ofEntries;
 
+@SpringBootApplication
 public class PizzaApp {
 
     public static void main(String[] args) {
+        // start Spring context
+        SpringApplication.run(PizzaApp.class, args);
+
         // Instantiate beans ---
         H2TcpServer h2TcpServer = startDatabase();
         DataSource dataSource = createDataSource();

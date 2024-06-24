@@ -2,10 +2,10 @@
 
 Machen Sie aus der bestehenden Kommandozeilenanwendung eine Spring Boot basierte Anwendung.
 
-Die bestehende Klasse `PizzaApp` ist hierfür der Ausgangspunkt. Diese wurde mittels einer neuen
-`pom.xml` bzw. `build.gradle` bereits für Spring vorbereitet.
+Die bestehende Klasse `PizzaApp` ist hierfür der Ausgangspunkt. Diese wurde auf Basis einer bereits angepassten
+`pom.xml` bzw. `build.gradle` Datei bereits für Spring vorbereitet.
 
-Diese Übung besteht im Grunde aus zwei weiteren Phasen:
+Diese Übung besteht aus **zwei Phasen**:
 
 ## Phase 1
 
@@ -16,6 +16,9 @@ mittels `new` selbst.
 
 Das heißt aber auch, dass Sie Spring darüber "informieren" müssen, welche Beans anzulegen sind.
 Dafür haben wir die notwendigen Annotationen kennengelernt.
+
+Gerne können Sie statt der komplexeren `JdbcProductRepository` Klasse die einfache `HashMapProductRepository` Variante
+nehmen.
 
 ### Bonus: Nutzung Datenbank
 
@@ -28,6 +31,8 @@ Somit können eine ganze Reihe an eigenen Klassen entfernt werden:
 * `H2TcpServer.java` -- denn Spring startet automatisch eine interne H2 Datenbank
 * `SchemaScriptRunner.java` -- denn Spring führt automatisch eine vorhandene `schema.sql` Datei aus
 * `PersistenceException.java` -- das Spring JDBC Projekt bringt eine Reihe an Exceptions mit
+
+Die Nutzung des `JdbcProductRepository` ist dann gar nicht mehr so schwer.
 
 ## Phase 2
 
