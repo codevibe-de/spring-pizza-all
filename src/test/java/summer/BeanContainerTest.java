@@ -15,9 +15,6 @@ import summer.exception.NoSuchBeanDefinitionException;
 import summer.exception.NoUniqueBeanDefinitionException;
 
 import java.io.Closeable;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -55,7 +52,7 @@ class BeanContainerTest {
         // given
         beanContainer.defineBean("prodRepo", HashMapProductRepository.class);
         beanContainer.defineBean("prodSrv", ProductService.class);
-        beanContainer.defineBean("custSrv", CustomerService.class);
+        beanContainer.defineBean("customerSrv", CustomerService.class);
         beanContainer.defineBean("sample", DataLoader.Sample.class);
         beanContainer.defineBean("none", DataLoader.None.class);
         beanContainer.refresh();
@@ -77,7 +74,7 @@ class BeanContainerTest {
         beanContainer.defineBean("beanY", Y.class);
 
         // given
-        ThrowingCallable throwingCallable = () -> beanContainer.refresh();
+        ThrowingCallable throwingCallable = beanContainer::refresh;
 
         // when
         assertThatThrownBy(throwingCallable)
@@ -90,10 +87,9 @@ class BeanContainerTest {
     void resolveBeanName_NoSuchBeanDefinitionException() {
         // given
         final Class<?> requestedType = String.class;
-        List<BeanDefinition> defsList = new ArrayList<>();
 
         // when
-        Executable executable = () -> beanContainer.resolveBeanName(requestedType, defsList);
+        Executable executable = () -> beanContainer.resolveBeanName(requestedType);
 
         // then
         assertThrows(NoSuchBeanDefinitionException.class, executable);
@@ -103,13 +99,11 @@ class BeanContainerTest {
     @Test
     void resolveBeanName_NoUniqueBeanDefinitionException() {
         // given
-        final Class<?> requestedType = String.class;
-        List<BeanDefinition> defsList = new ArrayList<>();
-        defsList.add(new BeanDefinition("name1", String.class));
-        defsList.add(new BeanDefinition("name2", String.class));
+        beanContainer.defineBean("name1", String.class);
+        beanContainer.defineBean("name2", String.class);
 
         // when
-        Executable executable = () -> beanContainer.resolveBeanName(requestedType, defsList);
+        Executable executable = () -> beanContainer.resolveBeanName(String.class);
 
         // then
         assertThrows(NoUniqueBeanDefinitionException.class, executable);
@@ -120,14 +114,12 @@ class BeanContainerTest {
     void resolveBeanName() {
         // given
         final Class<?> requestedType = String.class;
-        List<BeanDefinition> defsList = List.of(
-                new BeanDefinition("name", String.class),
-                new BeanDefinition("decoy1", Integer.class),
-                new BeanDefinition("decoy2", StringBuilder.class)
-        );
+        beanContainer.defineBean("name", String.class);
+        beanContainer.defineBean("decoy1", Integer.class);
+        beanContainer.defineBean("decoy2", StringBuilder.class);
 
         // when
-        String result = beanContainer.resolveBeanName(requestedType, defsList);
+        String result = beanContainer.resolveBeanName(requestedType);
 
         // then
         assertEquals("name", result);
@@ -138,14 +130,12 @@ class BeanContainerTest {
     void resolveBeanNames() {
         // given
         Class<?>[] types = new Class<?>[]{CharSequence.class, A.class, AutoCloseable.class};
-        List<BeanDefinition> defsList = List.of(
-                new BeanDefinition("a", A.class),
-                new BeanDefinition("sb", StringBuilder.class),
-                new BeanDefinition("c", C.class)
-        );
+        beanContainer.defineBean("a", A.class);
+        beanContainer.defineBean("sb", StringBuilder.class);
+        beanContainer.defineBean("c", C.class);
 
         // when
-        var beanNames = beanContainer.resolveBeanNames(types, defsList);
+        var beanNames = beanContainer.resolveBeanNames(types);
 
         // then
         assertThat(beanNames).containsExactly("sb", "a", "c");
@@ -155,15 +145,13 @@ class BeanContainerTest {
     @Test
     void createBeanDependencyMap() {
         // given
-        List<BeanDefinition> defsList = List.of(
-                new BeanDefinition("a", A.class),
-                new BeanDefinition("b", B.class),
-                new BeanDefinition("c", C.class),
-                new BeanDefinition("d", D.class)
-        );
+        beanContainer.defineBean("a", A.class);
+        beanContainer.defineBean("b", B.class);
+        beanContainer.defineBean("c", C.class);
+        beanContainer.defineBean("d", D.class);
 
         // when
-        Map<String, Set<String>> dependencyMap = beanContainer.createBeanDependencyMap(defsList);
+        Map<String, Set<String>> dependencyMap = beanContainer.createBeanDependencyMap();
 
         // then
         assertThat(dependencyMap).contains(
@@ -176,19 +164,19 @@ class BeanContainerTest {
 }
 
 
-// some dummy records requiring other beans
+// some test records requiring other beans
 
 record A(B b, Runnable r, AutoCloseable ac) {
-};
+}
 
 record B() {
-};
+}
 
 record C(D d) implements Closeable {
     @Override
-    public void close() throws IOException {
+    public void close() {
     }
-};
+}
 
 record D() implements Runnable {
     @Override
