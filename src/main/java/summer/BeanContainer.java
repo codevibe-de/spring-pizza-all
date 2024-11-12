@@ -19,6 +19,7 @@ public class BeanContainer {
     // --- bean container business logic ---
 
     public void defineBean(String name, Class<?> beanClass) {
+        beanDefinitions.removeIf(def -> def.getName().equals(name));
         beanDefinitions.add(new BeanDefinition(name, beanClass));
     }
 
