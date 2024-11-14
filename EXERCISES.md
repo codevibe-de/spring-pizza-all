@@ -21,4 +21,15 @@ nach** einer Methode Code ausführen zu können (Umwicklung eines Aufrufs).
 Führen Sie darin eine vorher/nachher Zeitmessung durch und geben dann auf der Konsole aus,
 wie lange die umwickelte Methode für die Ausführung gebraucht hat.
 
+## c) Bean Container um Mocking Support erweitern
 
+Ergänzen Sie den bestehenden Bean Container um folgende Methode:
+
+````java
+import java.lang.reflect.InvocationHandler;
+
+public void defineMock(String beanName, Class<?> interfaceClass, InvocationHandler invocationHandler) {
+}
+````
+Damit soll eine Mock-Bean registriert werden, die beim "refresh" des Containers mittels `java.lang.reflect.Proxy`
+als Instanz erzeugt und gespeichert wird.

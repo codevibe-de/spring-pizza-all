@@ -11,7 +11,7 @@ application {
 }
 
 ext {
-    springVersion = '6.1.10'
+    springVersion = '6.1.15'
 }
 
 repositories {
@@ -20,10 +20,10 @@ repositories {
 
 dependencies {
     implementation "org.springframework:spring-aop:$springVersion"
-    implementation 'com.h2database:h2:2.2.224'
-    testImplementation platform('org.junit:junit-bom:5.10.2')
+    implementation 'com.h2database:h2:2.3.232'
+    testImplementation platform('org.junit:junit-bom:5.11.3')
     testImplementation 'org.junit.jupiter:junit-jupiter'
-    testImplementation 'org.assertj:assertj-core:3.25.3'
+    testImplementation 'org.assertj:assertj-core:3.26.3'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 
     implementation 'jakarta.xml.bind:jakarta.xml.bind-api:4.0.2'

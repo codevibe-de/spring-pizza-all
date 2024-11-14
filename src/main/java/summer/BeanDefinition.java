@@ -20,7 +20,7 @@ public final class BeanDefinition {
 
     /**
      * Returns {@code true}, if the bean created by this {@code BeanDefinition} could be assigned to
-     * the given type, i.e. satisfies the given type requirement.
+     * the given type, i.e., satisfies the given type requirement.
      * <p>Example: You have a bean definition for type {@code MyRunnable}. That class implements
      * {@code Runnable}. The bean
      * created from this definition could be assigned to both a variable of type {@code MyRunnable}
