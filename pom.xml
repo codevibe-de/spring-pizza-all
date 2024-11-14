@@ -15,7 +15,7 @@
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <exec.mainClass>pizza.PizzaApp</exec.mainClass>
-        <spring.version>6.1.10</spring.version>
+        <spring.version>6.1.15</spring.version>
     </properties>
 
     <dependencies>

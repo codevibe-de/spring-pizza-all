@@ -11,7 +11,7 @@ application {
 }
 
 ext {
-    springVersion = '6.1.10'
+    springVersion = '6.1.15'
 }
 
 repositories {
