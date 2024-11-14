@@ -38,7 +38,7 @@ public class BeanContainer {
         // 2) each map value is a list of bean names, which do not exist yet. Hence, we can only
         // start with creating beans that have an empty list. With each new bean we thin out these
         // lists to make other beans creatable
-        Map<String, Set<String>> workToDoMap = createBeanDependencyMap(beanDefinitions);
+        Map<String, Set<String>> workToDoMap = createBeanDependencyMap();
         while (!workToDoMap.isEmpty()) {
             // which bean to create/realize next? must have an empty set of missing dependencies
             var beanName = workToDoMap.entrySet().stream()
@@ -64,7 +64,7 @@ public class BeanContainer {
             BeanDefinition def = getBeanDefinition(name);
             var constr = findConstructor(def.getType());
             var constrParamTypes = constr.getParameterTypes();
-            var constrParamBeanNames = resolveBeanNames(constrParamTypes, beanDefinitions);
+            var constrParamBeanNames = resolveBeanNames(constrParamTypes);
             var beans = getBeans(constrParamBeanNames);
             Object bean = constr.newInstance(beans);
             registerBean(bean, def.getName());
@@ -91,8 +91,8 @@ public class BeanContainer {
      */
     @SuppressWarnings("unchecked")
     public <T> T getBean(Class<T> requiredType) throws NoSuchBeanDefinitionException, NoUniqueBeanDefinitionException {
-        var beanName = resolveBeanName(requiredType, this.beanDefinitions);
-        return getBean(beanName, requiredType);
+        var beanName = resolveBeanName(requiredType);
+        return (T) getBean(beanName);
     }
 
 
@@ -103,6 +103,13 @@ public class BeanContainer {
      */
     public Object getBean(String name) throws NoSuchBeanDefinitionException {
         return this.beansByNameMap.get(name);
+    }
+
+
+    public Object[] getBeans(String[] names) {
+        return Arrays.stream(names)
+                .map(this::getBean)
+                .toArray();
     }
 
     // --- internal helper methods ---
