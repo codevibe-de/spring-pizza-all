@@ -16,13 +16,21 @@ public class BeanContainer {
 
     private final Map<String, Object> beansByNameMap = new HashMap<>();
 
+
     // --- bean container business logic ---
 
+    /**
+     * Adds a bean-definition to this container. Replaces an existing definition with the same name.
+     */
     public void defineBean(String name, Class<?> beanClass) {
         beanDefinitions.removeIf(def -> def.getName().equals(name));
         beanDefinitions.add(new BeanDefinition(name, beanClass));
     }
 
+
+    /**
+     * Removes all existing beans, then create all beans that were defined with {@link #defineBean(String, Class)}.
+     */
     public void refresh() {
         beansByNameMap.clear();
         // we use the dependency-map for two things:
@@ -74,28 +82,32 @@ public class BeanContainer {
                 .findAny().orElseThrow(() -> new NoSuchBeanDefinitionException("beanName"));
     }
 
-    public <T> T getBean(Class<T> requiredType) {
+
+    /**
+     * Returns the bean that can be assigned to the given type.
+     *
+     * @throws NoSuchBeanDefinitionException   if no single assignable bean exists
+     * @throws NoUniqueBeanDefinitionException if more than one assignable bean exists
+     */
+    @SuppressWarnings("unchecked")
+    public <T> T getBean(Class<T> requiredType) throws NoSuchBeanDefinitionException, NoUniqueBeanDefinitionException {
         var beanName = resolveBeanName(requiredType, this.beanDefinitions);
         return getBean(beanName, requiredType);
     }
 
-    public <T> T getBean(String name, Class<T> requiredType) {
-        return (T) getBean(name);
-    }
 
-    public Object getBean(String name) {
+    /**
+     * Returns the bean for the given name.
+     *
+     * @throws NoSuchBeanDefinitionException if no bean with that name exists
+     */
+    public Object getBean(String name) throws NoSuchBeanDefinitionException {
         return this.beansByNameMap.get(name);
-    }
-
-    public Object[] getBeans(String[] names) {
-        return Arrays.stream(names)
-                .map(this::getBean)
-                .toArray();
     }
 
     // --- internal helper methods ---
 
-    private Constructor<?> findConstructor(Class<?> beanClass) {
+    Constructor<?> findConstructor(Class<?> beanClass) {
         var constructors = beanClass.getDeclaredConstructors();
         if (constructors.length != 1) {
             throw new IllegalStateException("Class " + beanClass.getName() + " does not provide a single constructor");
@@ -103,40 +115,38 @@ public class BeanContainer {
         return constructors[0];
     }
 
-    private Class<?>[] findConstructorParameterTypes(Class<?> type) {
+    Class<?>[] findConstructorParameterTypes(Class<?> type) {
         Constructor<?> constructor = findConstructor(type);
         return constructor.getParameterTypes();
     }
 
-    Map<String, Set<String>> createBeanDependencyMap(Collection<BeanDefinition> defs) {
+    Map<String, Set<String>> createBeanDependencyMap() {
         var map = new HashMap<String, Set<String>>();
-        for (var def : defs) {
+        for (var def : this.beanDefinitions) {
             Class<?>[] constructorParamTypes = findConstructorParameterTypes(def.getType());
-            String[] constructorParamBeanNames = resolveBeanNames(constructorParamTypes, defs);
+            String[] constructorParamBeanNames = resolveBeanNames(constructorParamTypes);
             map.put(def.getName(), new HashSet<>(Arrays.asList(constructorParamBeanNames)));
         }
         return map;
     }
 
-    String[] resolveBeanNames(Class<?>[] types, Collection<BeanDefinition> defs) {
+    String[] resolveBeanNames(Class<?>[] types) {
         var names = new String[types.length];
         for (int n = 0; n < types.length; n++) {
-            names[n] = resolveBeanName(types[n], defs);
+            names[n] = resolveBeanName(types[n]);
         }
         return names;
     }
 
-
-    String resolveBeanName(Class<?> type, Collection<BeanDefinition> defs) {
-        // we want to find all bean-definitions (and use their name) that satisfy the given
-        // type, i.e. that implement that type
-        var candidateNames = defs.stream()
+    String resolveBeanName(Class<?> type) {
+        // we want to find all bean-definitions that satisfy the given
+        // type, i.e., that implement that type
+        var candidateDefs = this.beanDefinitions.stream()
                 .filter(def -> def.satisfies(type))
-                .map(BeanDefinition::getName)
                 .toList();
-        return switch (candidateNames.size()) {
+        return switch (candidateDefs.size()) {
             case 0 -> throw new NoSuchBeanDefinitionException(type);
-            case 1 -> candidateNames.get(0);
+            case 1 -> candidateDefs.get(0).getName();
             default -> throw new NoUniqueBeanDefinitionException(type);
         };
     }
