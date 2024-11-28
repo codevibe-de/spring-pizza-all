@@ -18,6 +18,6 @@ repositories {
 
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-jdbc'
-    implementation 'com.h2database:h2:2.2.224'
+    implementation 'com.h2database:h2'
 }
 
