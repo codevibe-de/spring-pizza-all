@@ -8,7 +8,6 @@ import pizza.order.Order;
 
 import java.util.List;
 
-@Component
 public class CustomizedOrderRepositoryImpl implements CustomizedOrderRepository {
 
     private final EntityManager em;
