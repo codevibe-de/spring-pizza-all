@@ -12,14 +12,30 @@ importieren können. Damit können Sie dann komfortabel die später programmiert
 ### Intellij
 
 Ebenfalls findet sich nun die Datei `requests.http` im Projektwurzelverzeichnis. Das können Sie in
-Intellij öffnen und von dort die Requests direkt mit dem grünen Pfeil ausführen lassen.
+Intellij **Ultimate** öffnen und von dort die Requests direkt mit dem grünen Pfeil ausführen lassen.
 
-### Sonstige
+### Curl
 
-Alternativ können Sie zum Testen der Endpunkte natürlich auch andere Tools wie z.B. Postman oder den
-Kommandozeilenbefehl `curl` nehmen.
+Das Kommandozeilen-Tool `curl` kann wie folgt genutzt werden:
 
-## b) Starter
+- einfaches GET auf eine Adresse:
+  ````shell
+  curl http://localhost:8080/products
+  ````
+- POST mit Body, dessen Inhalt aus einer Datei gelesen werden soll:
+  ````shell
+  curl -d @<filename> http://localhost:8080/orders
+  ````
+- DELETE mit Query-String:
+  ````shell
+  curl -X DELETE http://localhost:8080/products?namePrefix=Pizza
+  ````
+
+### Sonstige Clients
+
+Alternativ können Sie zum Testen der Endpunkte natürlich auch andere Tools wie z.B. Postman nehmen.
+
+## b) Spring Starter
 
 Fügen Sie die Maven Dependency `spring-boot-starter-web` zum Build hinzu.
 
