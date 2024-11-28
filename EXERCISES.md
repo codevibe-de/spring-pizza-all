@@ -14,7 +14,9 @@ Instanziierungen.
 
 **Ergänzen Sie die fehlenden Teile, sodass die Anwendung fehlerfrei läuft und Ausgaben erzeugt.**
 
-Was macht wohl diese Code-Zeile?
+Hinweis: Wir arbeiten hier noch **nicht mit Spring**! Das kommt alles erst noch …
+
+PS: Welchen Effekt hat wohl diese Code-Zeile?
 
 ````
 new DataLoader.Sample(productService, customerService).run();
