@@ -13,15 +13,15 @@ getestet werden.
 
 Vorgehen:
 
-1. erstellen Sie eine `ProductServiceTest` Klasse
-2. injecten Sie eine `ProductRepository` Instanz -- diese brauchen wir für Anlage der benötigten
+1. Erstellen Sie eine `ProductServiceTest` Klasse
+2. Injecten Sie eine `ProductRepository` Instanz -- diese brauchen wir für Anlage der benötigten
    Testdaten
-3. erstellen Sie eine Testmethode namens `getProduct()`
-4. in der Testmethode legen Sie die Testdaten an:
-    1. Ein `Product` erzeugen (mittels `new`)
-    2. Dieses über das `ProductRepository` speichern
-5. dann fragen Sie dieses Produkt über den `ProductService` ab
-6. schlußendlich prüfen Sie mittels Assertions dieses Produkt auf nicht-null und vergleichen
+3. Erstellen Sie eine Testmethode namens `getProduct()`
+4. In der Testmethode legen Sie die Testdaten an:
+    1. ein `Product` erzeugen (mittels `new`)
+    2. dieses über das `ProductRepository` speichern
+5. Dann fragen Sie dieses Produkt über den `ProductService` ab
+6. Schlussendlich prüfen Sie mittels Assertions dieses Produkt auf nicht-null und vergleichen
    die erwartete und tatsächliche Produkt-Instanz bzgl. productId, name und price
 
 ## b) Test zur Vermeidung doppelter Product-Ids
