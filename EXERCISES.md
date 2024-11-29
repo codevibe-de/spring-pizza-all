@@ -1,7 +1,11 @@
 # Übungen zu Kapitel "040 Testing"
 
-Hinweis: Aufgabe d) hat den stärksten Spring-bezug, da hier viel mit einem individuellen Kontext
-gearbeitet wird.
+Hinweise zu den Aufgaben:
+
+- in Übung a) schreiben Sie einen einfachen Integrationstest komplett selbst
+- in Übung b) bringen Sie einen bestehenden Integrationstest mit einem selbst-erstellten Kontext ans Laufen
+- in Übung c) nutzen Sie die Test-Driven-Development Methode, um fehlende Geschäftslogik zu implementieren
+- in Übung d) kommt Slicing und Mocking zusammen
 
 ## a) Test zur Abfrage eines Produkts
 
@@ -13,25 +17,30 @@ getestet werden.
 
 Vorgehen:
 
-1. erstellen Sie eine `ProductServiceTest` Klasse
-2. injecten Sie eine `ProductRepository` Instanz -- diese brauchen wir für Anlage der benötigten
+1. Erstellen Sie eine `ProductServiceTest` Klasse
+2. Injecten Sie eine `ProductRepository` Instanz -- diese brauchen wir für Anlage der benötigten
    Testdaten
-3. erstellen Sie eine Testmethode namens `getProduct()`
-4. in der Testmethode legen Sie die Testdaten an:
-    1. Ein `Product` erzeugen (mittels `new`)
-    2. Dieses über das `ProductRepository` speichern
-5. dann fragen Sie dieses Produkt über den `ProductService` ab
-6. schlußendlich prüfen Sie mittels Assertions dieses Produkt auf nicht-null und vergleichen
+3. Erstellen Sie eine Testmethode namens `getProduct()`
+4. In der Testmethode legen Sie die Testdaten an:
+    1. ein `Product` erzeugen (mittels `new`)
+    2. dieses über das `ProductRepository` speichern
+5. Dann fragen Sie dieses Produkt über den `ProductService` ab
+6. Schlussendlich prüfen Sie mittels Assertions dieses Produkt auf nicht-null und vergleichen
    die erwartete und tatsächliche Produkt-Instanz bzgl. productId, name und price
 
 ## b) Test zur Vermeidung doppelter Product-Ids
 
-Ergänzen Sie die Testklasse von oben um einen Test `createProduct__failsForDuplicateId()`,
-der sicherstellt, dass bei Anlage zweier Produkte mit der gleichen Product-Id
-eine `IllegalStateException` geworfen wird (wenn das zweite Produkt angelegt werden soll).
+Schauen Sie sich die bestehende Klasse `ProductServiceSlicedTest` an.
 
-**Hinweis:** In Assertj gibt es hierfür auch eine spezielle assert-Methode
-namens `assertThatThrownBy()`.
+Diese testet, dass bei Anlage zweier Produkte mit der gleichen Product-Id
+eine `IllegalStateException` geworfen wird.
+
+Allerdings fehlen hier noch zwei Dinge:
+
+- die Verbindung des JUnit-Runners mit der Spring Welt
+- der Aufbau des Kontexts, damit das Autowiring stattfinden kann (hierfür kann `@Import` genutzt werden)
+
+Bringen Sie den Testfall ans Laufen.
 
 ## c) Test-Driven-Development von getTotalPrice()
 
