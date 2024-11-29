@@ -2,10 +2,15 @@ package pizza.product;
 
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Import;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.UUID;
 
+@ExtendWith(SpringExtension.class)
+@Import({HashMapProductRepository.class, ProductService.class})
 public class ProductServiceSlicedTest {
 
     @Autowired
