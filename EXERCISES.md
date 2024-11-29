@@ -1,7 +1,11 @@
 # Übungen zu Kapitel "040 Testing"
 
-Hinweis: Aufgabe d) hat den stärksten Spring-bezug, da hier viel mit einem individuellen Kontext
-gearbeitet wird.
+Hinweise zu den Aufgaben:
+
+- in Übung a) schreiben Sie einen einfachen Integrationstest komplett selbst
+- in Übung b) bringen Sie einen bestehenden Integrationstest mit einem selbst-erstellten Kontext ans Laufen
+- in Übung c) nutzen Sie die Test-Driven-Development Methode, um fehlende Geschäftslogik zu implementieren
+- in Übung d) kommt Slicing und Mocking zusammen
 
 ## a) Test zur Abfrage eines Produkts
 
@@ -26,12 +30,17 @@ Vorgehen:
 
 ## b) Test zur Vermeidung doppelter Product-Ids
 
-Ergänzen Sie die Testklasse von oben um einen Test `createProduct__failsForDuplicateId()`,
-der sicherstellt, dass bei Anlage zweier Produkte mit der gleichen Product-Id
-eine `IllegalStateException` geworfen wird (wenn das zweite Produkt angelegt werden soll).
+Schauen Sie sich die bestehende Klasse `ProductServiceSlicedTest` an.
 
-**Hinweis:** In Assertj gibt es hierfür auch eine spezielle assert-Methode
-namens `assertThatThrownBy()`.
+Diese testet, dass bei Anlage zweier Produkte mit der gleichen Product-Id
+eine `IllegalStateException` geworfen wird.
+
+Allerdings fehlen hier noch zwei Dinge:
+
+- die Verbindung des JUnit-Runners mit der Spring Welt
+- der Aufbau des Kontexts, damit das Autowiring stattfinden kann (hierfür kann `@Import` genutzt werden)
+
+Bringen Sie den Testfall ans Laufen.
 
 ## c) Test-Driven-Development von getTotalPrice()
 
