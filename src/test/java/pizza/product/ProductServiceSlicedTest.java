@@ -4,13 +4,15 @@ import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Import;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.UUID;
 
 @ExtendWith(SpringExtension.class)
-@Import({HashMapProductRepository.class, ProductService.class})
+@Import({ProductService.class})
+@EnableAutoConfiguration
 public class ProductServiceSlicedTest {
 
     @Autowired
