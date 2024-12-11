@@ -1,0 +1,18 @@
+# STAGE 1 -- Build the JAR
+FROM gradle:jdk17 AS build
+WORKDIR /app
+
+# copy build files only and download dependencies to create a docker layer, which can be reused until build files change
+COPY *.gradle ./
+COPY gradle ./gradle
+RUN gradle dependencies --no-daemon
+
+# copy sources and build JAR
+COPY src ./src
+RUN gradle build --no-daemon
+
+
+# STAGE 2 -- Run the JAR
+FROM openjdk:17 AS run
+COPY --from=build /app/build/libs/pizza-app-*.jar pizza-app.jar
+ENTRYPOINT ["java","-jar","/pizza-app.jar"]
