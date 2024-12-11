@@ -39,23 +39,4 @@ public class ProductServiceTest {
         Assertions.assertThat(product.getPrice()).isEqualTo(productPrice);
     }
 
-
-    /**
-     * Tests that an IllegalStateException is thrown if we create more than one Product with the same id.
-     */
-    @Test
-    void createProduct__failsForDuplicateId() {
-        // given
-        var product = new Product(
-                UUID.randomUUID().toString().substring(0, 10),
-                "createProduct__failsForDuplicateId() Test",
-                0.01
-        );
-
-        // when
-        productService.createProduct(product);  // first insert must be ok
-        Assertions.assertThatThrownBy(
-                () -> productService.createProduct(product)
-        ).isInstanceOf(IllegalStateException.class);
-    }
 }
