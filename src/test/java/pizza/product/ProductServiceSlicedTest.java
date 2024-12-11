@@ -1,7 +1,6 @@
 package pizza.product;
 
 import org.assertj.core.api.Assertions;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +23,6 @@ public class ProductServiceSlicedTest {
      * Tests that an IllegalStateException is thrown if we create more than one Product with the same id.
      */
     @Test
-    @Disabled
     void createProduct__failsForDuplicateId() {
         // given
         var product = new Product(
