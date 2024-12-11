@@ -40,7 +40,7 @@ Allerdings fehlen hier noch zwei Dinge:
 - die Verbindung des JUnit-Runners mit der Spring Welt
 - der Aufbau des Kontexts, damit das Autowiring stattfinden kann (hierfür kann `@Import` genutzt werden)
 
-Bringen Sie den Testfall ans Laufen.
+Bringen Sie den Testfall ans Laufen. Anfangs ist der Test noch DISABLED! Das entfernen Sie natürlich gleich …
 
 ## c) Test-Driven-Development von getTotalPrice()
 
