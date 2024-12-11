@@ -43,7 +43,7 @@ gestanden hat?
 
 Sie können eine der folgenden zwei Optionen nutzen:
 
-1. eine `LogicRunner` Klasse anlegen (implementiert `ApplicationRunner`)
+1. eine `LogicRunner` Klasse anlegen (implementiert `CommandLineRunner` oder `ApplicationRunner`)
    - zur Spring Bean deklarieren
    - Geschäftslogik hierhin kopieren
    - notwendige Beans autowiren
