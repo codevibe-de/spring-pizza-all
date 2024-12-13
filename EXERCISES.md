@@ -82,9 +82,9 @@ den Build-Prozess und den letzten Git-Commit zu erweitern:
             </executions>
         </plugin>
         <plugin>
-            <groupId>pl.project13.maven</groupId>
-            <artifactId>git-commit-id-plugin</artifactId>
-            <version>4.9.10</version>
+            <groupId>io.github.git-commit-id</groupId>
+            <artifactId>git-commit-id-maven-plugin</artifactId>
+            <version>8.0.2</version>
         </plugin>
     </plugins>
 </build>
