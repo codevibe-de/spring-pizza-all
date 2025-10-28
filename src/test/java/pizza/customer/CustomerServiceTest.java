@@ -4,11 +4,11 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.TestConfiguration;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Import;
-import pizza.DataLoader;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import pizza.DataLoadRunner;
+import pizza.DataLoader;
 import pizza.product.ProductService;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -16,6 +16,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 // Note: Context is configured in inner @TestConfiguration class below
 @DataJpaTest
 public class CustomerServiceTest {
+
+    @MockitoBean
+    ProductService productService;
 
     @Autowired
     CustomerService customerService;
@@ -40,7 +43,5 @@ public class CustomerServiceTest {
     @ComponentScan("pizza.customer") // loads EVERY bean from package including the CustomerService
     @Import({DataLoadRunner.class, DataLoader.Sample.class})
     static class TestConfig {
-        @MockBean // we don't care what the ProductService does, we just need that bean in the context for data loading
-        ProductService productService;
     }
 }
