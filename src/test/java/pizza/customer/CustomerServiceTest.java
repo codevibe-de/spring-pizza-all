@@ -16,7 +16,11 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 // Note: Context is configured in inner @TestConfiguration class below
 @ExtendWith({SpringExtension.class})
+@Import(CustomerServiceTest.TestConfig.class)
 public class CustomerServiceTest {
+
+    @MockitoBean
+    ProductService productService;
 
     @Autowired
     CustomerService customerService;
@@ -46,7 +50,5 @@ public class CustomerServiceTest {
     @ComponentScan("pizza.customer") // loads EVERY bean from package including the CustomerService
     @Import({DataLoader.Sample.class})
     static class TestConfig {
-        @MockitoBean // we don't care what the ProductService does, we just need that bean in the context for data loading
-        ProductService productService;
     }
 }
