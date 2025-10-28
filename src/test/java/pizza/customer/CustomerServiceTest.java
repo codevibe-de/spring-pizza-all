@@ -5,9 +5,9 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.context.TestConfiguration;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Import;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import pizza.DataLoader;
 import pizza.product.ProductService;
@@ -46,7 +46,7 @@ public class CustomerServiceTest {
     @ComponentScan("pizza.customer") // loads EVERY bean from package including the CustomerService
     @Import({DataLoader.Sample.class})
     static class TestConfig {
-        @MockBean // we don't care what the ProductService does, we just need that bean in the context for data loading
+        @MockitoBean // we don't care what the ProductService does, we just need that bean in the context for data loading
         ProductService productService;
     }
 }
