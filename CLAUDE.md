@@ -10,11 +10,13 @@ It demonstrates layered architecture, repository pattern, and domain-driven desi
 concepts.
 
 This project makes heavy use of branches to separate the codebase into chapters. Initially the project does
-not make use of Sprint at all, yet Spring support is added later and then used extensively.
+not make use of Spring at all, yet Spring support is added later and then used extensively.
 
 - **Group ID**: de.codevibe
 - **Artifact ID**: pizza-app
+- **Version**: 025
 - **Java Version**: 17
+- **Spring Boot Version**: 3.5.7
 - **Main Class**: `pizza.PizzaApp`
 - **Database**: H2 (embedded TCP server on port 9092)
 
@@ -26,14 +28,17 @@ not make use of Sprint at all, yet Spring support is added later and then used e
 # Compile
 mvn clean compile
 
-# Run application
+# Run application (with Spring Boot)
+mvn spring-boot:run
+
+# Alternative: Run with exec plugin
 mvn clean compile exec:java -Dexec.mainClass="pizza.PizzaApp"
 
-# Package
+# Package (creates executable JAR)
 mvn clean package
 
-# Run packaged JAR
-java -cp target/pizza-app-005.jar pizza.PizzaApp
+# Run packaged Spring Boot JAR
+java -jar target/pizza-app-025.jar
 ```
 
 ### Gradle (Secondary)
@@ -42,16 +47,22 @@ java -cp target/pizza-app-005.jar pizza.PizzaApp
 # Compile
 ./gradlew clean compileJava
 
-# Run application
+# Run application (with Spring Boot)
+./gradlew bootRun
+
+# Alternative: Run with application plugin
 ./gradlew run
 
-# Build
+# Build (creates executable JAR)
 ./gradlew build
+
+# Run packaged Spring Boot JAR
+java -jar build/libs/pizza-app-025.jar
 ```
 
 ### Testing
 
-Currently no tests are implemented (exercise project). Test structure:
+Run tests with:
 
 ```bash
 mvn test           # Maven
@@ -69,14 +80,13 @@ Service Layer (ProductService, CustomerService, OrderService)
      ↓
 Repository Layer (ProductRepository interface)
      ↓
-Data Access (HashMapProductRepository, JdbcProductRepository)
+Data Access (HashMapProductRepository, JdbcProductRepository, later Spring Data JPA repositories)
 ```
 
 ### Domain Organization
 
 - **pizza.product** - Product domain (5 classes)
     - `Product`, `ProductService`, `ProductRepository` (interface)
-    - `HashMapProductRepository` (in-memory), `JdbcProductRepository` (H2)
     - `ProductNotFoundException`
 - **pizza.customer** - Customer domain (4 classes)
     - `Customer`, `Address`, `CustomerService`
@@ -84,51 +94,9 @@ Data Access (HashMapProductRepository, JdbcProductRepository)
 - **pizza.order** - Order domain (2 classes)
     - `Order`, `OrderService`
 - **pizza** (core) - Application infrastructure
-    - `PizzaApp`, `DataLoader`, `H2TcpServer`, `SchemaScriptRunner`, `PersistenceException`
-
-### Key Design Patterns
-
-- **Repository Pattern**: `ProductRepository` interface with dual implementations (in-memory HashMap and JDBC)
-- **Service Layer**: Business logic separated from data access
-- **Data Loader**: Template method pattern for populating test data
-- **Immutability**: `Product` and `Address` are immutable; `Customer` and `Order` have controlled mutability (ID only)
-
-## Database
-
-### H2 Configuration
-
-- **Mode**: TCP Server (allows external IDE connections)
-- **Port**: 9092
-- **Database Path**: `~/training.spring.pizza`
-- **JDBC URL**: `jdbc:h2:tcp://localhost:9092/~/training.spring.pizza`
-- **Schema Script**: `src/main/resources/schema.sql`
-
-### Tables
-
-- `products` (pk, name, price)
-- `customers` (id) - **Incomplete schema (TODO)**
-- `orders` (id, cst_id, total_price, eta) - FK to customers
-
-### Starting/Stopping Database
-
-Database server lifecycle is managed in `PizzaApp.main()`:
-
-- Start: `H2TcpServer.start()` before services initialization
-- Stop: `H2TcpServer.stop()` on application exit
+    - `PizzaApp`, `DataLoader`
 
 ## Entry Point & Service Flow
-
-**Main execution flow** in `PizzaApp.main()`:
-
-1. Start H2 TCP server
-2. Create DataSource (JDBC configuration)
-3. **Instantiate services (TODO - currently returns null)**
-4. Load sample data (`DataLoader.Sample`)
-5. Demonstrate three operations:
-    - Get product: `productService.getProduct("P-10")`
-    - Get customer: `customerService.getCustomerByPhoneNumber("+49 123 456789")`
-    - Place order: `orderService.placeOrder(phoneNumber, productQuantities)`
-6. Stop database server
 
 ### Core Service Methods
 
@@ -177,7 +145,5 @@ Initial data can be loaded using the `DataLoader` class, which has subtypes for 
 | `pizza/product/ProductService.java`    | Product business logic      |
 | `pizza/customer/CustomerService.java`  | Customer business logic     |
 | `pizza/order/OrderService.java`        | Order orchestration         |
-| `pizza/product/ProductRepository.java` | Data access interface       |
 | `pizza/DataLoader.java`                | Test data population        |
-| `src/main/resources/schema.sql`        | Database schema             |
 | `EXERCISES.md`                         | Training exercises (German) |
