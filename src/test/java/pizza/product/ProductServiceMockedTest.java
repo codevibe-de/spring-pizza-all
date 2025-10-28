@@ -10,7 +10,7 @@ class ProductServiceMockedTest {
     @Autowired
     ProductService productService;
 
-    // @MockBean
+    // @MockitoBean
     // ProductRepository productRepository;
 
     /**
