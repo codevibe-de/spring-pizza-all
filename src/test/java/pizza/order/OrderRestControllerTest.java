@@ -115,6 +115,7 @@ class OrderRestControllerTest {
         // when
         var resultActions = this.mockMvc.perform(
                 MockMvcRequestBuilders.get("/customers/{id}/orders", customer.getId())
+                        .with(httpBasic("040-112233", "99988"))
         );
 
         // then

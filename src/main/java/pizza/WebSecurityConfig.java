@@ -28,6 +28,7 @@ public class WebSecurityConfig {
                         .requestMatchers(GET, WhoAmIController.ME_ENDPOINT).permitAll()
                         .requestMatchers(GET, OrderRestController.GREETING_ENDPOINT).permitAll()
                         .requestMatchers(POST, OrderRestController.PLACE_ORDER_ENDPOINT).hasRole("CUSTOMER")
+                        .requestMatchers(GET, OrderRestController.GET_MANY_FOR_CUSTOMER_ENDPOINT).hasRole("CUSTOMER")
                         .anyRequest().hasRole("ADMIN")
                 )
                 .httpBasic(Customizer.withDefaults())
