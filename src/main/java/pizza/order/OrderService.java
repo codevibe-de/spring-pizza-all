@@ -1,8 +1,8 @@
 package pizza.order;
 
+import jakarta.annotation.PostConstruct;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
@@ -15,7 +15,6 @@ import pizza.product.ProductService;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -124,5 +123,15 @@ public class OrderService {
 
     public Iterable<Order> getOrders() {
         return orderRepository.findAll();
+    }
+
+    public Order getOrder(Long id) {
+        return orderRepository.findById(id)
+                .orElseThrow(() -> new OrderNotFoundException("For id: " + id));
+    }
+
+    public Iterable<Order> getOrdersForCustomer(long customerId) {
+        Customer customer = customerService.getCustomer(customerId);
+        return orderRepository.findAllByCustomer(customer);
     }
 }

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Profile;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import pizza.customer.CustomerRestController;
 
 @RestController
 @Profile("default | order")
@@ -20,6 +21,7 @@ public class OrderRestController {
     public static final String GREETING_ENDPOINT = ROOT + "/greeting";
     public static final String PLACE_ORDER_ENDPOINT = ROOT;
     public static final String GET_MANY_ENDPOINT = ROOT;
+    public static final String GET_MANY_FOR_CUSTOMER_ENDPOINT = CustomerRestController.GET_ONE_ENDPOINT + ROOT;
 
     //
     // --- injected beans ---
@@ -65,5 +67,10 @@ public class OrderRestController {
     @GetMapping(GET_MANY_ENDPOINT)
     public Iterable<Order> getOrders() {
         return this.orderService.getOrders();
+    }
+
+    @GetMapping(GET_MANY_FOR_CUSTOMER_ENDPOINT)
+    public Iterable<Order> getOrdersForCustomer(@PathVariable("id") long customerId) {
+        return this.orderService.getOrdersForCustomer(customerId);
     }
 }
