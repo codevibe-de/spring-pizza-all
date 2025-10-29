@@ -1,0 +1,44 @@
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# Operation Types
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+type Query {
+    getAllProducts: [Product!]!
+    getOrders: [Order!]!
+}
+
+type Mutation {
+    createProduct(name:String, price:Float): Product
+}
+
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# Data Types
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+type Order {
+    id: ID!
+    customer: Customer
+    totalPrice: Float!
+    estimatedTimeOfDelivery: String!
+}
+
+type Customer {
+    id: ID!
+    fullName: String!
+    phoneNumber: String!
+    address: Address
+    orderCount: Int!
+}
+
+type Address {
+    street: String!
+    postalCode: String!
+    city: String!
+}
+
+type Product {
+    productId: String!
+    name: String!
+    price: Float!
+}
