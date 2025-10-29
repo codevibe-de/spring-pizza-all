@@ -4,6 +4,7 @@
 
 type Query {
     getAllProducts: [Product!]!
+    getOrders: [Order!]!
 }
 
 type Mutation {
@@ -14,6 +15,13 @@ type Mutation {
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # Data Types
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+type Order {
+    id: ID!
+    customer: Customer
+    totalPrice: Float!
+    estimatedTimeOfDelivery: String!
+}
 
 type Customer {
     id: ID!
