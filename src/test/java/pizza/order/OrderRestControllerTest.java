@@ -48,8 +48,12 @@ class OrderRestControllerTest {
     @Autowired
     ObjectMapper objectMapper;
 
+    @Autowired
+    OrderRepository orderRepository;
+
     @BeforeEach
     void setupTestData() {
+        orderRepository.deleteAll();
         productRepository.deleteAll();
         productRepository.save(new Product("p1", "Product One", 1.00));
         customerRepository.deleteAll();
@@ -87,6 +91,34 @@ class OrderRestControllerTest {
                 .andExpect(jsonPath("$.totalPrice", Matchers.is(1.8)))
                 .andExpect(jsonPath("$.customer.fullName", Matchers.is("Toni Test")));
     }
+
+
+    @Test
+    void getOrdersForCustomer() throws Exception {
+        // given
+        Customer customer = customerRepository.findAll().iterator().next();
+
+        // Create two orders for the customer
+        Order order1 = new Order(customer, 0.9, null);
+        Order order2 = new Order(customer, 2.7, null);
+        orderRepository.save(order1);
+        orderRepository.save(order2);
+
+        // when
+        var resultActions = this.mockMvc.perform(
+                MockMvcRequestBuilders.get("/customers/{id}/orders", customer.getId())
+        );
+
+        // then
+        resultActions
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$", Matchers.hasSize(2)))
+                .andExpect(jsonPath("$[0].totalPrice", Matchers.is(0.9)))
+                .andExpect(jsonPath("$[0].customer.fullName", Matchers.is("Toni Test")))
+                .andExpect(jsonPath("$[1].totalPrice", Matchers.is(2.7)))
+                .andExpect(jsonPath("$[1].customer.fullName", Matchers.is("Toni Test")));
+    }
+
 
     private String toJson(Object object) throws JsonProcessingException {
         return this.objectMapper.writeValueAsString(object);
