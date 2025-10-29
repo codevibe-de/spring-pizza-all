@@ -73,4 +73,10 @@ alle Bestellungen eines Kunden ausgeliefert werden.
 Dies erfordert zusätzliche Service und Repository Methoden, ist dafür aber auch ein tolles
 Feature :)
 
-TODO
+Hier stellt sich gleich die Frage, in welchem REST-Controller diese Funktionalität integriert werden soll.
+
+Ich empfehle, dies im OrderController zu tun, denn:
+
+1. es geht letztendlich um die Ressource "order"
+2. das Modul "customer" soll keine Abhängigkeiten auf andere Module haben, während "order" bereits (gewollt) das Modul "
+   customer" nutzt
