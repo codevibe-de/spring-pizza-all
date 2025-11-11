@@ -31,6 +31,11 @@ public class BeanContainer {
     public void refresh() {
     }
 
+    private BeanDefinition getBeanDefinition(String beanName) {
+        return beanDefinitions.stream().filter(def -> def.getName().equals(beanName))
+                .findAny().orElseThrow(() -> new NoSuchBeanDefinitionException("beanName"));
+    }
+
 
     /**
      * Returns the bean that can be assigned to the given type.
