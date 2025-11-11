@@ -82,6 +82,11 @@ public class BeanContainer {
                 .findAny().orElseThrow(() -> new NoSuchBeanDefinitionException("beanName"));
     }
 
+    private BeanDefinition getBeanDefinition(String beanName) {
+        return beanDefinitions.stream().filter(def -> def.getName().equals(beanName))
+                .findAny().orElseThrow(() -> new NoSuchBeanDefinitionException("beanName"));
+    }
+
 
     /**
      * Returns the bean that can be assigned to the given type.
