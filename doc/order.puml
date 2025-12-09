@@ -3,7 +3,10 @@
 set namespaceSeparator ::
 
 package "pizza.order" <<Frame>> {
-class OrderService
+class OrderService {
++ placeOrder(phone:String, quantities:Map<String, Integer>) : Order
++ getOrders() : Iterable<Order>
+}
 }
 
 package "pizza.product" <<Frame>> {
