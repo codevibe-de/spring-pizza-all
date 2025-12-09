@@ -17,3 +17,4 @@ bin/
 build/
 /gradle.out
 
+/.claude/settings.local.json
