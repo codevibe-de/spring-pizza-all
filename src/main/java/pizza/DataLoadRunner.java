@@ -1,10 +1,14 @@
 package pizza;
 
-import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.NoSuchBeanDefinitionException;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
+
+import java.util.Map;
+import java.util.Optional;
 
 /**
  * Performs loading of sample data after the context has started up.
@@ -19,8 +23,12 @@ public class DataLoadRunner implements ApplicationRunner {
 
     private final DataLoader dataLoader;
 
-    public DataLoadRunner(@Qualifier("sample") DataLoader dataLoader) {
-        this.dataLoader = dataLoader;
+    public DataLoadRunner(
+            Map<String, DataLoader> dataLoaders,
+            @Value("${app.data-loader:sample}") String beanName
+    ) {
+        this.dataLoader = Optional.ofNullable(dataLoaders.get(beanName))
+                .orElseThrow(() -> new NoSuchBeanDefinitionException(beanName));
     }
 
     @Override
