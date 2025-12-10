@@ -39,3 +39,10 @@ aus den `application.properties` genutzt wird, sondern von außen durch einen an
 Hierfür können Sie eine Umgebungsvariable, ein VM System Property oder ein Programmargument nutzen.
 
 Wird der erwartete Wert ausgegeben?
+
+## d) optionaler DataLoader
+
+Machen Sie die Ausführung des DataLoaders konfigurierbar (an/aus) - oder sogar, welche DataLoader Bean ausgeführt werden
+soll (z.B. "none" vs "sample").
+
+Hierfür gibt es mehrere Wege, die wir kennengelernt haben.
