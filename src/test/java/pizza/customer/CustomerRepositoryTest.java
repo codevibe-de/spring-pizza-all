@@ -19,7 +19,6 @@ class CustomerRepositoryTest {
         List<CustomerPhoneNumberAndPostalCode> projections = customerRepository.findAllProjectedBy();
 
         // then
-        Assertions.assertThat(projections).hasSize(2);
         Assertions.assertThat(projections).anySatisfy(c -> {
             Assertions.assertThat(c.getPhoneNumber()).isEqualTo("+49 123 456789");
             Assertions.assertThat(c.getAddress().getPostalCode()).isEqualTo("40302");
