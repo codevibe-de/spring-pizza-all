@@ -87,6 +87,7 @@ Data Access (HashMapProductRepository, JdbcProductRepository, later Spring Data 
 
 - **pizza.product** - Product domain (5 classes)
     - `Product`, `ProductService`, `ProductRepository` (interface)
+  - `HashMapProductRepository` (in-memory), `JdbcProductRepository` (H2)
     - `ProductNotFoundException`
 - **pizza.customer** - Customer domain (4 classes)
     - `Customer`, `Address`, `CustomerService`
@@ -97,6 +98,18 @@ Data Access (HashMapProductRepository, JdbcProductRepository, later Spring Data 
     - `PizzaApp`, `DataLoader`
 
 ## Entry Point & Service Flow
+
+**Main execution flow** in `PizzaApp.main()`:
+
+1. Start H2 TCP server
+2. Create DataSource (JDBC configuration)
+3. **Instantiate services (TODO - currently returns null)**
+4. Load sample data (`DataLoader.Sample`)
+5. Demonstrate three operations:
+    - Get product: `productService.getProduct("P-10")`
+    - Get customer: `customerService.getCustomerByPhoneNumber("+49 123 456789")`
+    - Place order: `orderService.placeOrder(phoneNumber, productQuantities)`
+6. Stop database server
 
 ### Core Service Methods
 
@@ -145,5 +158,7 @@ Initial data can be loaded using the `DataLoader` class, which has subtypes for 
 | `pizza/product/ProductService.java`    | Product business logic      |
 | `pizza/customer/CustomerService.java`  | Customer business logic     |
 | `pizza/order/OrderService.java`        | Order orchestration         |
+| `pizza/product/ProductRepository.java` | Data access interface       |
 | `pizza/DataLoader.java`                | Test data population        |
+| `src/main/resources/schema.sql`        | Database schema             |
 | `EXERCISES.md`                         | Training exercises (German) |
