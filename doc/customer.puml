@@ -3,7 +3,11 @@
 set namespaceSeparator ::
 
 package "pizza.customer" <<Frame>> {
-class CustomerService
+class CustomerService {
++ getCustomerByPhoneNumber(phone:String) : Customer
++ getAllCustomers() : Iterable<Customer>
++ createCustomer(c:Customer) : Customer
+}
 }
 
 CustomerService -right-> ArrayList
