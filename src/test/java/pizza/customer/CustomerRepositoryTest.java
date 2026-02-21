@@ -7,7 +7,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.List;
 
-@SpringBootTest
+@SpringBootTest(properties = "app.data-loader:sample")
 class CustomerRepositoryTest {
 
     @Autowired

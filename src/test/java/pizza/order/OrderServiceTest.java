@@ -6,7 +6,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.Map;
 
-@SpringBootTest
+@SpringBootTest(properties = "app.data-loader:sample")
 public class OrderServiceTest {
 
     @Autowired
