@@ -1,8 +1,9 @@
-FROM openjdk:17
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# docker build -t pizza:latest .
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-# maven:
+FROM eclipse-temurin:17
+
 COPY target/pizza-app-*.jar pizza-app.jar
-# gradle:
-COPY build/libs/pizza-app-*.jar pizza-app.jar
 
 ENTRYPOINT ["java","-jar","/pizza-app.jar"]
