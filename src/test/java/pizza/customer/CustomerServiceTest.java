@@ -17,7 +17,7 @@ import pizza.product.ProductService;
 import static org.assertj.core.api.Assertions.assertThat;
 
 // Note: Context is configured in inner @TestConfiguration class below
-@DataJpaTest
+@DataJpaTest(properties = "app.data-loader:sample")
 public class CustomerServiceTest {
 
     @MockitoBean
