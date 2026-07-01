@@ -6,30 +6,39 @@ erweitert -- ggf. müssen Sie das Projekt in Ihrer IDE aktualisieren lassen.
 ## Laden eines XML Kontext
 
 Die Spring-Klasse `FileSystemXmlApplicationContext` ist das (professionelle) Gegenstück unseres
-handgemachten `XmlBeanContainers` -- und funktioniert sehr ähnlich.
+handgemachten `XmlBeanContainer` -- und funktioniert sehr ähnlich.
 
-Ziel dieser Übung ist es, eine Instanz des `FileSystemXmlApplicationContext` zu erzeugen und diese
-statt unseres `XmlBeanContainers` zu nutzen.
+Ziel dieser Übung ist es, nun eine Instanz des `FileSystemXmlApplicationContext` zu erzeugen und in der `PizzaApp` zu
+nutzen.
 
-Die Beans sollen aus der Datei `default-beans.xml` im Projektverzeichnis gelesen werden, die schon
-existiert, jedoch noch fast leer ist. Hier dürfen Sie die notwendigen Beans definieren.
+Die Beans sollen aus der Datei `default-beans.xml` im Projektverzeichnis gelesen werden, die bereits
+befüllt ist.
 
-Hinweis: für XML-definierte Beans macht Spring **kein Autowiring** per Konstruktor von sich aus,
-dies muss mit dem `<bean ... autowire="constructor">` Attribut aktiviert werden.
+Hinweis: Für XML-definierte Beans macht Spring **kein Autowiring** per Konstruktor von sich aus,
+dies muss mit dem `<bean ... autowire="constructor">` Attribut aktiviert werden -- das ist in
+`default-beans.xml` bereits eingetragen.
 
-## Classpath Kontext
+## CSV DataLoader
 
-Ändern Sie den Typ des Kontexts um in einen `ClassPathXmlApplicationContext`, der
-die XML-Datei aus `src/main/resources/beans/default-beans.xml` liest. Wie muss die
-Ressource nun im Konstruktor benannt werden?
+In `DataLoader.java` existiert nun eine neue innere Klasse `DataLoader.Csv`. Diese liest Produkte
+aus einer CSV-Datei (Format: `id;name;preis`).
 
-## Generic Kontext
+Die Datei `src/main/resources/products.csv` enthält Beispieldaten.
 
-Ändern Sie den Kontext nun um auf einen `GenericXmlApplicationContext` -- dieser benötigt
-eine `Resource` als Parameter.
+**Aufgabe:**
 
-Hierfür stehen fertige Typen zur Verfügung, wie z.B.
+1. Implementieren Sie das `TODO` in `DataLoader.Csv.run()`, indem Sie die Resource laden
 
-- `ClassPathResource`
-- `FileSystemResource`
-- `ByteArrayResource`
+2. Ersetzen Sie in `default-beans.xml` die Bean `DataLoader.Sample` durch `DataLoader.Csv`.
+
+Alternativ können Sie die benötigte Resource auch injecten lassen:
+
+- Den Konstruktor um den `Resource` Parameter ergänzen
+- Die notwendige Bean deklarieren. Nutzen Sie dafür
+  `org.springframework.core.io.ClassPathResource` und geben Sie den Pfad zur `products.csv`
+  an:
+    ```xml
+    <bean class="org.springframework.core.io.ClassPathResource">
+        <constructor-arg value="products.csv"/>
+    </bean>
+   ```

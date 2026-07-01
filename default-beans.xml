@@ -4,6 +4,14 @@
        xsi:schemaLocation="
         http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <!-- define beans here -->
+    <bean class="pizza.product.HashMapProductRepository"/>
+
+    <bean class="pizza.product.ProductService" autowire="constructor"/>
+
+    <bean class="pizza.customer.CustomerService" autowire="constructor"/>
+
+    <bean class="pizza.order.OrderService" autowire="constructor"/>
+
+    <bean class="pizza.DataLoader.Sample" autowire="constructor"/>
 
 </beans>
