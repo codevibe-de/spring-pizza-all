@@ -1,10 +1,13 @@
 package pizza;
 
+import org.springframework.core.io.Resource;
 import pizza.customer.Address;
 import pizza.customer.Customer;
 import pizza.customer.CustomerService;
 import pizza.product.Product;
 import pizza.product.ProductService;
+
+import java.nio.charset.StandardCharsets;
 
 /**
  * The <code>DataLoader</code> is an abstract class implementing the {@link Runnable}
@@ -74,5 +77,41 @@ public abstract class DataLoader implements Runnable {
             createCustomer("Elizabeth Magie", "+1 77 551237", address2);
         }
     }
+
+
+    public static class Csv extends DataLoader {
+
+        public Csv(ProductService productService, CustomerService customerService) {
+            super(productService, customerService);
+        }
+
+        @Override
+        public void run() {
+            // TODO
+            Resource resource = null;
+
+            // load products from CSV resource
+            try {
+                resource.getContentAsString(StandardCharsets.UTF_8).lines()
+                        .filter(line -> !line.isBlank())
+                        .forEach(line -> parseAndCreateProduct(line));
+            } catch (
+                    Exception e) {
+                throw new RuntimeException("Failed to load products from CSV", e);
+            }
+        }
+
+        private void parseAndCreateProduct(String line) {
+            String[] parts = line.split(",");
+            if (parts.length != 3) {
+                throw new IllegalArgumentException("Invalid product line: " + line);
+            }
+            String productId = parts[0].trim();
+            String name = parts[1].trim();
+            double price = Double.parseDouble(parts[2].trim());
+            createProduct(productId, name, price);
+        }
+    }
+
 
 }
