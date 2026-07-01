@@ -19,7 +19,7 @@ public class SpelParserApp {
 
         // work with it:
         Object value = parser
-                .parseExpression("23 + 42") // change this expression to test different SpEL expressions
+                .parseExpression("@productService.allProducts.![name]") // change this expression to test different SpEL expressions
                 .getValue(evaluationContext);
         System.out.println(value);
     }
