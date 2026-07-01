@@ -6,7 +6,7 @@
 
     <bean class="pizza.product.HashMapProductRepository"/>
 
-    <bean class="pizza.product.ProductService" autowire="constructor"/>
+    <bean id="productService" class="pizza.product.ProductService" autowire="constructor"/>
 
     <bean class="pizza.customer.CustomerService" autowire="constructor"/>
 

@@ -1,13 +1,15 @@
 package pizza;
 
+import org.springframework.aop.framework.ProxyFactoryBean;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.aop.framework.ProxyFactoryBean;
 import pizza.aop.ProfilingInterceptor;
 import pizza.aop.TraceBeforeMethodAdvice;
 import pizza.customer.CustomerService;
 import pizza.order.OrderService;
 import pizza.product.ProductService;
+
+import java.util.Arrays;
 
 import static java.util.Map.entry;
 import static java.util.Map.ofEntries;
@@ -17,7 +19,7 @@ public class PizzaApp {
     public static void main(String[] args) {
         // Instantiate context
         ApplicationContext beanContainer = new ClassPathXmlApplicationContext("beans/default-beans.xml");
-
+        System.out.println(Arrays.toString(beanContainer.getBeanDefinitionNames()));
 
         // query and use beans
         beanContainer.getBean(DataLoader.class).run();
