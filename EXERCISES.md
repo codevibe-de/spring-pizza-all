@@ -1,41 +1,32 @@
-# Übungen zu 018 Spring Expression Language
+# Übungen zu 017 Resources
 
-Hier können Sie sich für eine der beiden Übungen entscheiden - diese sind unabhängig voneinander.
+**Hinweis:** Für diese Übung wurden die Build-Skripte um die Bibliothek `org.springframework:spring-context`
+erweitert -- ggf. müssen Sie das Projekt in Ihrer IDE aktualisieren lassen.
 
-## a) Lieferzeit definieren
+## Laden eines XML Kontext
 
-Die Klasse `OrderService` hat nun eine Setter-Methode, mit der das Property `deliveryTimeInMinutes` gesetzt werden kann.
+Die Spring-Klasse `FileSystemXmlApplicationContext` ist das (professionelle) Gegenstück unseres
+handgemachten `XmlBeanContainer` -- und funktioniert sehr ähnlich.
 
-In der Beans-XML-Datei kann entsprechend dieser Wert nun konfiguriert werden:
+Ziel dieser Übung ist es, nun eine Instanz des `FileSystemXmlApplicationContext` zu erzeugen und in der `PizzaApp` zu
+nutzen.
 
-````xml
+Die Beans sollen aus der Datei `default-beans.xml` im Projektverzeichnis gelesen werden, die bereits
+befüllt ist.
 
-<bean class="pizza.order.OrderService" autowire="constructor">
-    <property name="deliveryTimeInMinutes" value="..."/>
-</bean>
-````
+Hinweis: Für XML-definierte Beans macht Spring **kein Autowiring** per Konstruktor von sich aus,
+dies muss mit dem `<bean ... autowire="constructor">` Attribut aktiviert werden -- das ist in
+`default-beans.xml` bereits eingetragen.
 
-Nutzen Sie die SpEL, um diesen Wert auf nicht-triviale Art zu setzen, wie z.B.
+## CSV DataLoader
 
-- Auslesen des Environments (Tipp: dort sind auch alle Umgebungsvariablen definiert)
-- Berechnung
-- Aufruf einer Bean
-- Zufallszahl
+In `DataLoader.java` existiert nun eine neue innere Klasse `DataLoader.Csv`. Diese liest Produkte
+aus einer CSV-Datei (Format: `id;name;preis`).
 
-Siehe auch https://docs.spring.io/spring-framework/reference/core/expressions/beandef.html
+Die Datei `src/main/resources/products.csv` enthält Beispieldaten.
 
-## b) SpelParserApp
+Vorgehen:
 
-Nutzen Sie die Klasse `SpelParserApp` und ändern Sie den SpEL-Ausdruck, um mit den Möglichkeiten der SpEL zu
-experimentieren.
+1. Implementieren Sie das `TODO` in `DataLoader.Csv.run()`, indem Sie die Resource laden
 
-Zum Beispiel können Sie auf den `ProductService` per Namen ("productService") zugreifen und dessen Produkte
-abfragen:
-
-- `"@productService.allProducts"`
-- `"@productService.getProduct('S-03').name"`
-- `"@productService.getProduct('S-03').price / 1.19"` (Nettopreis berechnen)
-
-Man könnte auch auf den `ProductService` per Typ zugreifen:
-
-- `"#applicationContext.getBean(T(pizza.product.ProductService))"` 
+2. Ersetzen Sie in `default-beans.xml` die Bean `DataLoader.Sample` durch `DataLoader.Csv`.
