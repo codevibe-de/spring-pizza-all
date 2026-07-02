@@ -3,11 +3,12 @@ package pizza.customer;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Random;
+import java.util.concurrent.atomic.AtomicLong;
 
 public class CustomerService {
 
     private final List<Customer> customers = new ArrayList<>();
+    private final AtomicLong idSequence = new AtomicLong(1);
 
     //
     // constructors and setup
@@ -33,7 +34,7 @@ public class CustomerService {
 
     public Customer createCustomer(Customer customer) {
         if (customer.getId() == null) {
-            customer.setId(Math.abs(new Random().nextLong()));
+            customer.setId(idSequence.getAndIncrement());
         }
         this.customers.add(customer);
         return customer;
