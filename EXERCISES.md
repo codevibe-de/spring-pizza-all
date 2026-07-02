@@ -35,32 +35,28 @@ Das Kommandozeilen-Tool `curl` kann wie folgt genutzt werden:
 
 Alternativ können Sie zum Testen der Endpunkte natürlich auch andere Tools wie z.B. Postman nehmen.
 
-## b) Spring Starter
-
-Fügen Sie die Maven Dependency `spring-boot-starter-web` zum Build hinzu.
-
-## c) OrderRestController
+## b) OrderRestController
 
 Erstellen Sie einen API-Endpunkt `/orders/greeting` der für ein GET eine Begrüßung als String
 zurückgibt.
 
 Testen Sie die URL in Ihrem Browser: http://localhost:8080/orders/greeting
 
-## d) CustomerRestController
+## c) CustomerRestController
 
 Erstellen Sie die folgenden API-Endpunkte:
 
 * `GET /customers`, der alle Kunden zurückgibt
 * `POST /customers`, der einen neuen Kunden anlegt
 
-## e) ProductRestController
+## d) ProductRestController
 
 Erstellen Sie die folgenden API-Endpunkte:
 
 * `GET /products`, der alle Produkte zurückgibt
-* `GET /product/{id}`, der das Produkt mit der angegebenen Id zurückgibt (Nutzung `@PathVariable`)
+* `GET /products/{id}`, der das Produkt mit der angegebenen Id zurückgibt (Nutzung `@PathVariable`)
 
-## f) Erweiterung OrderRestController
+## e) Erweiterung OrderRestController
 
 Erstellen Sie zusätzlich die folgenden API-Endpunkte:
 
