@@ -6,12 +6,12 @@
 
     <bean class="pizza.product.HashMapProductRepository"/>
 
-    <bean id="productService" class="pizza.product.ProductService" autowire="constructor"/>
+    <bean class="pizza.product.ProductService" autowire="constructor"/>
 
     <bean class="pizza.customer.CustomerService" autowire="constructor"/>
 
     <bean class="pizza.order.OrderService" autowire="constructor"/>
 
-    <bean class="pizza.DataLoader.Sample" autowire="constructor"/>
+    <bean class="pizza.DataLoader.Csv" autowire="constructor"/>
 
 </beans>

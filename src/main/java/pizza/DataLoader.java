@@ -1,5 +1,6 @@
 package pizza;
 
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import pizza.customer.Address;
 import pizza.customer.Customer;
@@ -87,8 +88,8 @@ public abstract class DataLoader implements Runnable {
 
         @Override
         public void run() {
-            // TODO
-            Resource resource = null;
+            // Define resource
+            Resource resource = new ClassPathResource("products.csv");
 
             // load products from CSV resource
             try {
@@ -102,7 +103,7 @@ public abstract class DataLoader implements Runnable {
         }
 
         private void parseAndCreateProduct(String line) {
-            String[] parts = line.split(",");
+            String[] parts = line.split(";");
             if (parts.length != 3) {
                 throw new IllegalArgumentException("Invalid product line: " + line);
             }
