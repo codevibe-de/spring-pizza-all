@@ -43,6 +43,6 @@ Wird der erwartete Wert ausgegeben?
 ## d) optionaler DataLoader
 
 Machen Sie die Ausführung des DataLoaders konfigurierbar (an/aus) - oder sogar, welche DataLoader Bean ausgeführt werden
-soll (z.B. "none" vs "sample").
+soll (z.B. "none", "sample" or "csv").
 
 Hierfür gibt es mehrere Wege, die wir kennengelernt haben.
