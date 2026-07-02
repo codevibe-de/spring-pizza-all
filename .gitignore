@@ -17,7 +17,12 @@ bin/
 build/
 /gradle.out
 
+# claude code
 /.claude/settings.local.json
+/CLAUDE.md
+
+# jenv
+/.java-version
 
 # H2 TCP server data
 /h2-data/
