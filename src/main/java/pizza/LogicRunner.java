@@ -17,7 +17,6 @@ import pizza.product.ProductService;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 
 @Component
 @Order(2)
@@ -53,21 +52,6 @@ public class LogicRunner implements ApplicationRunner {
                 new Column().header("Address").headerAlign(HorizontalAlign.LEFT).dataAlign(HorizontalAlign.LEFT).with(c ->
                         c.getAddress().getStreet() + ", " + c.getAddress().getPostalCode() + " " + c.getAddress().getCity())
         )));
-
-        if (!products.isEmpty() && !customers.isEmpty()) {
-            var order = orderService.placeOrder(
-                    customers.get(0).getPhoneNumber(),
-                    Map.of(products.get(0).getProductId(), 2,
-                            products.get(products.size() > 1 ? 1 : 0).getProductId(), 1)
-            );
-            System.out.println("\nOrder placed:");
-            System.out.println(AsciiTable.getTable(List.of(order), Arrays.asList(
-                    new Column().header("ID").headerAlign(HorizontalAlign.RIGHT).dataAlign(HorizontalAlign.RIGHT).with(o -> String.valueOf(o.getId())),
-                    new Column().header("Customer").headerAlign(HorizontalAlign.LEFT).dataAlign(HorizontalAlign.LEFT).with(o -> o.getCustomer().getFullName()),
-                    new Column().header("Total").headerAlign(HorizontalAlign.RIGHT).dataAlign(HorizontalAlign.RIGHT).with(o -> String.format("%.2f EUR", o.getTotalPrice())),
-                    new Column().header("Est. Delivery").headerAlign(HorizontalAlign.LEFT).dataAlign(HorizontalAlign.LEFT).with(o -> o.getEstimatedTimeOfDelivery().toLocalTime().toString())
-            )));
-        }
     }
 
     static <T> List<T> toList(Iterable<T> iterable) {
