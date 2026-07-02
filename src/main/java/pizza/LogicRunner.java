@@ -21,7 +21,7 @@ import java.util.Map;
 
 @Component
 @Order(2)
-@ConditionalOnProperty(name = "logic-runner.enabled", matchIfMissing = true)
+@ConditionalOnProperty(name = "logic-runner.enabled", matchIfMissing = true) // set to "false" to disable this runner
 public class LogicRunner implements ApplicationRunner {
 
     private final ProductService productService;
