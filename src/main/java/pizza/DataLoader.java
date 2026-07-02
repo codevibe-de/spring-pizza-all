@@ -83,6 +83,7 @@ public abstract class DataLoader implements Runnable {
     }
 
 
+    @Component("csv")
     public static class Csv extends DataLoader {
 
         public Csv(ProductService productService, CustomerService customerService) {
