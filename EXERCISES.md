@@ -23,16 +23,19 @@ Das Produkt können Sie über zwei Möglichkeiten identifizieren lassen:
 
 - Query-Parameter (wie auf den Folien zu sehen)
 - Path-Variable (dies ist die REST-konforme Variante) -- dies geht über die Annotation `@PathVariable` und eine
-  gemappte URL wie z.B. `/products/{productId}`
+  gemappte URL wie z.B. `/web/products/{productId}`
 
 Der Controller soll die View mit Namen "products/single-product" rendern lassen.
 
 ## Template
 
 Erstellen Sie nun eine HTML-Template-Datei (`src/main/resources/templates/products/single-product.html`),
-welche die Darstellung des Kunden als HTML-Response definiert.
+welche die Darstellung des Produkts als HTML-Response definiert.
 
 Hier können verschiedene Attribute des Produkts dargestellt werden, die aus dem Model gezogen werden.
 
-Denken Sie daran, über welchen Namen Sie das Produkt dem Model hinzugefügt haben -- dies ist der Einstiegspunkt zu den
-Daten im Template.
+Der Key, unter dem Sie das Produkt dem Model hinzugefügt haben, ist der Einstiegspunkt zu den Daten im Template --
+nutzen Sie diesen in den Thymeleaf-Ausdrücken, z.B. `${product.getName()}`.
+
+Sobald die Anwendung läuft können Sie http://localhost:8080/web/products/P-10 aufrufen, um das Produkt mit der ID "P-10"
+zu sehen.
