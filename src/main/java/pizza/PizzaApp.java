@@ -1,8 +1,8 @@
 package pizza;
 
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.aop.framework.ProxyFactoryBean;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.FileSystemXmlApplicationContext;
 import pizza.aop.ProfilingInterceptor;
 import pizza.aop.TraceBeforeMethodAdvice;
 import pizza.customer.CustomerService;
@@ -16,8 +16,7 @@ public class PizzaApp {
 
     public static void main(String[] args) {
         // Instantiate context
-//        ApplicationContext beanContainer = new FileSystemXmlApplicationContext("default-beans.xml");
-        ApplicationContext beanContainer = new ClassPathXmlApplicationContext("beans/default-beans.xml");
+        ApplicationContext beanContainer = new FileSystemXmlApplicationContext("default-beans.xml");
 
         // query and use beans
         beanContainer.getBean(DataLoader.class).run();
