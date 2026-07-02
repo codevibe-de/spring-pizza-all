@@ -12,6 +12,6 @@
 
     <bean class="pizza.order.OrderService" autowire="constructor"/>
 
-    <bean class="pizza.DataLoader.Sample" autowire="constructor"/>
+    <bean class="pizza.DataLoader.Csv" autowire="constructor"/>
 
 </beans>
