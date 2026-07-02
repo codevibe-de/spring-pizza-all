@@ -25,7 +25,7 @@ aus einer CSV-Datei (Format: `id;name;preis`).
 
 Die Datei `src/main/resources/products.csv` enthält Beispieldaten.
 
-**Aufgabe:**
+Vorgehen:
 
 1. Implementieren Sie das `TODO` in `DataLoader.Csv.run()`, indem Sie die Resource laden
 
