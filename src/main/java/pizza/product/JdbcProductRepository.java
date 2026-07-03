@@ -21,9 +21,11 @@ public class JdbcProductRepository implements ProductRepository {
     public static final String SELECT_ONE_SQL = "SELECT p.* FROM products p WHERE p.pk = ?";
 
     private final JdbcTemplate jdbcTemplate;
+    private final RowMapper<Product> rowMapper;
 
     public JdbcProductRepository(DataSource dataSource) {
         this.jdbcTemplate = new JdbcTemplate(dataSource);
+        this.rowMapper = new ProductRowMapper();
     }
 
     @Override
@@ -51,7 +53,7 @@ public class JdbcProductRepository implements ProductRepository {
                 SELECT_ALL_SQL,
                 new Object[]{},
                 new int[]{},
-                ProductRowMapper.INSTANCE
+                this.rowMapper
         );
     }
 
@@ -62,7 +64,7 @@ public class JdbcProductRepository implements ProductRepository {
                     SELECT_ONE_SQL,
                     new Object[]{productId},
                     new int[]{Types.VARCHAR},
-                    ProductRowMapper.INSTANCE
+                    this.rowMapper
             );
             return Optional.ofNullable(p);
         } catch (IncorrectResultSizeDataAccessException e) {
@@ -75,12 +77,6 @@ public class JdbcProductRepository implements ProductRepository {
     //
 
     static class ProductRowMapper implements RowMapper<Product> {
-        // singleton design pattern
-        public static ProductRowMapper INSTANCE = new ProductRowMapper();
-
-        private ProductRowMapper() {
-        }
-
         @Override
         public Product mapRow(ResultSet rs, int rowNum) throws SQLException {
             return new Product(
