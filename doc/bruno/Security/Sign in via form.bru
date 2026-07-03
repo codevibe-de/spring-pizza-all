@@ -1,0 +1,14 @@
+meta {
+  name: Sign in via form
+  type: http
+  seq: 2
+}
+
+post {
+  url: http://localhost:8080/login
+}
+
+body:multipart-form {
+  username: tom-touche
+  password: pwd
+}

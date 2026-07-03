@@ -1,0 +1,18 @@
+meta {
+  name: Upload Products CSV
+  type: http
+  seq: 8
+}
+
+put {
+  url: http://localhost:8080/products
+}
+
+headers {
+  Content-Type: text/csv
+}
+
+body:text {
+  productId,name,price
+  1,Name2,3.00
+}

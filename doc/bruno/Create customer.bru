@@ -1,0 +1,34 @@
+meta {
+  name: Create customer
+  type: http
+  seq: 5
+}
+
+post {
+  url: http://localhost:8080/customers
+}
+
+headers {
+  Content-Type: application/json
+}
+
+auth {
+  mode: basic
+}
+
+auth:basic {
+  username: user
+  password: 250c459f-4248-484d-bef3-60b1cc5b5c7b
+}
+
+body:json {
+  {
+    "fullName": "Max Mustermann",
+    "address": {
+      "street": "Am Bahnhof 64",
+      "postalCode": "97234",
+      "city": "Reichenberg"
+    },
+    "phoneNumber": "0178-1234567"
+  }
+}

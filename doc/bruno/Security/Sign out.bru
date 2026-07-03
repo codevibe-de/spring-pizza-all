@@ -1,0 +1,14 @@
+meta {
+  name: Sign out
+  type: http
+  seq: 3
+}
+
+post {
+  url: http://localhost:8080/logout
+}
+
+body:multipart-form {
+  username: tom-touche
+  password: pwd
+}

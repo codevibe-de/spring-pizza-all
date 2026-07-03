@@ -1,0 +1,21 @@
+meta {
+  name: Create product
+  type: http
+  seq: 6
+}
+
+post {
+  url: http://localhost:8080/products
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "productId": "D-00",
+    "name": "Tiramisu",
+    "price": 4.90
+  }
+}

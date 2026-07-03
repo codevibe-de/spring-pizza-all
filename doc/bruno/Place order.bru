@@ -1,0 +1,23 @@
+meta {
+  name: Place order
+  type: http
+  seq: 7
+}
+
+post {
+  url: http://localhost:8080/orders
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "phoneNumber": "0178-1234567xxxx",
+    "itemQuantities": {
+      "S-02": 1,
+      "P-10": 2
+    }
+  }
+}
